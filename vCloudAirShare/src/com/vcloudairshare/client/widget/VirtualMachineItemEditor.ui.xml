@@ -1,0 +1,21 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:b="urn:import:com.vcloudairshare.client.editor">
+	
+	
+	<ui:style>
+	.important {
+		font-weight: bold;
+	}
+	</ui:style>
+	<g:HTMLPanel>
+		Machine Name:
+		<g:Label styleName="{style.important}" ui:field="machinename" />
+		IP Address
+		<g:Label styleName="{style.important}" ui:field="ipaddress" />
+		<b:StatusLabel ui:field='status'/>
+		<b:MachineTypeLabel ui:field='machinetype'/>
+
+	</g:HTMLPanel>
+</ui:UiBinder> 

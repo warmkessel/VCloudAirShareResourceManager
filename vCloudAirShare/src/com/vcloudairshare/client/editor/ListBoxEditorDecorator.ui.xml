@@ -1,0 +1,29 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+  <ui:style type="com.vcloudairshare.client.editor.ListBoxEditorDecorator.Style">
+    .contents {
+        display: inline;
+    }
+    
+    .errorLabel {
+        display: none;
+        white-space: pre;
+        color: red;
+    }
+    .requiredLabel {
+        font-style: bold;
+        color: #7B0101;
+        font-size: 23px;
+        padding: 0px;
+    }
+     label.requiredField {
+        font-weight: bold;
+        color: black;
+    }
+  </ui:style>
+  <g:HTMLPanel>
+  	<label ui:field="fieldName" class="fieldLabel"></label>
+    <g:SimplePanel ui:field="contents" stylePrimaryName="{style.contents}" />
+    <label class="{style.errorLabel}" ui:field="errorLabel" />
+    <label ui:field="requiredLabel" class="{style.requiredLabel} hidden">*</label>
+  </g:HTMLPanel>
+</ui:UiBinder>
