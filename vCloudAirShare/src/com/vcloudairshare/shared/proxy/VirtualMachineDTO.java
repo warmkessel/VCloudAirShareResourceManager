@@ -19,6 +19,10 @@ public interface VirtualMachineDTO extends EntityProxy {
 	public String getMachinename();
 
 	public void setMachinename(String machinename);
+	
+	public String getMachineDesc();
+	
+	public void setMachineDesc(String machineDesc);
 
 	public Integer getMachinetype();
 

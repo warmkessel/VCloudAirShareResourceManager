@@ -16,6 +16,8 @@ public class VirtualMachine extends DatastoreObject {
 
 	private String machinename = "";
 
+	private String machineDesc = "";
+
 	@Index
 	private Integer machinetype = MachineType.getDefault().getId();
 	@Index
@@ -49,6 +51,14 @@ public class VirtualMachine extends DatastoreObject {
 
 	public void setMachinename(String machinename) {
 		this.machinename = machinename;
+	}
+
+	public String getMachineDesc() {
+		return machineDesc;
+	}
+
+	public void setMachineDesc(String machineDesc) {
+		this.machineDesc = machineDesc;
 	}
 
 	public Integer getMachinetype() {

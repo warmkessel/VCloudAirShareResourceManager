@@ -5,17 +5,33 @@
 	
 	
 	<ui:style>
-	.important {
+	.name {
 		font-weight: bold;
+		  font-size: x-large;
+		  padding-right: 10px;
+		  min-height:125px;
+		  min-width:75px;
+	}
+	.desc {
+		  font-size: medium;
+		  padding-left: 10px;
+		  padding-right: 10px;
+	}
+	.checkout {
+		  font-size: medium;
+		  padding-left: 10px;
+	}
+	.container {
+
+		  padding: 4px;
 	}
 	</ui:style>
 	<g:HTMLPanel>
-		Machine Name:
-		<g:Label styleName="{style.important}" ui:field="machinename" />
-		IP Address
-		<g:Label styleName="{style.important}" ui:field="ipaddress" />
-		<b:StatusLabel ui:field='status'/>
-		<b:MachineTypeLabel ui:field='machinetype'/>
-
+		<div  class="{style.container}">
+		<g:InlineLabel styleName="{style.name}" ui:field="machinename" />
+		<g:InlineLabel styleName="{style.desc}" ui:field="machineDesc" />
+		<b:StatusLabel ui:field='condition'/>
+		<g:Button ui:field="checkout" text="Checkout" styleName="{style.checkout}"></g:Button>
+		</div>
 	</g:HTMLPanel>
 </ui:UiBinder> 
