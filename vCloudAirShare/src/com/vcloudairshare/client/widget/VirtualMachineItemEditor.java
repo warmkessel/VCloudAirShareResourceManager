@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriver;
 import com.vcloudairshare.client.ClientFactory;
 import com.vcloudairshare.client.editor.StatusLabel;
+import com.vcloudairshare.shared.enumeration.Status;
 import com.vcloudairshare.shared.proxy.VirtualMachineDTO;
 
 public class VirtualMachineItemEditor extends Composite implements Editor<VirtualMachineDTO>{
@@ -49,9 +50,15 @@ public class VirtualMachineItemEditor extends Composite implements Editor<Virtua
 	  }
 	  @UiHandler("checkout")
 		void onClick(ClickEvent e) {
-		  GWT.log("airId.getText()" + airId.getText());
-		  getClientFactory().getCommunicationsManager().requestPower(airId.getText(), new Boolean(true));
-		  
+		  if(Status.AVAILABLE.getId() == condition.getValue().intValue()){
+			  getClientFactory().getCommunicationsManager().requestPower(airId.getText(), new Boolean(true));
+		  }
+		  else{
+			  getClientFactory().getCommunicationsManager().requestPower(airId.getText(), new Boolean(false));
+		  }
+		  condition.setValue(Status.UPDATING.getId());
+		  checkout.setEnabled(false);
+
 	  }
 	  public void init(ClientFactory clientFactory) {
 			setClientFactory(clientFactory);

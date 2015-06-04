@@ -63,7 +63,8 @@ color : #A4B48B;
 }		
 #content {
 padding: 5px;
-margin-left: 215px;
+#margin-left: 215px;
+margin-left: 15px;
 background:  #fff;
 }
 #sidebar-a {

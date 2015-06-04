@@ -17,7 +17,7 @@ public class VirtualMachine extends DatastoreObject {
 	private String machinename = "";
 
 	private String machineDesc = "";
-
+	@Index
 	private String airId = "";
 
 	
