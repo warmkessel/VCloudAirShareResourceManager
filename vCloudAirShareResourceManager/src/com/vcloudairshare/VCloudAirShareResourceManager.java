@@ -44,13 +44,18 @@ public class VCloudAirShareResourceManager {
 				System.out.println("Sixth Request");
 
 				buildResponse(theReturn, request7());
-				System.out.println("Seven Request");
+//				System.out.println("Seven Request");
 
 				buildResponse(theReturn, request8());
 				
 				System.out.println("8 Request");
 
 				buildResponse(theReturn, request9());
+				System.out.println("9 Request");
+
+				buildResponse(theReturn, request10());
+				System.out.println("10 Request");
+
 			} catch (Exception e) {
 				// if any I/O error occurs
 				e.printStackTrace();
@@ -393,6 +398,34 @@ public class VCloudAirShareResourceManager {
 //					conn.addRequestProperty("Authorization", "Bearer " + login);
 					 conn.addRequestProperty("Authorization", "Bearer " + login2);
 					conn.setRequestMethod("POST");
+					System.out.println("Request URL ... " + url);
+
+					// normally, 3xx is redirect
+					int status = conn.getResponseCode();
+
+					System.out.println("Response Code ... " + status);
+					return conn.getInputStream();
+		}
+		private static InputStream request10() throws IOException {
+			URL url = null;
+			try {
+				url =  new URL(
+							"https://de-germany-1-16.vchs.vmware.com/api/compute/api/vApp/vm-2e8c28a0-c124-4727-bf3f-7e253218795c/metrics/current");
+				} catch (MalformedURLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+			//System.out.println("Bearer " + login2);
+
+					HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+					conn.setConnectTimeout(60000); // 60 Seconds
+					conn.setReadTimeout(60000);
+					conn.addRequestProperty("Accept", "application/*+xml;version=5.11");
+					 conn.addRequestProperty("x-vcloud-authorization", login);
+//					conn.addRequestProperty("Authorization", "Bearer " + login);
+					 conn.addRequestProperty("Authorization", "Bearer " + login2);
+					conn.setRequestMethod("GET");
 					System.out.println("Request URL ... " + url);
 
 					// normally, 3xx is redirect
