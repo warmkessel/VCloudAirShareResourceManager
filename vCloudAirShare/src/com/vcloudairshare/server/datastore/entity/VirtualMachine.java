@@ -18,6 +18,9 @@ public class VirtualMachine extends DatastoreObject {
 
 	private String machineDesc = "";
 
+	private String airId = "";
+
+	
 	@Index
 	private Integer machinetype = MachineType.getDefault().getId();
 	@Index
@@ -87,6 +90,14 @@ public class VirtualMachine extends DatastoreObject {
 
 	public void setStatus(String status) {
 		setStatus(Integer.parseInt(status));
+	}
+
+	public String getAirId() {
+		return airId;
+	}
+
+	public void setAirId(String airId) {
+		this.airId = airId;
 	}
 
 }

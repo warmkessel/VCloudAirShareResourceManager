@@ -35,6 +35,11 @@
   		a.setMachineDesc(machineDesc);
   		dirty = true;
   	}
+  	 String airId = request.getParameter("airId");
+  	if(null != airId && airId.length() > 0){
+  		a.setAirId(airId);
+  		dirty = true;
+  	}
   	String ipaddress = request.getParameter("ipaddress");
   	if(null != ipaddress && ipaddress.length() > 0){
   		a.setIpaddress(ipaddress);
@@ -79,6 +84,8 @@ ID: <%= a.getId() %><% if(null != a.getId()){ %><input type="hidden" name="id" v
 Machine Name: <input type="text" name="machinename" value="<%= a.getMachinename() %>"></input>
 <br>
 Machine Desc: <input type="text" name="machineDesc" value="<%= a.getMachineDesc() %>"></input>
+<br>
+AirId: <input type="text" name="airId" value="<%= a.getAirId() %>"></input>
 <br>
 IP Address: <input type="text" name="ipaddress" value="<%= a.getIpaddress() %>"></input>
 <br>

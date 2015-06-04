@@ -35,9 +35,9 @@ public class VirtualMachineItemEditor extends Composite implements Editor<Virtua
 		}
 
 		private static final Binder BINDER = GWT.create(Binder.class);
-		
-	  Long id;
+	
 
+	  @UiField InlineLabel airId;
 	  @UiField InlineLabel machinename;
 	  @UiField InlineLabel machineDesc;
 	  @UiField StatusLabel<Integer> condition;
@@ -49,7 +49,8 @@ public class VirtualMachineItemEditor extends Composite implements Editor<Virtua
 	  }
 	  @UiHandler("checkout")
 		void onClick(ClickEvent e) {
-		  getClientFactory().getCommunicationsManager().requestPower(id, new Boolean(true));
+		  GWT.log("airId.getText()" + airId.getText());
+		  getClientFactory().getCommunicationsManager().requestPower(airId.getText(), new Boolean(true));
 		  
 	  }
 	  public void init(ClientFactory clientFactory) {
