@@ -3,10 +3,11 @@ import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.ImageResource;
 
 public interface ImageBundle extends ClientBundle{
-
-
+	
+  @Source("pon.png")
+  ImageResource poweron();
   
-  @Source("community_off.jpg")
-  ImageResource communityOff();
+  @Source("poff.png")
+  ImageResource poweroff();
   
 }

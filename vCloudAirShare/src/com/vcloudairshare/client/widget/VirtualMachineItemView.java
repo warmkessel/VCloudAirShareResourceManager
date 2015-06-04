@@ -83,6 +83,7 @@ public class VirtualMachineItemView extends Composite {
 									.getRequestFactory(), editor);
 							editorDriver.display(theVM);
 							machinePanel.add(editor);
+							editor.setup();
 						}
 
 					}

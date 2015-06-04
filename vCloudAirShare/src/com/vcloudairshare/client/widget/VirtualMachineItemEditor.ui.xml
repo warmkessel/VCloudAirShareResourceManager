@@ -2,6 +2,8 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:b="urn:import:com.vcloudairshare.client.editor">
 
+	<ui:with field='res' type='com.vcloudairshare.client.resource.ImageBundle' />
+
 
 	<ui:style>
 	.name {
@@ -40,6 +42,17 @@
 		display: inline-table;
 		padding: 4px;
 	}
+	.ipaddress {
+		font-size: medium;
+		padding-right: 10px;
+	}
+	.poweron {
+		
+	}
+	
+	.poweroff {
+		
+	}
 	</ui:style>
 	<g:HTMLPanel>
 		<div class="{style.container}">
@@ -47,7 +60,14 @@
 			<g:InlineLabel styleName="{style.name}" ui:field="machinename" />
 			<g:InlineLabel styleName="{style.desc}" ui:field="machineDesc" />
 			<b:StatusLabel styleName="{style.status}" ui:field='condition' />
-			<g:Button ui:field="checkout" text="Checkout" styleName="{style.checkout}"></g:Button>
+			<g:Button ui:field="checkout"  styleName="{style.checkout}"></g:Button>
 		</div>
+		<g:FlowPanel visible="false" ui:field="subPanel">
+			<g:InlineLabel styleName="{style.ipaddress}" ui:field="ipaddress" />
+			<g:Image styleName="{style.poweron}" ui:field="poweron"
+				width="100" height="25" resource='{res.poweron}' visible="true" />
+			<g:Image styleName="{style.poweroff}" ui:field="poweroff"
+				width="100" height="25" resource='{res.poweroff}' visible="true" />
+		</g:FlowPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 
