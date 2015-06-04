@@ -44,7 +44,7 @@ public class VCloudAirShareResourceManager {
 				System.out.println("Sixth Request");
 
 				buildResponse(theReturn, request7());
-//				System.out.println("Seven Request");
+				System.out.println("Seven Request");
 
 				buildResponse(theReturn, request8());
 				
