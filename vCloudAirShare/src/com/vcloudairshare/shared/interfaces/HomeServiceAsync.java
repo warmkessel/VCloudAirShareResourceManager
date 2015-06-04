@@ -1,8 +1,10 @@
 package com.vcloudairshare.shared.interfaces;
 
+import com.google.gwt.user.client.rpc.AsyncCallback;
+
 
 
 public interface HomeServiceAsync {
-//	void authentication(String username, String pass, AsyncCallback<UserDTO> callback)
-//			throws IllegalArgumentException;
+	void power(Long username, Boolean state, AsyncCallback<Boolean> callback)
+			throws IllegalArgumentException;
 }

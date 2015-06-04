@@ -6,14 +6,13 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriver;
-import com.vcloudairshare.client.editor.MachineTypeLabel;
+import com.vcloudairshare.client.ClientFactory;
 import com.vcloudairshare.client.editor.StatusLabel;
 import com.vcloudairshare.shared.proxy.VirtualMachineDTO;
 
@@ -25,8 +24,20 @@ public class VirtualMachineItemEditor extends Composite implements Editor<Virtua
 		RequestFactoryEditorDriver<VirtualMachineDTO, VirtualMachineItemEditor> {
 }
 	  
-	  private static final Binder BINDER = GWT.create(Binder.class);
+	  private ClientFactory clientFactory = null;
+
+		private void setClientFactory(final ClientFactory clientFactory) {
+			this.clientFactory = clientFactory;
+		}
+
+		private ClientFactory getClientFactory() {
+			return clientFactory;
+		}
+
+		private static final Binder BINDER = GWT.create(Binder.class);
 		
+	  Long id;
+
 	  @UiField InlineLabel machinename;
 	  @UiField InlineLabel machineDesc;
 	  @UiField StatusLabel<Integer> condition;
@@ -38,6 +49,10 @@ public class VirtualMachineItemEditor extends Composite implements Editor<Virtua
 	  }
 	  @UiHandler("checkout")
 		void onClick(ClickEvent e) {
-			Window.alert("Hello!");
+		  getClientFactory().getCommunicationsManager().requestPower(id, new Boolean(true));
+		  
+	  }
+	  public void init(ClientFactory clientFactory) {
+			setClientFactory(clientFactory);
 		}
 	}

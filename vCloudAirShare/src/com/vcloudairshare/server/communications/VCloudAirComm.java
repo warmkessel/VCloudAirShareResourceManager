@@ -10,7 +10,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.codec.binary.Base64;
+import org.datanucleus.util.Base64;
 
 public class VCloudAirComm {
 
@@ -40,9 +40,9 @@ public class VCloudAirComm {
 			conn.addRequestProperty(
 					Constants.AUTHORIZATION,
 					"Basic "
-							+ Base64.encodeBase64String(
+							+ Base64.encodeString(
 									new String(vchsUsername + ":"
-											+ vchsPassword).getBytes()));
+											+ vchsPassword)));
 			conn.setRequestMethod(Constants.POST);
 			// normally, 3xx is redirect
 			int status = conn.getResponseCode();
@@ -134,9 +134,9 @@ public class VCloudAirComm {
 			conn.addRequestProperty(
 					Constants.AUTHORIZATION,
 					"Basic "
-							+ Base64.encodeBase64String(
+							+ Base64.encodeString(
 									new String(vchsUsername + "@" + theOrg + ":"
-											+ vchsPassword).getBytes()));
+											+ vchsPassword)));
 			conn.setRequestMethod(Constants.POST);
 			// normally, 3xx is redirect
 			int status = conn.getResponseCode();
