@@ -7,4 +7,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface HomeService extends RemoteService {
 //	UserDTO authentication(String username, String pass)
 //			throws IllegalArgumentException;
+	
+	Boolean power(Long id, Boolean state)
+	throws IllegalArgumentException;
 }

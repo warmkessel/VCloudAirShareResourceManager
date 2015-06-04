@@ -8,6 +8,10 @@ import com.vcloudairshare.server.datastore.locator.ObjectifyLocator;
 @ProxyFor(value = VirtualMachine.class, locator = ObjectifyLocator.class)
 public interface VirtualMachineDTO extends EntityProxy {
 
+	public Long getId();
+		
+	public void setId(Long id);
+
 	public String getIpaddress();
 
 	public void setIpaddress(String ipaddress);

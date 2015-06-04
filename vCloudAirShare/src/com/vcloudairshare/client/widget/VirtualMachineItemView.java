@@ -77,6 +77,7 @@ public class VirtualMachineItemView extends Composite {
 						for (VirtualMachineDTO theVM : theMachines) {
 
 							VirtualMachineItemEditor editor = new VirtualMachineItemEditor();
+							editor.init(getClientFactory());
 							editorDriver.initialize(getClientFactory()
 									.getEventBus(), getClientFactory()
 									.getRequestFactory(), editor);

@@ -2,16 +2,24 @@ package com.vcloudairshare.client;
 
 import java.util.List;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.vcloudairshare.client.event.LoginEvent;
 import com.vcloudairshare.client.event.VirtualMachinesReceivedEvent;
 import com.vcloudairshare.shared.enumeration.MachineType;
 import com.vcloudairshare.shared.enumeration.Status;
+import com.vcloudairshare.shared.interfaces.HomeService;
+import com.vcloudairshare.shared.interfaces.HomeServiceAsync;
 import com.vcloudairshare.shared.proxy.UserDTO;
 import com.vcloudairshare.shared.proxy.VirtualMachineDTO;
 
 public class CommunicationsManager {  
-  public ClientFactory factory;
+  
+	private final HomeServiceAsync homeService = GWT
+			.create(HomeService.class);
+	
+	public ClientFactory factory;
   public CommunicationsManager(ClientFactory factory){
     this.factory = factory;
   }
@@ -72,4 +80,22 @@ public class CommunicationsManager {
 //        factory.getEventBus().fireEvent(new ArticlesReceivedEvent());
 //      }
 //    });
+	  
+	  public void requestPower(Long machine, Boolean power){
+
+		  homeService.power(machine, power,
+					new AsyncCallback<Boolean>() {
+						
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void onSuccess(Boolean result) {
+		        factory.getEventBus().fireEvent(new VirtualMachinesReceivedEvent());							
+			}
+					
+		});
+	  }
   }
