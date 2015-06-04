@@ -80,6 +80,17 @@ public class VirtualMachineService{
     }
     return user;
   }
+  public VirtualMachine findByAirId(String airId) {
+	    Query<VirtualMachine> q = OfyService.ofy().load().type(VirtualMachine.class);
+	    q = q.limit(1).filter("airId", airId);
+
+	    List<VirtualMachine> VirtualMachine = q.list();
+	    VirtualMachine user = null;
+	    if (null != VirtualMachine && VirtualMachine.size() > 0) {
+	      user = VirtualMachine.get(0);
+	    }
+	    return user;
+	  }
   public static VirtualMachine findById(Long key) {
     return OfyService.ofy().load().type(VirtualMachine.class).id(key).now();
   }

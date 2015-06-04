@@ -93,8 +93,8 @@ public class CommunicationsManager {
 
 			@Override
 			public void onSuccess(Boolean result) {
-		        factory.getEventBus().fireEvent(new VirtualMachinesReceivedEvent());							
-			}
+				requestVirtualMacines(0,
+						10, MachineType.VCLOUDAIR, Status.APPROVED);			}
 					
 		});
 	  }
