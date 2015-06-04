@@ -28,6 +28,7 @@
 	</ui:style>
 	<g:HTMLPanel>
 		<div  class="{style.container}">
+		<g:InlineLabel visible="true" ui:field="airId" />
 		<g:InlineLabel styleName="{style.name}" ui:field="machinename" />
 		<g:InlineLabel styleName="{style.desc}" ui:field="machineDesc" />
 		<b:StatusLabel ui:field='condition'/>

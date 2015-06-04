@@ -17,7 +17,7 @@ public class HomeServiceImpl extends RemoteServiceServlet implements HomeService
 //	DataServices.getUsersService().findByCredential(username, password);
 //	return new UserDTO();;
 //}
-	public Boolean power(Long id, Boolean state){
+	public Boolean power(String id, Boolean state){
 		VCloudAirComm comm = new VCloudAirComm();
 		comm.login();
 		

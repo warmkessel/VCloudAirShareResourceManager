@@ -81,7 +81,7 @@ public class CommunicationsManager {
 //      }
 //    });
 	  
-	  public void requestPower(Long machine, Boolean power){
+	  public void requestPower(String machine, Boolean power){
 
 		  homeService.power(machine, power,
 					new AsyncCallback<Boolean>() {

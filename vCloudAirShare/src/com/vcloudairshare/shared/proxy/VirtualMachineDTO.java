@@ -41,4 +41,8 @@ public interface VirtualMachineDTO extends EntityProxy {
 	public void setStatus(Integer status);
 
 	public void setStatus(String status);
+	
+	public String getAirId();
+
+	public void setAirId(String airId);
 }

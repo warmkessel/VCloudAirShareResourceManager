@@ -5,6 +5,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 
 public interface HomeServiceAsync {
-	void power(Long username, Boolean state, AsyncCallback<Boolean> callback)
+	void power(String airId, Boolean state, AsyncCallback<Boolean> callback)
 			throws IllegalArgumentException;
 }
