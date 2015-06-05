@@ -61,10 +61,10 @@ public class VirtualMachineItemEditor extends Composite implements Editor<Virtua
 	  @UiHandler("checkout")
 		void onClick(ClickEvent e) {
 		  if(Status.AVAILABLE.getId() == condition.getValue().intValue()){
-			  getClientFactory().getCommunicationsManager().requestPower(airId.getText(), new Boolean(true));
+			  getClientFactory().getCommunicationsManager().requestCheckout(airId.getText(), new Boolean(true));
 		  }
 		  else{
-			  getClientFactory().getCommunicationsManager().requestPower(airId.getText(), new Boolean(false));
+			  getClientFactory().getCommunicationsManager().requestCheckout(airId.getText(), new Boolean(false));
 		  }
 		  condition.setValue(Status.UPDATING.getId());
 		  checkout.setEnabled(false);
@@ -74,14 +74,14 @@ public class VirtualMachineItemEditor extends Composite implements Editor<Virtua
 		void onClickOn(ClickEvent e) {
 		  getClientFactory().getCommunicationsManager().requestPower(airId.getText(), new Boolean(true));
 		  condition.setValue(Status.UPDATING.getId());
-		  checkout.setEnabled(false);
+//		  checkout.setEnabled(false);
 
 	  }
 	  @UiHandler("poweroff")
 		void onClickOff(ClickEvent e) {
-		  getClientFactory().getCommunicationsManager().requestPower(airId.getText(), new Boolean(true));
+		  getClientFactory().getCommunicationsManager().requestPower(airId.getText(), new Boolean(false));
 		  condition.setValue(Status.UPDATING.getId());
-		  checkout.setEnabled(false);
+//		  checkout.setEnabled(false);
 	  }
 	  public void init(ClientFactory clientFactory) {
 			setClientFactory(clientFactory);

@@ -75,7 +75,7 @@ public class HomeServiceImpl extends RemoteServiceServlet implements HomeService
 	       StringBuffer sb = new StringBuffer();
 	       sb = VCloudAirComm.buildResponse(sb, inStream);
 	       System.out.println("response = " + sb.toString());
-	       return true;
+	       return state;
 	    }
 	    catch (Exception e){
 	    	System.out.println(e.getMessage());

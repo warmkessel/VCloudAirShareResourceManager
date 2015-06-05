@@ -3,6 +3,7 @@ package com.vcloudairshare.client;
 import java.util.List;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.vcloudairshare.client.event.LoginEvent;
@@ -80,10 +81,31 @@ public class CommunicationsManager {
 //        factory.getEventBus().fireEvent(new ArticlesReceivedEvent());
 //      }
 //    });
-	  
 	  public void requestPower(String machine, Boolean power){
 
 		  homeService.power(machine, power,
+					new AsyncCallback<Boolean>() {
+						
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void onSuccess(Boolean result) {
+				if(result){
+					Window.alert("Machine Powered On");
+				}
+				else{
+					Window.alert("Machine Powered Off");
+				}
+		}
+					
+		});
+	  }
+	  public void requestCheckout(String machine, Boolean power){
+
+		  homeService.checkout(machine, power,
 					new AsyncCallback<Boolean>() {
 						
 			@Override
