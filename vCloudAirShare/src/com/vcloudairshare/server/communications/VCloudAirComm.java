@@ -20,6 +20,22 @@ public class VCloudAirComm {
 	// The serviceListHref to vchs
 	String vchsServiceListHref;
 	
+	public String getVchstoken() {
+		return this.vchsToken;
+	}
+	
+	public String getTheOrg() {
+		return this.theOrg;
+	}
+	
+	public String getVchsToken2() {
+		return this.vchsToken2;
+	}
+	
+	public String getVchsServiceListHref() {
+		return this.vchsServiceListHref;
+	}
+	
 	public boolean login() {
 		//--url https://de-germany-1-16.vchs.vmware.com --vchsversion 5.7 --vcloudversion 5.11
 		return login("jr@warmkessel.com", "Overlord2!", "5.7", "5.11", "https://de-germany-1-16.vchs.vmware.com");

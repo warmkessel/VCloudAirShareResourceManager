@@ -2,21 +2,30 @@ package com.vcloudairshare.server.communications;
 
 public class Constants {
  	
-    static final String LOGINURL = "https://vca.vmware.com/api/iam/login";
+    public static final String LOGINURL = "https://vca.vmware.com/api/iam/login";
 
-    static final String ACCEPT = "Accept";
+    public static final String ACCEPT = "Accept";
 
-    static final String AUTHORIZATION = "Authorization";
-    static final String GET = "GET";
+    public static final String AUTHORIZATION = "Authorization";
+    public static final String GET = "GET";
 
-    static final String POST = "POST";
+    public static final String POST = "POST";
     
     
-    static final String ORGNAME = "/api/compute/compute/ui/index.html?orgName=";
+    public static final String ORGNAME = "/api/compute/compute/ui/index.html?orgName=";
 
-    static final String SESSION = "/api/compute/api/sessions";
+    public static final String SESSION = "/api/compute/api/sessions";
 
-    static final String COMPUTE = "/api/compute/api/org/";
+    public static final String COMPUTE = "/api/compute/api/org/";
+    
+    public static final String VCHSHOSTNAME = "https://de-germany-1-16.vchs.vmware.com";
+    
+    public static final String API_VAPP = "/api/compute/api/vApp";
+    
+    public static final String POWER_ON = "/power/action/powerOn";
+    
+    public static final String POWER_OFF = "/power/action/powerOff";
+    
 //
 //    
 //  
@@ -29,13 +38,13 @@ public class Constants {
 //    /*
 //     * Content-Type header for vCHS API
 //     */
-    static final String APPLICATION_JSON_VERSION = "application/json;version=";
+    public static final String APPLICATION_JSON_VERSION = "application/json;version=";
 //    
 //
 //    /*
 //     * Content-Type header for VCD API
 //     */
-    static final String APPLICATION_PLUS_XML_VERSION = "application/*+xml;version=";
+    public static final String APPLICATION_PLUS_XML_VERSION = "application/*+xml;version=";
 //
 //    /*
 //     * Content-Type for vCHS API ServiceList
@@ -50,12 +59,12 @@ public class Constants {
 //    /*
 //     * vCHS Authorization header string
 //     */
-    static final String VCHS_AUTHORIZATION_HEADER2 = "vchs-authorization";
+    public static final String VCHS_AUTHORIZATION_HEADER2 = "vchs-authorization";
 //
 //    /*
 //     * VCD Authorization header string
 //     */
-    static final String VCD_AUTHORIZATION_HEADER = "x-vcloud-authorization";
+    public static final String VCD_AUTHORIZATION_HEADER = "x-vcloud-authorization";
 //
 //    /*
 //     * Content-Type header for VCD session
@@ -80,7 +89,7 @@ public class Constants {
 //    /*
 //     * vCHS Public API Sessions url
 //     */
-    static final String SESSION_URL = "/api/sc/instances";
+    public static final String SESSION_URL = "/api/sc/instances";
 //
 //    /*
 //     * vCHS Public API Sessions url
