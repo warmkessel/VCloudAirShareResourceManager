@@ -19,7 +19,7 @@ public class VCloudAirComm {
 	String theOrg;
 	// The serviceListHref to vchs
 	String vchsServiceListHref;
-	
+	String vchsHostname;
 	public String getVchstoken() {
 		return this.vchsToken;
 	}
@@ -38,11 +38,11 @@ public class VCloudAirComm {
 	
 	public boolean login() {
 		//--url https://de-germany-1-16.vchs.vmware.com --vchsversion 5.7 --vcloudversion 5.11
-		return login("jr@warmkessel.com", "Overlord2!", "5.7", "5.11", "https://de-germany-1-16.vchs.vmware.com");
+		return login("jr@warmkessel.com", "Overlord2!", "5.7", "5.11", "https://us-california-1-3.vchs.vmware.com");
 	}
 	
 		public boolean login(String vchsUsername, String vchsPassword, String vchsVersion, String vcdVersion, String vchsHostname) {
-
+			this.vchsHostname = vchsHostname;
 		URL url = null;
 		try {
 			url = new URL(Constants.LOGINURL);
@@ -241,4 +241,9 @@ public class VCloudAirComm {
 		}
 		return theReturn;
 	}
+
+	public String getVchsHostname() {
+		return vchsHostname;
+	}
+	
 }

@@ -61,6 +61,11 @@
   		a.setCondition(Integer.parseInt(condition));
   		dirty = true;
   	}
+  	String pass = request.getParameter("pass");
+  	if(null != pass && pass.length() > 0){
+  		a.setPass(pass);
+  		dirty = true;
+  	}
   	String status = request.getParameter("status");
   	if(null != status && status.length() > 0){
   		a.setStatus(status);
@@ -90,6 +95,8 @@ AirId: <input type="text" name="airId" value="<%= a.getAirId() %>"></input>
 IP Address: <input type="text" name="ipaddress" value="<%= a.getIpaddress() %>"></input>
 <br>
 Current User: <input type="text" name="currentUser" value="<%= a.getCurrentUser() %>"></input>
+<br>
+Root Password: <input type="text" name="pass" value="<%= a.getPass() %>"></input>
 <br>
 Machine Type: 
 <select name="machinetype">

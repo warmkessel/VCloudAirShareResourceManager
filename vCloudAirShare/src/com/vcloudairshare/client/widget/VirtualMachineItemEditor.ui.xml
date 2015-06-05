@@ -41,17 +41,34 @@
 		width: 800px;
 		display: inline-table;
 		padding: 4px;
+		padding-top: 10px;
 	}
+	
+	.pass {
+		font-size: medium;
+		padding-right: 10px;
+	}
+	
 	.ipaddress {
 		font-size: medium;
 		padding-right: 10px;
 	}
+	
 	.poweron {
 		
 	}
 	
 	.poweroff {
 		
+	}
+	
+	.poweroff {
+		
+	}
+	
+	.subPanel {
+		padding-left: 25px;
+		padding-bottom: 15px;
 	}
 	</ui:style>
 	<g:HTMLPanel>
@@ -60,10 +77,14 @@
 			<g:InlineLabel styleName="{style.name}" ui:field="machinename" />
 			<g:InlineLabel styleName="{style.desc}" ui:field="machineDesc" />
 			<b:StatusLabel styleName="{style.status}" ui:field='condition' />
-			<g:Button ui:field="checkout"  styleName="{style.checkout}"></g:Button>
+			<g:Button ui:field="checkout" styleName="{style.checkout}"></g:Button>
 		</div>
-		<g:FlowPanel visible="false" ui:field="subPanel">
+		<g:FlowPanel visible="false" ui:field="subPanel"
+			styleName="{style.subPanel}">
+			<g:InlineLabel text="IP Address:"></g:InlineLabel>
 			<g:InlineLabel styleName="{style.ipaddress}" ui:field="ipaddress" />
+			<g:InlineLabel text="Root Password:"></g:InlineLabel>
+			<g:InlineLabel styleName="{style.ipaddress}" ui:field="pass" />
 			<g:Image styleName="{style.poweron}" ui:field="poweron"
 				width="100" height="25" resource='{res.poweron}' visible="true" />
 			<g:Image styleName="{style.poweroff}" ui:field="poweroff"

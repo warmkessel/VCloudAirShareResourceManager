@@ -17,9 +17,7 @@ public class Constants {
     public static final String SESSION = "/api/compute/api/sessions";
 
     public static final String COMPUTE = "/api/compute/api/org/";
-    
-    public static final String VCHSHOSTNAME = "https://de-germany-1-16.vchs.vmware.com";
-    
+        
     public static final String API_VAPP = "/api/compute/api/vApp";
     
     public static final String POWER_ON = "/power/action/powerOn";

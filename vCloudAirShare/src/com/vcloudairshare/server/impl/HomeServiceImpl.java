@@ -47,7 +47,7 @@ public class HomeServiceImpl extends RemoteServiceServlet implements HomeService
 		
 	    try {
 	    	
-	       String url = Constants.VCHSHOSTNAME + Constants.API_VAPP;
+	       String url = comm.getVchsHostname() + Constants.API_VAPP;
 	       if(state) {
 		       url = url + "/" + id +  Constants.POWER_ON;
 	       } else {

@@ -16,6 +16,8 @@ public class VirtualMachine extends DatastoreObject {
 
 	private String machinename = "";
 
+	private String pass = "";
+
 	private String machineDesc = "";
 	@Index
 	private String airId = "";
@@ -98,6 +100,14 @@ public class VirtualMachine extends DatastoreObject {
 
 	public void setAirId(String airId) {
 		this.airId = airId;
+	}
+
+	public String getPass() {
+		return pass;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
 
 }

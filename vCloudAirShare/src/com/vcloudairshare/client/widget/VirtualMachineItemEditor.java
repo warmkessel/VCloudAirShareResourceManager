@@ -11,7 +11,6 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriver;
 import com.vcloudairshare.client.ClientFactory;
@@ -49,6 +48,8 @@ public class VirtualMachineItemEditor extends Composite implements Editor<Virtua
 //	  
 	  @UiField  Image poweron;
 	  @UiField  Image poweroff;
+	  @UiField InlineLabel pass;
+
 //
 	  @UiField  FlowPanel subPanel;
 //	  

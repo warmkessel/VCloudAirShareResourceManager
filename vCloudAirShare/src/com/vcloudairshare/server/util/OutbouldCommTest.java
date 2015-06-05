@@ -97,7 +97,7 @@ public class OutbouldCommTest {
 		try {
 			url =  new URL(
 						//"https://us-virginia-1-4.vchs.vmware.com/api/compute/api/sessions");
-					"https://de-germany-1-16.vchs.vmware.com/api/compute/api/sessions");
+					"https://us-california-1-3.vchs.vmware.com/api/compute/api/sessions");
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -109,7 +109,7 @@ public class OutbouldCommTest {
 		conn.addRequestProperty(
 				"Authorization",
 				"Basic "
-						+ Base64.encodeString("jr@warmkessel.com@ce962f03-ae78-4d80-b217-8c363889921b:Overlord2!"));
+						+ Base64.encodeString("jr@warmkessel.com@a3c5bb97-7a7b-4055-97d5-8a040a14ee2e:Overlord2!"));
 //ce962f03-ae78-4d80-b217-8c363889921b
 //0ba27faa-5486-42cc-acc6-0d521ec578cd
 		// System.out.println("Basic " +
@@ -199,7 +199,7 @@ public class OutbouldCommTest {
 		URL url = null;
 		try {
 			url =  new URL(
-						"https://de-germany-1-16.vchs.vmware.com/api/org");
+						"https://us-california-1-3.vchs.vmware.com/api/org");
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -228,7 +228,7 @@ public class OutbouldCommTest {
 		try {
 			url =  new URL(
 						//"https://us-virginia-1-4.vchs.vmware.com/api/sc/instances");
-					"https://de-germany-1-16.vchs.vmware.com/api/sc/instances");
+					"https://us-california-1-3.vchs.vmware.com/api/sc/instances");
 			
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
@@ -257,7 +257,7 @@ public class OutbouldCommTest {
 		try {
 			url =  new URL(
 //						"https://us-virginia-1-4.vchs.vmware.com/api/compute/api/org/ed19f623-6b78-41ef-8e5b-50b461e13149");
-						"https://de-germany-1-16.vchs.vmware.com/api/compute/api/org/658f5497-78d0-469b-8ad6-1206148cb0bf");
+						"https://us-california-1-3.vchs.vmware.com/api/compute/api/org/c42b525f-720e-4f90-aba9-256d5e60a57b");
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -286,7 +286,7 @@ public class OutbouldCommTest {
 		try {
 			url =  new URL(
 //						"https://us-virginia-1-4.vchs.vmware.com/api/compute/api/catalog/c6e2e992-b077-4795-92aa-d1facb3a1e95");
-					"https://de-germany-1-16.vchs.vmware.com/api/compute/api/catalog/d003dacf-800c-46e2-bea1-db4ed4abb946");
+					"https://us-california-1-3.vchs.vmware.com/api/compute/api/catalog/64736b28-e508-482b-8438-a0ba33654c97");
 		
 		
 			} catch (MalformedURLException e) {
@@ -317,7 +317,7 @@ public class OutbouldCommTest {
 		try {
 			url =  new URL(
 //					"https://us-virginia-1-4.vchs.vmware.com/api/compute/api/vdc/c6e2e992-b077-4795-92aa-d1facb3a1e95");
-						"https://de-germany-1-16.vchs.vmware.com/api/compute/api/vdc/a29e6d09-022b-4a07-93e8-b58705099cd1");
+						"https://us-california-1-3.vchs.vmware.com/api/compute/api/vdc/5c52bf05-28b7-45d3-9dc5-55780db11a42");
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -346,7 +346,7 @@ public class OutbouldCommTest {
 		try {
 			url =  new URL(
 //						"https://us-virginia-1-4.vchs.vmware.com/api/compute/api/vApp/vapp-8ac36b2e-9df4-4718-a9a7-59ff7d239250");
-					"https://de-germany-1-16.vchs.vmware.com/api/compute/api/vApp/vapp-4989d4e0-5c49-40b4-8104-6e12230b589b");
+					"https://us-california-1-3.vchs.vmware.com/api/compute/api/vApp/vapp-4989d4e0-5c49-40b4-8104-6e12230b589b");
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -374,7 +374,7 @@ public class OutbouldCommTest {
 		URL url = null;
 		try {
 			url =  new URL(
-						"https://de-germany-1-16.vchs.vmware.com/api/compute/api/vApp/vapp-4989d4e0-5c49-40b4-8104-6e12230b589b/power/action/powerOn");
+						"https://us-california-1-3.vchs.vmware.com/api/compute/api/vApp/vapp-4989d4e0-5c49-40b4-8104-6e12230b589b/power/action/powerOn");
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -45,4 +45,8 @@ public interface VirtualMachineDTO extends EntityProxy {
 	public String getAirId();
 
 	public void setAirId(String airId);
+	
+	public String getPass();
+
+	public void setPass(String pass);
 }
