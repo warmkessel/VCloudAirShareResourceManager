@@ -70,6 +70,13 @@
 		padding-left: 25px;
 		padding-bottom: 15px;
 	}
+	.currentUserName {
+		font-size: large;
+		padding-left: 25px;
+	}
+	
+	  
+	  
 	</ui:style>
 	<g:HTMLPanel>
 		<div class="{style.container}">
@@ -78,6 +85,8 @@
 			<g:InlineLabel styleName="{style.desc}" ui:field="machineDesc" />
 			<b:StatusLabel styleName="{style.status}" ui:field='condition' />
 			<g:Button ui:field="checkout" styleName="{style.checkout}"></g:Button>
+			<g:InlineLabel visible="false" styleName="{style.currentUserName}" ui:field="currentUserName" />
+			
 		</div>
 		<g:FlowPanel visible="false" ui:field="subPanel"
 			styleName="{style.subPanel}">

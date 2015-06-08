@@ -25,15 +25,18 @@ public class HomeServiceImpl extends RemoteServiceServlet implements HomeService
 //	DataServices.getUsersService().findByCredential(username, password);
 //	return new UserDTO();;
 //}
-	public Boolean checkout(String id, Boolean state){
+	public Boolean checkout(String id, Boolean state, String userName){
 
 		VirtualMachine vm = DataServices.getVirtualMachineService().findByAirId(id);
 		if(vm != null){
 			if(state){
 				vm.setCondition(Status.INUSE.getId());
+				vm.setCurrentUserName(userName);
 			}
 			else{
 				vm.setCondition(Status.AVAILABLE.getId());
+				vm.setCurrentUserName("");
+
 			}
 			DataServices.getVirtualMachineService().persist(vm);
 

@@ -22,7 +22,8 @@ public class VirtualMachine extends DatastoreObject {
 	@Index
 	private String airId = "";
 
-	
+	private String currentUserName = "";
+
 	@Index
 	private Integer machinetype = MachineType.getDefault().getId();
 	@Index
@@ -108,6 +109,14 @@ public class VirtualMachine extends DatastoreObject {
 
 	public void setPass(String pass) {
 		this.pass = pass;
+	}
+
+	public String getCurrentUserName() {
+		return currentUserName;
+	}
+
+	public void setCurrentUserName(String currentUserName) {
+		this.currentUserName = currentUserName;
 	}
 
 }

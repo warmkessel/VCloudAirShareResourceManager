@@ -50,6 +50,11 @@
   		a.setCurrentUser(Long.parseLong(currentUser));
   		dirty = true;
   	}
+  		String currentUserName = request.getParameter("currentUserName");
+  	if(null != currentUserName && currentUserName.length() > 0){
+  		a.setCurrentUserName(currentUserName);
+  		dirty = true;
+  	}
   	
     	String machinetype = request.getParameter("machinetype");
   	if(null != machinetype && machinetype.length() > 0){
@@ -95,6 +100,8 @@ AirId: <input type="text" name="airId" value="<%= a.getAirId() %>"></input>
 IP Address: <input type="text" name="ipaddress" value="<%= a.getIpaddress() %>"></input>
 <br>
 Current User: <input type="text" name="currentUser" value="<%= a.getCurrentUser() %>"></input>
+<br>
+Current User Name: <input type="text" name="currentUserName" value="<%= a.getCurrentUserName() %>"></input>
 <br>
 Root Password: <input type="text" name="pass" value="<%= a.getPass() %>"></input>
 <br>

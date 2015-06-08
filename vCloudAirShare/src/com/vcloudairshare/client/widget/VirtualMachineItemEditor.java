@@ -43,7 +43,9 @@ public class VirtualMachineItemEditor extends Composite implements Editor<Virtua
 	  @UiField InlineLabel machinename;
 	  @UiField InlineLabel machineDesc;
 	  @UiField StatusLabel<Integer> condition;
-
+	  @UiField InlineLabel currentUserName;
+	  
+	  
 	  @UiField InlineLabel ipaddress;
 //	  
 	  @UiField  Image poweron;
@@ -96,7 +98,18 @@ public class VirtualMachineItemEditor extends Composite implements Editor<Virtua
 			  checkout.setText("Checkout");
 		  }
 		  else{
-			  checkout.setText("Release");
+			  if(currentUserName.getText().equals(getClientFactory().getEntityDepo().getUser().getUsername())){
+				  checkout.setText("Release");
+
+			  }
+			  else{
+				  checkout.setVisible(false); 
+				  currentUserName.setVisible(true);
+				  subPanel.setVisible(false);
+			  }
+			  
 		  }
+		  
+		  
 	  }
 	}

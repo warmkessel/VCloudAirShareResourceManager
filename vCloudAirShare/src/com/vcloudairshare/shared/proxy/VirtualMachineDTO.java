@@ -49,4 +49,9 @@ public interface VirtualMachineDTO extends EntityProxy {
 	public String getPass();
 
 	public void setPass(String pass);
+	
+	public String getCurrentUserName();
+
+	public void setCurrentUserName(String currentUserName);
+
 }

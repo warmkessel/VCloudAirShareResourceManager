@@ -11,6 +11,6 @@ public interface HomeService extends RemoteService {
 	Boolean power(String airId, Boolean state)
 	throws IllegalArgumentException;
 	
-	Boolean checkout(String airId, Boolean state)
+	Boolean checkout(String airId, Boolean state, String userName)
 			throws IllegalArgumentException;
 }

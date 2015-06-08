@@ -105,7 +105,7 @@ public class CommunicationsManager {
 	  }
 	  public void requestCheckout(String machine, Boolean power){
 
-		  homeService.checkout(machine, power,
+		  homeService.checkout(machine, power,factory.getEntityDepo().getUser().getUsername(),
 					new AsyncCallback<Boolean>() {
 						
 			@Override

@@ -7,8 +7,8 @@
 		}
 	</ui:style>
 	<g:HTMLPanel>
-	<Table><tr><td>User Name:</td><td><g:TextBox ui:field="userName" value="test"/></td></tr>
-	<tr><td>Password:</td><td><g:TextBox ui:field="passwordName" value="test"/></td></tr>
+	<Table><tr><td>User Name:</td><td><g:TextBox ui:field="userName" value="@ericni"/></td></tr>
+	<tr><td>Password:</td><td><g:TextBox ui:field="passwordName" value="@ericni"/></td></tr>
 	<tr><td></td><td><g:Button ui:field="login" text="Login"/></td></tr></Table>
 	</g:HTMLPanel>
 </ui:UiBinder> 
