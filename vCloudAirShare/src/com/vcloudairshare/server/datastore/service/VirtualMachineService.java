@@ -9,8 +9,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
-import com.vcloudairshare.server.datastore.entity.DatastoreObject;
-import com.vcloudairshare.server.datastore.entity.Event;
 import com.vcloudairshare.server.datastore.entity.VirtualMachine;
 import com.vcloudairshare.shared.enumeration.MachineType;
 import com.vcloudairshare.shared.enumeration.Status;
@@ -62,7 +60,7 @@ public class VirtualMachineService {
 		return null;
 	}
 
-	public static List<VirtualMachine> findByAvialable(int from, int count,
+	public static List<VirtualMachine> findByAvialable(int start, int limit,
 			MachineType machineType, Status status) {
 		// Query<VirtualMachine> q =
 		// OfyService.ofy().load().type(VirtualMachine.class);
@@ -77,7 +75,30 @@ public class VirtualMachineService {
 		// q = q.limit(count);
 		// }
 		// return q.list();
-		return null;
+		List<VirtualMachine> theList = new ArrayList<VirtualMachine>();
+		Session session = HibernateFactory.getSessionFactory().openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			Criteria theCriteria = session.createCriteria(VirtualMachine.class);
+			theCriteria.add(Restrictions.eq("status", status.getId()));
+
+			theCriteria.setFetchSize(limit);
+
+			if (0 == start) {
+				return theCriteria.list();
+			} else {
+				theCriteria.list().subList(start, theCriteria.list().size());
+			}
+
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return theList;
 	}
 
 	public static VirtualMachine findFirstByAvialable(int from, int count,
@@ -120,29 +141,29 @@ public class VirtualMachineService {
 		}
 		return theVM;
 	}
-	  public List<VirtualMachine> findRange(int start, int limit){
-		  List<VirtualMachine> theList = new ArrayList();
-		  Session session = HibernateFactory.getSessionFactory().openSession();
-			Transaction tx = null;
-			try {
-				tx = session.beginTransaction();
-				Criteria theCriteria = session.createCriteria(VirtualMachine.class);
-				theCriteria.setFetchSize(limit);
 
-				if(0 == start){
-					return theCriteria.list();
-				}
-				else{
-					theCriteria.list().subList(start,theCriteria.list().size());
-				}
-				
-			} catch (HibernateException e) {
-				if (tx != null)
-					tx.rollback();
-				e.printStackTrace();
-			} finally {
-				session.close();
+	public List<VirtualMachine> findRange(int start, int limit) {
+		List<VirtualMachine> theList = new ArrayList();
+		Session session = HibernateFactory.getSessionFactory().openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			Criteria theCriteria = session.createCriteria(VirtualMachine.class);
+			theCriteria.setFetchSize(limit);
+
+			if (0 == start) {
+				return theCriteria.list();
+			} else {
+				theCriteria.list().subList(start, theCriteria.list().size());
 			}
-			return theList;
-	  }
+
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return theList;
+	}
 }

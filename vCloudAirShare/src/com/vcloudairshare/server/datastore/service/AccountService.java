@@ -10,7 +10,6 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import com.vcloudairshare.server.datastore.entity.Account;
-import com.vcloudairshare.server.datastore.entity.VirtualMachine;
 
 public class AccountService {
 
@@ -37,7 +36,7 @@ public class AccountService {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Criteria theCriteria = session.createCriteria(VirtualMachine.class);
+			Criteria theCriteria = session.createCriteria(Account.class);
 			theCriteria.add(Restrictions.eq("username", username));
 			theCriteria.add(Restrictions.eq("password", password));
 
