@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.vcloudairshare.server.datastore.entity.Account"
+		table="Account">
+		<meta attribute="class-description">
+			This class contains the employee detail.
+		</meta>
+		<id name="id" type="long" column="id">
+			<generator class="native" />
+		</id>
+		<property name="version" column="version" type="int" />
+		<property name="lastUpdated" column="lastUpdated" type="date" />
+		<property name="ipaddress" column="ipaddress" type="string" />
+		<property name="username" column="username" type="string" />
+		<property name="password" column="password" type="string" />
+		<property name="condition" column="usercondition" type="int" />
+		<property name="language" column="userlanguage" type="string" />
+		<property name="status" column="status" type="int" />
+		<property name="useragent" column="useragent" type="string" />
+	</class>
+</hibernate-mapping>

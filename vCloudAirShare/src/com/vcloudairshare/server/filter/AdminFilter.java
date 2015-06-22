@@ -11,8 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
+
 
 public class AdminFilter implements Filter {
 	private FilterConfig filterConfig = null;
@@ -31,14 +30,14 @@ public class AdminFilter implements Filter {
 	}
 	public void doFilter(HttpServletRequest request, HttpServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-
-		UserService userService = UserServiceFactory.getUserService();
-		if (userService.isUserLoggedIn() && userService.isUserAdmin()) {
+//This will need to be fixed.
+//		UserService userService = UserServiceFactory.getUserService();
+//		if (userService.isUserLoggedIn() && userService.isUserAdmin()) {
 			chain.doFilter(request, response);
-
-		} else {
-			response.sendRedirect(userService.createLoginURL(request.getRequestURL().toString()));
-		}
+//
+//		} else {
+//			response.sendRedirect(userService.createLoginURL(request.getRequestURL().toString()));
+//		}
 	}
 
 	public FilterConfig getFilterConfig() {

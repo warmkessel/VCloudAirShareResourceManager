@@ -1,8 +1,7 @@
 package com.vcloudairshare.server.datastore.locator;
 import com.vcloudairshare.server.datastore.entity.DatastoreObject;
 import com.google.web.bindery.requestfactory.shared.Locator;
-import com.googlecode.objectify.Key;
-import com.googlecode.objectify.ObjectifyService;
+
 /**
  * Generic @Locator for objects that extend DatastoreObject
  */
@@ -26,7 +25,8 @@ public class ObjectifyLocator extends Locator<DatastoreObject, Long>
 	@Override
 	public DatastoreObject find(Class<? extends DatastoreObject> clazz, Long id)
 	{
-    return ((DatastoreObject) ObjectifyService.ofy().load().value(Key.create(clazz, id)).now());
+//    return ((DatastoreObject) ObjectifyService.ofy().load().value(Key.create(clazz, id)).now());
+		return null;
 	}
 
 	@Override

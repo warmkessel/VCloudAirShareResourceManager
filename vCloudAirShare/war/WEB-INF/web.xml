@@ -6,17 +6,9 @@
 		<filter-name>admin</filter-name>
 		<filter-class>com.vcloudairshare.server.filter.AdminFilter</filter-class>
 	</filter>
-	<filter>
-		<filter-name>ObjectifyFilter</filter-name>
-		<filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
-	</filter>
 	<filter-mapping>
 		<filter-name>admin</filter-name>
 		<url-pattern>/admin/*</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>ObjectifyFilter</filter-name>
-		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	<!-- Servlets -->
 
@@ -31,20 +23,6 @@
 			<param-value>WEB-INF/classes/symbolMaps/</param-value>
 		</init-param>
 	</servlet>
-	<servlet>
-		<servlet-name>remote-api</servlet-name>
-		<servlet-class>com.google.apphosting.utils.remoteapi.RemoteApiServlet
-		</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>SystemServiceServlet</servlet-name>
-		<servlet-class>com.google.api.server.spi.SystemServiceServlet
-		</servlet-class>
-		<init-param>
-			<param-name>services</param-name>
-			<param-value />
-		</init-param>
-	</servlet>
 	 <servlet>
     <servlet-name>homeService</servlet-name>
     <servlet-class>com.vcloudairshare.server.impl.HomeServiceImpl</servlet-class>
@@ -55,16 +33,8 @@
     <url-pattern>/vcloudairshare/home</url-pattern>
   </servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>remote-api</servlet-name>
-		<url-pattern>/remote_api</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
 		<servlet-name>requestFactoryServlet</servlet-name>
 		<url-pattern>/gwtRequest</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>SystemServiceServlet</servlet-name>
-		<url-pattern>/_ah/spi/*</url-pattern>
 	</servlet-mapping>
 	<!-- Default page to serve -->
 	<welcome-file-list>

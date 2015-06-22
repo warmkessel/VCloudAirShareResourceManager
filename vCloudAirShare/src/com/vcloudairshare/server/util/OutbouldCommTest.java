@@ -9,7 +9,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
-import org.datanucleus.util.Base64;
+import org.apache.commons.codec.binary.Base64;
+
 
 public class OutbouldCommTest {
 	public static String login = "";
@@ -109,14 +110,14 @@ public class OutbouldCommTest {
 		conn.addRequestProperty(
 				"Authorization",
 				"Basic "
-						+ Base64.encodeString("jr@warmkessel.com@a3c5bb97-7a7b-4055-97d5-8a040a14ee2e:Overlord2!"));
+						+ Base64.encodeBase64String(new String("jr@warmkessel.com@a3c5bb97-7a7b-4055-97d5-8a040a14ee2e:Overlord2!").getBytes()));
 //ce962f03-ae78-4d80-b217-8c363889921b
 //0ba27faa-5486-42cc-acc6-0d521ec578cd
 		// System.out.println("Basic " +
 		// Base64.encodeString("jrwarmkessel@gmail.com:Overlord2!"));
 		System.out
 				.println("Basic "
-						+ Base64.encodeString("jr@warmkessel.com@ce962f03-ae78-4d80-b217-8c363889921b:Overlord2!"));
+						+ Base64.encodeBase64String(new String("jr@warmkessel.com@ce962f03-ae78-4d80-b217-8c363889921b:Overlord2!").getBytes()));
 
 		conn.setRequestMethod("POST");
 		System.out.println("Request URL ... " + url);
@@ -160,11 +161,11 @@ public class OutbouldCommTest {
 		conn.setReadTimeout(60000);
 		conn.addRequestProperty("Accept", "application/json;version=5.7");
 		conn.addRequestProperty("Authorization",
-				"Basic " + Base64.encodeString("jr@warmkessel.com:Overlord2!"));
+				"Basic " + Base64.encodeBase64String(new String("jr@warmkessel.com:Overlord2!").getBytes()));
 		// System.out.println("Basic " +
 		// Base64.encodeString("jrwarmkessel@gmail.com:Overlord2!"));
 		System.out.println("Basic "
-				+ Base64.encodeString("jr@warmkessel.com:Overlord2!"));
+				+ Base64.encodeBase64String(new String("jr@warmkessel.com:Overlord2!").getBytes()));
 
 		conn.setRequestMethod("POST");
 		System.out.println("Request URL ... " + url);

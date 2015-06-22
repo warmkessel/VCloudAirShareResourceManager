@@ -5,8 +5,8 @@ public class DataServices {
 	public static EventService getEventService() {
 		return new EventService();
 	}
-	public static UsersService getUsersService() {
-		return new UsersService();
+	public static AccountService getAccountService() {
+		return new AccountService();
 	}
 	public static VirtualMachineService getVirtualMachineService() {
 		return new VirtualMachineService();

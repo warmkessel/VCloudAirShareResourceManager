@@ -2,16 +2,14 @@ package com.vcloudairshare.server.datastore.entity;
 
 import java.util.Date;
 
-import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.OnSave;
-import com.googlecode.objectify.annotation.Index;
+import javax.persistence.GenerationType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 public class DatastoreObject
 {
-	@Id
-	@Index
 	private Long id;
 	private Integer version = 0;
-	@Index
   private Date lastUpdated = new Date(0);
 	
 	public Date getLastUpdated() {
@@ -24,7 +22,8 @@ public class DatastoreObject
   public void setLastUpdated(Date lastUpdated) {
     this.lastUpdated = lastUpdated;
   }
-
+  @Id
+  @GeneratedValue(strategy=GenerationType.AUTO)
   public Long getId() {
 		return id;
 	}
@@ -36,8 +35,7 @@ public class DatastoreObject
 	/**
 	 * Auto-increment version # whenever persisted
 	 */
-	@OnSave
-	void onPersist()
+	public void onPersist()
 	{
 	  setVersion(getVersion() + 1);
 	  setLastUpdated(new Date());

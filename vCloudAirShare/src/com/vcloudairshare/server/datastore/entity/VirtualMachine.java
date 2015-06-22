@@ -1,34 +1,20 @@
 package com.vcloudairshare.server.datastore.entity;
 
-import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Index;
-import com.googlecode.objectify.annotation.Unindex;
 import com.vcloudairshare.shared.enumeration.MachineType;
 import com.vcloudairshare.shared.enumeration.Status;
 
-@Entity
-@Unindex
+
 public class VirtualMachine extends DatastoreObject {
 
 	private String ipaddress = "";
-	@Index
 	private Long currentUser = 0l;
-
 	private String machinename = "";
-
 	private String pass = "";
-
 	private String machineDesc = "";
-	@Index
 	private String airId = "";
-
 	private String currentUserName = "";
-
-	@Index
 	private Integer machinetype = MachineType.getDefault().getId();
-	@Index
 	private Integer condition = Status.getDefault().getId();
-	@Index
 	private Integer status = Status.getDefault().getId();
 
 	public VirtualMachine() {

@@ -1,103 +1,66 @@
 package com.vcloudairshare.server.datastore.service;
 
-import static com.vcloudairshare.server.datastore.service.OfyService.ofy;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.google.appengine.api.memcache.MemcacheServiceFactory;
-import com.googlecode.objectify.cmd.Query;
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import com.vcloudairshare.server.datastore.entity.Event;
+import com.vcloudairshare.server.datastore.entity.Account;
 import com.vcloudairshare.shared.enumeration.Status;
 
 public class EventService{
-  private void clearCache() {
-    MemcacheServiceFactory.getMemcacheService().clearAll();
-  }
 
-  public int countAll() {
-    return OfyService.ofy().load().type(Event.class).count();
-  }
+	public List<Event> findRange(int start, int limit){
+		  List<Event> theList = new ArrayList();
+		  Session session = HibernateFactory.getSessionFactory().openSession();
+			Transaction tx = null;
+			try {
+				tx = session.beginTransaction();
+				Criteria theCriteria = session.createCriteria(Event.class);
+				theCriteria.setFetchSize(limit);
 
-  public List<Event> findActiveRange(int from, int to) throws ServiceException {
-    Query<Event> q = OfyService.ofy().load().type(Event.class);
-    q = q.offset(from);
-    if (to > 0) {
-      q =q.limit(to);
-    }
-    q =q.filter("status", Status.APPROVED.getId());
-    q =q.order("status");
-    q =q.order("lastloggedin");
-    return q.list();
-  }
-
-  public List<Event> findRange(int from, int to) throws ServiceException {
-    Query<Event> q = OfyService.ofy().load().type(Event.class);
-    q =q.offset(from);
-    if (to > 0) {
-      q =q.limit(to);
-    }
-    q =q.order("status");
-    return q.list();
-  }
-
-  public List<Event> findAll() {
-    return OfyService.ofy().load().type(Event.class).list();
-  }
-
-  public List<Event> findAllWithIdxAndCount(int from, int count, String columnOrderings,
-      boolean published) {
-    Query<Event> q = OfyService.ofy().load().type(Event.class);
-    q = q.offset(from);
-    if (published) {
-      q = q.filter("published", true);
-      q = q.filter("publishDate <=", new Date());
-      // q.order("publishDate");
-    }
-    if (count > 0) {
-      q = q.limit(count);
-    }
-    if (null != columnOrderings && columnOrderings.length() > 0) {
-      String[] list = columnOrderings.split(",");
-      for (int x = 0; x < list.length; x++) {
-        q = q.order(list[x]);
-      }
-    } else {
-      q = q.order("-publishDate");
-    }
-    return q.list();
-  }
-
-  public Event findByAddress(String ipaddress, String useragent) {
-    Query<Event> q = OfyService.ofy().load().type(Event.class);
-    q = q.limit(1).filter("ipaddress", ipaddress).filter("useragent",useragent);
-
-    List<Event> Reservation = q.list();
-    Event user = null;
-    if (null != Reservation && Reservation.size() > 0) {
-      user = Reservation.get(0);
-    }
-    return user;
-  }
+				if(0 == start){
+					return theCriteria.list();
+				}
+				else{
+					theCriteria.list().subList(start,theCriteria.list().size());
+				}
+				
+			} catch (HibernateException e) {
+				if (tx != null)
+					tx.rollback();
+				e.printStackTrace();
+			} finally {
+				session.close();
+			}
+			return theList;
+	  }
   public Event findById(Long key) {
-    return OfyService.ofy().load().type(Event.class).id(key).now();
+//    return OfyService.ofy().load().type(Event.class).id(key).now();
+	  return null;
   }
 
   public Event findByLogInCredentials(String username, String password) {
-    Query<Event> q = OfyService.ofy().load().type(Event.class);
-    q = q.limit(1).filter("username", username).filter("password", password);
-
-    List<Event> Reservation = q.list();
+//    Query<Event> q = OfyService.ofy().load().type(Event.class);
+//    q = q.limit(1).filter("username", username).filter("password", password);
+//
+//    List<Event> Reservation = q.list();
     Event user = null;
-    if (null != Reservation && Reservation.size() > 0) {
-      user = Reservation.get(0);
-    }
+//    if (null != Reservation && Reservation.size() > 0) {
+//      user = Reservation.get(0);
+//    }
     return user;
   }
 
   public Event persist(Event reservation) {     
-	  ofy().save().entity(reservation).now();
-    clearCache();
+//	  ofy().save().entity(reservation).now();
+//    clearCache();
     return reservation;
   }
 }

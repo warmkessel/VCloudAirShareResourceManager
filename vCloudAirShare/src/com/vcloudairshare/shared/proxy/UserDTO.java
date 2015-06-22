@@ -4,17 +4,15 @@ import java.util.Date;
 
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
-import com.vcloudairshare.server.datastore.entity.Users;
+import com.vcloudairshare.server.datastore.entity.Account;
 import com.vcloudairshare.server.datastore.locator.ObjectifyLocator;
 
-@ProxyFor(value = Users.class, locator = ObjectifyLocator.class)
+@ProxyFor(value = Account.class, locator = ObjectifyLocator.class)
 public interface UserDTO extends EntityProxy {
 
 	public int getCondition();
 
 	public String getIpaddress();
-
-	public String getIpAddress();
 
 	public String getLanguage();
 
@@ -35,8 +33,6 @@ public interface UserDTO extends EntityProxy {
 	public void setCondition(int condition);
 
 	public void setIpaddress(String ipaddress);
-
-	public void setIpAddress(String ipAddress);
 
 	public void setLanguage(String language);
 

@@ -2,29 +2,20 @@ package com.vcloudairshare.server.datastore.entity;
 
 import java.util.Date;
 
-import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Index;
-import com.googlecode.objectify.annotation.Unindex;
 import com.vcloudairshare.shared.enumeration.Status;
 import com.vcloudairshare.shared.util.DateUtil;
 import com.vcloudairshare.shared.enumeration.EventType;
-@Entity
-@Unindex
+
 public class Event extends DatastoreObject {
 
-	@Index
 	private Long eventUser = 0l;
 
-	@Index
 	private Date eventDate = new Date();
 
-	@Index
 	private int status = Status.getDefault().getId();
 
-	@Index
 	private int eventType = EventType.getDefault().getId();
 	
-	@Index
 	private Long linkedEvent = 0l;
 	
 	public Event() {
