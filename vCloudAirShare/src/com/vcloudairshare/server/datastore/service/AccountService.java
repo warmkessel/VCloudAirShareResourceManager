@@ -81,7 +81,7 @@ public class AccountService {
 	}
 
 	public List<Account> findRange(int start, int limit) {
-		List<Account> theList = new ArrayList();
+		List<Account> theList = new ArrayList<Account>();
 		Session session = HibernateFactory.getSessionFactory().openSession();
 		Transaction tx = null;
 		try {
