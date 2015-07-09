@@ -49,6 +49,7 @@
 				<configuration>
 					<webappDirectory>war</webappDirectory>
 					<webXml>war\WEB-INF\web.xml</webXml>
+          			<packagingExcludes>WEB-INF/lib/gwt-user-2.7.0.jar,WEB-INF/lib/gwt-dev-2.7.0.jar</packagingExcludes>
 				</configuration>
 			</plugin>
 		</plugins>
