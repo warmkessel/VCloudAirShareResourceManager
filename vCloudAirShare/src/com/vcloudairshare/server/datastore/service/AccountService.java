@@ -80,6 +80,7 @@ public class AccountService {
 		return users;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Account> findRange(int start, int limit) {
 		List<Account> theList = new ArrayList<Account>();
 		Session session = HibernateFactory.getSessionFactory().openSession();

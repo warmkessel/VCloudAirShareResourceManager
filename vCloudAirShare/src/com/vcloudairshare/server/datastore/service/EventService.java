@@ -2,7 +2,6 @@ package com.vcloudairshare.server.datastore.service;
 
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -11,13 +10,12 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.vcloudairshare.server.datastore.entity.Event;
-import com.vcloudairshare.server.datastore.entity.Account;
-import com.vcloudairshare.shared.enumeration.Status;
 
 public class EventService{
 
+	@SuppressWarnings("unchecked")
 	public List<Event> findRange(int start, int limit){
-		  List<Event> theList = new ArrayList();
+		  List<Event> theList = new ArrayList<Event>();
 		  Session session = HibernateFactory.getSessionFactory().openSession();
 			Transaction tx = null;
 			try {

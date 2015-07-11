@@ -18,7 +18,7 @@
     String idString = request.getParameter("id");
   	if(null != idString && idString.length() > 0){
   		Long inLong = Long.parseLong(idString);
-  		a = DataServices.getAccountService().findById(inLong);
+  		a = AccountService.findById(inLong);
   	}
   	if(a == null){
   		a = new Account();

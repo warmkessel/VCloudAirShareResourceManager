@@ -6,7 +6,6 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.web.bindery.event.shared.HandlerRegistration;
 import com.vcloudairshare.client.widget.VirtualMachineItemView;
 import com.vcloudairshare.shared.interfaces.HomeService;
 import com.vcloudairshare.shared.interfaces.HomeServiceAsync;
@@ -19,7 +18,7 @@ public class HomeView extends Composite implements IHomeView {
   // private static ViewConstants constants = GWT.create(ViewConstants.class);
   // private static ViewMessages messages = GWT.create(ViewMessages.class);
   HomeServiceAsync homeService = (HomeServiceAsync) GWT.create(HomeService.class);
-  private HandlerRegistration handlerRegistration = null;
+//  private HandlerRegistration handlerRegistration = null;
   
   public static final String VMWAREBLOGSCOOKIEIDENTIFIER = "vmw";
 

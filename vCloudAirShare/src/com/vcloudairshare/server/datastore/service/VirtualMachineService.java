@@ -60,6 +60,7 @@ public class VirtualMachineService {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	public static List<VirtualMachine> findByAvialable(int start, int limit,
 			MachineType machineType, Status status) {
 		// Query<VirtualMachine> q =
@@ -142,8 +143,9 @@ public class VirtualMachineService {
 		return theVM;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<VirtualMachine> findRange(int start, int limit) {
-		List<VirtualMachine> theList = new ArrayList();
+		List<VirtualMachine> theList = new ArrayList<VirtualMachine>();
 		Session session = HibernateFactory.getSessionFactory().openSession();
 		Transaction tx = null;
 		try {

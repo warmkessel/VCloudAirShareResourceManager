@@ -188,13 +188,13 @@ public class OutbouldCommTest {
 		return conn.getInputStream();
 	}
 
-	private static String processString(String theString) {
-		if (theString.indexOf(",") >= 0) {
-			theString = theString.substring(0, theString.indexOf(",") - 1);
-		}
-
-		return theString;
-	}
+//	private static String processString(String theString) {
+//		if (theString.indexOf(",") >= 0) {
+//			theString = theString.substring(0, theString.indexOf(",") - 1);
+//		}
+//
+//		return theString;
+//	}
 
 	private static InputStream request4() throws IOException {
 		URL url = null;

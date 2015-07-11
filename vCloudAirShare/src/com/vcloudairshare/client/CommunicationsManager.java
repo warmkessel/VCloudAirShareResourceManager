@@ -3,11 +3,16 @@ package com.vcloudairshare.client;
 import java.util.List;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.http.client.URL;
+import com.google.gwt.jsonp.client.JsonpRequestBuilder;
+import com.google.gwt.jsonp.client.TimeoutException;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.web.bindery.requestfactory.shared.Receiver;
+import com.vcloudairshare.client.event.ErrorEvent;
 import com.vcloudairshare.client.event.LoginEvent;
 import com.vcloudairshare.client.event.VirtualMachinesReceivedEvent;
+import com.vcloudairshare.client.jso.FeedJSO;
 import com.vcloudairshare.shared.enumeration.MachineType;
 import com.vcloudairshare.shared.enumeration.Status;
 import com.vcloudairshare.shared.interfaces.HomeService;
@@ -16,7 +21,8 @@ import com.vcloudairshare.shared.proxy.UserDTO;
 import com.vcloudairshare.shared.proxy.VirtualMachineDTO;
 
 public class CommunicationsManager {  
-  
+	 public static String OAUTHTOKEN = "oauth_token=";
+		public static String OAUTHVERIFIER = "oauth_verifier=";
 	private final HomeServiceAsync homeService = GWT
 			.create(HomeService.class);
 	
@@ -120,4 +126,43 @@ public class CommunicationsManager {
 					
 		});
 	  }
+	  public void fetchDataUsingGwt() {
+		    String url = URL.encode(ExternalJNSI.getJSNI().getCallback() + OAUTHTOKEN + extractParam(OAUTHTOKEN) + "&" + OAUTHVERIFIER + extractParam(OAUTHVERIFIER));
+		    JsonpRequestBuilder requestBuilder = new JsonpRequestBuilder();
+		    requestBuilder.setTimeout(60000);
+		    requestBuilder.requestObject(url, new AsyncCallback<FeedJSO>() {
+		      @Override
+		      public void onFailure(Throwable caught) {
+//		        Window.alert(caught.getMessage());
+		        if(caught instanceof TimeoutException){
+		          factory.setErrorMessage("We did not get the list of articles in the allotted amount of time.  Please refresh the page, perhaps that will work.  Here are some details..." + caught.getMessage() );
+		          factory.getEventBus().fireEvent(new ErrorEvent());        }
+		        else{
+		          factory.setErrorMessage("We seems to have a problem getting the Articles. Here are some details..." + caught.getMessage() );
+		          factory.getEventBus().fireEvent(new ErrorEvent());
+		        }
+		      }
+
+		      @Override
+		      public void onSuccess(FeedJSO feed) {
+		        factory.getEntityDepo().setFeed(feed);
+		        factory.getEventBus().fireEvent(new LoginEvent());
+		      }
+		    });
+		  }
+	 
+		private String extractParam(String theParam){
+			String tkn = Window.Location.getQueryString();
+			
+			int start = tkn.indexOf(theParam);
+			if(start >=0){
+				tkn = tkn.substring(start + theParam.length(), tkn.length());
+				start = tkn.indexOf("&");
+				if(start >=0){
+					tkn= tkn.substring(0, start);
+				}
+				return tkn;
+			}
+			return "";
+		}
   }

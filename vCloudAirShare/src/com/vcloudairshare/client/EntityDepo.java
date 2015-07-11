@@ -2,6 +2,7 @@ package com.vcloudairshare.client;
 
 import java.util.List;
 
+import com.vcloudairshare.client.jso.FeedJSO;
 import com.vcloudairshare.shared.enumeration.Status;
 import com.vcloudairshare.shared.proxy.UserDTO;
 import com.vcloudairshare.shared.proxy.VirtualMachineDTO;
@@ -9,6 +10,8 @@ import com.vcloudairshare.shared.proxy.VirtualMachineDTO;
 
 public class EntityDepo {
   private UserDTO user = null;
+  private FeedJSO feed = null;
+
   private List<VirtualMachineDTO> vm = null;
   private VirtualMachineDTO test = null;
   
@@ -35,6 +38,12 @@ public VirtualMachineDTO getTest() {
 }
 public void setTest(VirtualMachineDTO test) {
 	this.test = test;
+}
+public FeedJSO getFeed() {
+	return feed;
+}
+public void setFeed(FeedJSO feed) {
+	this.feed = feed;
 }
   
 }

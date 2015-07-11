@@ -5,8 +5,8 @@
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/test"/>
         <property name="context-root" value="vCloudAirShare"/>
         <property name="java-output-path" value="/vCloudAirShare/target/vCloudAirShare-0.0.1-SNAPSHOT/WEB-INF/classes"/>
+        <property name="component.exclusion.patterns" value="WEB-INF/lib/gwt-user-2.7.0.jar,WEB-INF/lib/gwt-dev-2.7.0.jar"/>
     </wb-module>
 </project-modules>

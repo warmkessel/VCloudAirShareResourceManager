@@ -30,8 +30,8 @@ public class VirtualMachineItemView extends Composite {
 
 	private final EditorDriver editorDriver = GWT.create(EditorDriver.class);
 
-	private static VirtualMachineItemViewUiBinder uiBinder = GWT
-			.create(VirtualMachineItemViewUiBinder.class);
+//	private static VirtualMachineItemViewUiBinder uiBinder = GWT
+//			.create(VirtualMachineItemViewUiBinder.class);
 
 	interface VirtualMachineItemViewUiBinder extends
 			UiBinder<Widget, VirtualMachineItemView> {

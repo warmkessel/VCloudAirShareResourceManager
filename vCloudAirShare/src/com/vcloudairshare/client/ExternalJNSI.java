@@ -5,8 +5,6 @@ public class ExternalJNSI {
   public static final String PANELHEIGHT = "200";
   public static final String[] PANELIST = "0,1,2".split(",");
   public static final String CALLBACKLOCATION = "http://www.vmwareblogs.com/callback.jsp";
-  public static final String ARTICLELOCATION = "http://www.vmwareblogs.com/article.jsp?id=";
-  public static final String BLOGLOCATION = "http://www.vmwareblogs.com/blog.jsp?id=";
 
   private static ExternalJNSI external = null;
 
@@ -33,31 +31,6 @@ public class ExternalJNSI {
       return getCallbackLoc();
     }
   }
-
-  public final native String getArticleLoc() /*-{
-		return $wnd.articleLoc;
-  }-*/;
-
-  public String getArticle() {
-
-    if (null == getArticleLoc() || getArticleLoc().length() == 0) {
-      return ARTICLELOCATION;
-    } else {
-      return getArticleLoc();
-    }
-  }
-  public final native String getBlogLoc() /*-{
-  return $wnd.blogLoc;
-}-*/;
-
-public String getBlog() {
-
-  if (null == getBlogLoc() || getBlogLoc().length() == 0) {
-    return BLOGLOCATION;
-  } else {
-    return getBlogLoc();
-  }
-}
 
   public final native String getTestModeLoc() /*-{
 		return $wnd.testMode;
