@@ -52,6 +52,16 @@
 					<packagingExcludes>WEB-INF/lib/gwt-user-2.7.0.jar,WEB-INF/lib/gwt-dev-2.7.0.jar</packagingExcludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.0</version>
+				<configuration>
+					<url>http://localhost:8080/manager</url>
+					<path>/</path>
+					<warSourceDirectory>war</warSourceDirectory>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<properties>
@@ -59,6 +69,11 @@
 	</properties>
 	<dependencies>
 		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency><dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-servlet</artifactId>
 			<version>2.7.0</version>
@@ -67,6 +82,7 @@
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
 			<version>2.7.0</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -83,5 +99,7 @@
 			<artifactId>scribe</artifactId>
 			<version>1.3.7</version>
 		</dependency>
+		
+		
 	</dependencies>
 </project>
