@@ -8,7 +8,6 @@
 		}
 	</ui:style>
 	<g:HTMLPanel>
-	<g:Image styleName="{style.twitter}" ui:field="twitter"
-				width="256" height="54" resource='{res.twitter}' visible="true" />
+	<g:Label styleName="{style.twitter}" ui:field="twitter" text="Fetching your account" />
 	</g:HTMLPanel>
 </ui:UiBinder> 

@@ -10,4 +10,6 @@ public interface ImageBundle extends ClientBundle{
   @Source("poff.png")
   ImageResource poweroff();
   
+  @Source("signin_twitter.png")
+  ImageResource twitter();
 }

@@ -33,6 +33,9 @@ public class vCloudAirShare implements EntryPoint, ResizeHandler {
   public void onModuleLoad() {
     clientFactory = GWT.create(ClientFactory.class);
     EventBus eventBus = clientFactory.getEventBus();
+
+    clientFactory.getEntityDepo().processsURL();
+
     PlaceController placeController = clientFactory.getPlaceController();
 
     // Start ActivityManager for the main widget with our ActivityMapper

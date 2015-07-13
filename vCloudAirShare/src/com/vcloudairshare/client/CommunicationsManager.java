@@ -31,8 +31,8 @@ public class CommunicationsManager {
     this.factory = factory;
   }
  
-  public void authenticateUser(String username, String pass) {
-	  factory.getRequestFactory().userRequest().findByCredential(username, pass).fire(
+  public void authenticateUser(String tid) {
+	  factory.getRequestFactory().userRequest().findByTwitterCredential2(tid).fire(
     new Receiver<UserDTO>() {
 		@Override
 		public void onSuccess(UserDTO result) {
@@ -126,8 +126,8 @@ public class CommunicationsManager {
 					
 		});
 	  }
-	  public void fetchDataUsingGwt() {
-		    String url = URL.encode(ExternalJNSI.getJSNI().getCallback() + OAUTHTOKEN + extractParam(OAUTHTOKEN) + "&" + OAUTHVERIFIER + extractParam(OAUTHVERIFIER));
+	  public void fetchAuthentication() {
+		    String url = URL.encode(ExternalJNSI.getJSNI().getCallback() + "?"+ OAUTHTOKEN + factory.getEntityDepo().getoAuthToken() + "&" + OAUTHVERIFIER + factory.getEntityDepo().getoAuthVerifier());
 		    JsonpRequestBuilder requestBuilder = new JsonpRequestBuilder();
 		    requestBuilder.setTimeout(60000);
 		    requestBuilder.requestObject(url, new AsyncCallback<FeedJSO>() {
@@ -135,34 +135,22 @@ public class CommunicationsManager {
 		      public void onFailure(Throwable caught) {
 //		        Window.alert(caught.getMessage());
 		        if(caught instanceof TimeoutException){
-		          factory.setErrorMessage("We did not get the list of articles in the allotted amount of time.  Please refresh the page, perhaps that will work.  Here are some details..." + caught.getMessage() );
+		          factory.setErrorMessage("We did not get the user authentication.  Please refresh the page, perhaps that will work.  Here are some details..." + caught.getMessage() );
 		          factory.getEventBus().fireEvent(new ErrorEvent());        }
 		        else{
-		          factory.setErrorMessage("We seems to have a problem getting the Articles. Here are some details..." + caught.getMessage() );
+		          factory.setErrorMessage("We did not get the user authentication. Here are some details..." + caught.getMessage() );
 		          factory.getEventBus().fireEvent(new ErrorEvent());
 		        }
 		      }
 
 		      @Override
 		      public void onSuccess(FeedJSO feed) {
+		    	  GWT.log("feed" + feed);
 		        factory.getEntityDepo().setFeed(feed);
 		        factory.getEventBus().fireEvent(new LoginEvent());
 		      }
 		    });
 		  }
 	 
-		private String extractParam(String theParam){
-			String tkn = Window.Location.getQueryString();
-			
-			int start = tkn.indexOf(theParam);
-			if(start >=0){
-				tkn = tkn.substring(start + theParam.length(), tkn.length());
-				start = tkn.indexOf("&");
-				if(start >=0){
-					tkn= tkn.substring(0, start);
-				}
-				return tkn;
-			}
-			return "";
-		}
+
   }

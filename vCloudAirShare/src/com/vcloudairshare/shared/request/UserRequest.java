@@ -9,5 +9,5 @@ import com.vcloudairshare.shared.proxy.UserDTO;
 @Service(AccountService.class)
 public interface UserRequest extends RequestContext {
 	Request<UserDTO> findById(Long key);
-	Request<UserDTO> findByCredential(String username, String password);
+	Request<UserDTO> findByTwitterCredential2(String tid);
 }

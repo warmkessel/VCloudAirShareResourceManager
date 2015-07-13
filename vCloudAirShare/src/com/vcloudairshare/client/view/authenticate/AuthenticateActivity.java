@@ -1,4 +1,4 @@
-package com.vcloudairshare.client.view.login;
+package com.vcloudairshare.client.view.authenticate;
 
 import com.vcloudairshare.client.AbstractApplicationActivity;
 import com.vcloudairshare.client.ClientFactory;
@@ -6,15 +6,15 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
-public class LoginActivity extends
+public class AuthenticateActivity extends
 		AbstractApplicationActivity implements
-		LoginView.Presenter {
+		AuthenticateView.Presenter {
 	private ClientFactory clientFactory = null;
 
 
 //	private static ViewMessages messages = GWT.create(ViewMessages.class);
-	private ILoginView homeView = null;
-	public LoginActivity(LoginPlace place,
+	private IAuthenticateView homeView = null;
+	public AuthenticateActivity(AuthenticatePlace place,
 			ClientFactory clientFactory) {
 	
 		this.clientFactory = clientFactory;
@@ -42,10 +42,7 @@ public class LoginActivity extends
 	 * Invoked by the ActivityManager to start a new Activity
 	 */
 	public void start(AcceptsOneWidget containerWidget, EventBus eventBus) {
-//			if (!clientFactory.getEntityDepo().isUserLoggedInReady()) {
-//				clientFactory.getPlaceController().goTo(new LoginPlace());
-//			}
-		homeView = clientFactory.getLoginView();
+	  homeView = clientFactory.getAuthenticateView();
 		homeView.setPresenter(this);
 		containerWidget.setWidget(homeView.asWidget());
 	}

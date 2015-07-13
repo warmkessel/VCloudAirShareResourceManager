@@ -13,8 +13,8 @@ import com.vcloudairshare.server.datastore.entity.Account;
 
 public class AccountService {
 
-	public static Account findByCredential(String username, String password) {
-		return new AccountService().findByLogInCredentials(username, password);
+	public static Account findByTwitterCredential2(String tid) {
+		return new AccountService().findByTwitterCredential(tid);
 	}
 
 	public static Account findById(Long key) {
@@ -31,14 +31,14 @@ public class AccountService {
 		return null;
 	}
 
-	public Account findByLogInCredentials(String username, String password) {
+	public Account findByTwitterCredential(String tid) {
 		Session session = HibernateFactory.getSessionFactory().openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
 			Criteria theCriteria = session.createCriteria(Account.class);
-			theCriteria.add(Restrictions.eq("username", username));
-			theCriteria.add(Restrictions.eq("password", password));
+//			theCriteria.add(Restrictions.eq("username", username));
+//			theCriteria.add(Restrictions.eq("password", password));
 
 			return (Account) theCriteria.uniqueResult();
 		} catch (HibernateException e) {

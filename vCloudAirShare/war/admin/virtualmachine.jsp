@@ -19,7 +19,7 @@
     String idString = request.getParameter("id");
   	if(null != idString && idString.length() > 0){
   		Long inLong = Long.parseLong(idString);
-  		a = VirtualMachineService.findById(inLong);
+  		a = DataServices.getVirtualMachineService().findById(inLong);
   	}
   	if(a == null){
   		a = new VirtualMachine();
