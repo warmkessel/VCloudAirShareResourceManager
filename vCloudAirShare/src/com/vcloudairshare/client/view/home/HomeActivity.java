@@ -48,8 +48,8 @@ public class HomeActivity extends AbstractApplicationActivity implements
 			if (clientFactory.getEntityDepo().isUserLoggedInReady()) {
 				clientFactory.getPlaceController()
 						.goTo(new AuthenticatePlace());
-//			} else if (clientFactory.getEntityDepo().isAccountReady()) {
-//				clientFactory.getPlaceController().goTo(new AccountPlace());
+			} else if (clientFactory.getEntityDepo().isAccountReady()) {
+				clientFactory.getPlaceController().goTo(new AccountPlace());
 			} 
 			else {
 				clientFactory.getPlaceController().goTo(new LoginPlace());

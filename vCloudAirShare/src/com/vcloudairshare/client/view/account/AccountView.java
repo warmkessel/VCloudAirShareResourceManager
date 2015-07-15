@@ -39,10 +39,8 @@ public class AccountView extends Composite implements IAccountView {
 		this.homeActivity = loginActivity;
 		
 		
-		if (homeActivity
-				.getClientFactory()
-				.getEntityDepo()
-				.isUserLoggedInReady()) {
+		if (homeActivity.getClientFactory().getEntityDepo()
+				.isAccountReady()) {
 			homeActivity.getClientFactory().getCommunicationsManager()
 					.fetchAccount();
 			registerHandler();
