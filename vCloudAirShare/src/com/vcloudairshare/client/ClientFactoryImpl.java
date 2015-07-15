@@ -4,6 +4,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.event.shared.SimpleEventBus;
+import com.vcloudairshare.client.view.account.AccountView;
+import com.vcloudairshare.client.view.account.IAccountView;
 import com.vcloudairshare.client.view.authenticate.AuthenticateView;
 import com.vcloudairshare.client.view.authenticate.IAuthenticateView;
 import com.vcloudairshare.client.view.failure.FailureView;
@@ -40,6 +42,9 @@ public class ClientFactoryImpl implements ClientFactory {
  
   public IAuthenticateView getAuthenticateView() {
 	    return new AuthenticateView();
+	}
+  public IAccountView getAccountView() {
+	    return new AccountView();
 	}
   public EventBus getEventBus() {
     return eventBus;

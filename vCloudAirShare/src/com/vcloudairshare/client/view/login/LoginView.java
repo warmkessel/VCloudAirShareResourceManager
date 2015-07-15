@@ -10,10 +10,6 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.web.bindery.event.shared.HandlerRegistration;
-import com.vcloudairshare.client.event.LoginEvent;
-import com.vcloudairshare.client.event.LoginEventHandler;
-import com.vcloudairshare.client.view.home.HomePlace;
 import com.vcloudairshare.shared.interfaces.HomeService;
 import com.vcloudairshare.shared.interfaces.HomeServiceAsync;
 
@@ -26,7 +22,7 @@ public class LoginView extends Composite implements ILoginView {
 	// private static ViewMessages messages = GWT.create(ViewMessages.class);
 	HomeServiceAsync homeService = (HomeServiceAsync) GWT
 			.create(HomeService.class);
-	private HandlerRegistration handlerRegistration = null;
+//	private HandlerRegistration handlerRegistration = null;
 
 	public static final String VMWAREBLOGSCOOKIEIDENTIFIER = "vmw";
 
@@ -52,19 +48,19 @@ public class LoginView extends Composite implements ILoginView {
 		Window.Location.replace("/login.jsp");
 	}
 
-	public void registerHandler() {
-		handlerRegistration = homeActivity
-				.getClientFactory()
-				.getEventBus()
-				.addHandler(LoginEvent.TYPE,
-						new LoginEventHandler() {
-							@Override
-							public void onMessageReceived(
-									LoginEvent event) {
-								 homeActivity.getClientFactory().getPlaceController().goTo(new
-								HomePlace());
-								handlerRegistration.removeHandler();
-							}
-						});
-	}
+//	public void registerHandler() {
+//		handlerRegistration = homeActivity
+//				.getClientFactory()
+//				.getEventBus()
+//				.addHandler(LoginEvent.TYPE,
+//						new LoginEventHandler() {
+//							@Override
+//							public void onMessageReceived(
+//									LoginEvent event) {
+//								 homeActivity.getClientFactory().getPlaceController().goTo(new
+//								HomePlace());
+//								handlerRegistration.removeHandler();
+//							}
+//						});
+//	}
 }

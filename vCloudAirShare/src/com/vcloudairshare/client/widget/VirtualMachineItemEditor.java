@@ -98,7 +98,7 @@ public class VirtualMachineItemEditor extends Composite implements Editor<Virtua
 			  checkout.setText("Checkout");
 		  }
 		  else{
-			  if(currentUserName.getText().equals(getClientFactory().getEntityDepo().getUser().getUsername())){
+			  if(currentUserName.getText().equals(getClientFactory().getEntityDepo().getUser().getScreen_name())){
 				  checkout.setText("Release");
 
 			  }

@@ -10,46 +10,56 @@ import com.vcloudairshare.server.datastore.locator.ObjectifyLocator;
 @ProxyFor(value = Account.class, locator = ObjectifyLocator.class)
 public interface UserDTO extends EntityProxy {
 
-	public int getCondition();
-
+	public Long getId();
+	
+	public void setId(Long id);
+	
 	public String getIpaddress();
-
-	public String getLanguage();
-
-	public Date getLastloggedin();
-
-	public Date getLastLoggedIn();
-
-	public String getPassword();
-
-	public int getStatus();
-
-	public String getUseragent();
-
-	public String getUsername();
-
-	public String getUserName();
-
-	public void setCondition(int condition);
 
 	public void setIpaddress(String ipaddress);
 
-	public void setLanguage(String language);
+	public Date getLastloggedin();
 
 	public void setLastloggedin(Date lastloggedin);
 
-	public void setLastLoggedIn(Date lastLoggedIn);
+	public Long getUserId();
 
-	public void setPassword(String password);
+	public void setUserId(Long userId);
+
+	public String getName();
+
+	public void setName(String name);
+
+	public String getScreen_name();
+
+	public void setScreen_name(String screen_name);
+
+	public String getLocation();
+
+	public void setLocation(String location);
+
+	public String getDescription();
+
+	public void setDescription(String description);
+
+	public String getUrl();
+
+	public void setUrl(String url);
+
+	public int getCondition();
+
+	public void setCondition(int condition);
+
+	public String getLanguage();
+
+	public void setLanguage(String language);
+
+	public int getStatus();
 
 	public void setStatus(int status);
 
-	public void setStatus(String status);
+	public String getUseragent();
 
 	public void setUseragent(String useragent);
-
-	public void setUsername(String username);
-
-	public void setUserName(String userName);
 
 }

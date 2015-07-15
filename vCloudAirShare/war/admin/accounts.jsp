@@ -35,7 +35,7 @@
 	<td>
 	<a href="account.jsp?id=<%= usr.get(x).getId()%>"><%= usr.get(x).getId()%></a>
 	</td><td>
-	<%= usr.get(x).getUsername()%>
+	<%= usr.get(x).getName()%>
 	</td>
 	<td>
 	<%= Status.fromId(usr.get(x).getStatus()).toString()%>

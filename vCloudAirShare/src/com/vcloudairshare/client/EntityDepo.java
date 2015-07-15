@@ -10,6 +10,8 @@ import com.vcloudairshare.shared.proxy.UserDTO;
 import com.vcloudairshare.shared.proxy.VirtualMachineDTO;
 
 public class EntityDepo {
+	public static String ACCOUNTID = "AccountId";
+
 	public static String OAUTHTOKEN = "oauth_token=";
 	public static String OAUTHVERIFIER = "oauth_verifier=";
 
@@ -33,9 +35,26 @@ public class EntityDepo {
 	public EntityDepo() {
 
 	}
-	public boolean isUserLoggedInReady() {
-		return (getoAuthToken() != null && getoAuthVerifier() != null);
+
+	public boolean isAccountReady() {
+		return (getFeed() != null || getAccountId() != null);
+//		return (getFeed() != null);
+//		return true;
 	}
+
+	public String getAccountId() {
+		return Cookies.getCookie(ACCOUNTID);
+	}
+
+	public void setAccountId(String theID) {
+		Cookies.setCookie(ACCOUNTID, theID);
+	}
+
+	public boolean isUserLoggedInReady() {
+		return (getoAuthToken() != null && getoAuthVerifier() != null
+				&& getoAuthToken().length() > 0 && getoAuthVerifier().length() > 0);
+	}
+
 	public boolean isUserLoggedIn() {
 		return (getUser() != null && getUser().getStatus() == Status.APPROVED
 				.getId());
@@ -82,24 +101,24 @@ public class EntityDepo {
 	}
 
 	public void processsURL() {
-		String tmp3 = Cookies.getCookie(OAUTHTOKEN);
-		if (null != tmp3 && tmp3.length() > 0) {
-			oAuthToken = tmp3;
-		}
-		String tmp4 = Cookies.getCookie(OAUTHVERIFIER);
-		if (null != tmp4 && tmp4.length() > 0) {
-			oAuthVerifier = tmp4;
-		}
+		// String tmp3 = Cookies.getCookie(OAUTHTOKEN);
+		// if (null != tmp3 && tmp3.length() > 0) {
+		// oAuthToken = tmp3;
+		// }
+		// String tmp4 = Cookies.getCookie(OAUTHVERIFIER);
+		// if (null != tmp4 && tmp4.length() > 0) {
+		// oAuthVerifier = tmp4;
+		// }
 
 		String tmp = extractParam(OAUTHTOKEN);
 		if (null != tmp && tmp.length() > 0) {
 			oAuthToken = tmp;
-			Cookies.setCookie(OAUTHTOKEN, oAuthToken);
+			// Cookies.setCookie(OAUTHTOKEN, oAuthToken);
 		}
 		String tmp2 = extractParam(OAUTHVERIFIER);
 		if (null != tmp2 && tmp2.length() > 0) {
 			oAuthVerifier = tmp2;
-			Cookies.setCookie(OAUTHVERIFIER, oAuthVerifier);
+			// Cookies.setCookie(OAUTHVERIFIER, oAuthVerifier);
 		}
 	}
 

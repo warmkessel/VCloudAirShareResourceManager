@@ -1,5 +1,10 @@
 package com.vcloudairshare.server.datastore.locator;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+
+import com.vcloudairshare.server.datastore.entity.Account;
 import com.vcloudairshare.server.datastore.entity.DatastoreObject;
+import com.vcloudairshare.server.datastore.service.HibernateFactory;
 import com.google.web.bindery.requestfactory.shared.Locator;
 
 /**
@@ -25,8 +30,21 @@ public class ObjectifyLocator extends Locator<DatastoreObject, Long>
 	@Override
 	public DatastoreObject find(Class<? extends DatastoreObject> clazz, Long id)
 	{
-//    return ((DatastoreObject) ObjectifyService.ofy().load().value(Key.create(clazz, id)).now());
+		Session session = HibernateFactory.getSessionFactory().openSession();
+		try {
+			return (DatastoreObject) session.get(clazz, id);
+
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
 		return null;
+		
+		
+		
+//    return ((DatastoreObject) ObjectifyService.ofy().load().value(Key.create(clazz, id)).now());
+//		return null;
 	}
 
 	@Override

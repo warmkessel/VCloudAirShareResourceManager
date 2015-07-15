@@ -1,4 +1,4 @@
-package com.vcloudairshare.client.view.authenticate;
+package com.vcloudairshare.client.view.account;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -6,16 +6,15 @@ import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.HandlerRegistration;
-import com.vcloudairshare.client.event.AuthenticateEvent;
-import com.vcloudairshare.client.event.AuthenticateEventHandler;
-import com.vcloudairshare.client.view.account.AccountPlace;
+import com.vcloudairshare.client.event.AccountEvent;
+import com.vcloudairshare.client.event.AccountEventHandler;
+import com.vcloudairshare.client.view.home.HomePlace;
 import com.vcloudairshare.shared.interfaces.HomeService;
 import com.vcloudairshare.shared.interfaces.HomeServiceAsync;
 
-public class AuthenticateView extends Composite implements IAuthenticateView {
-	@UiTemplate("AuthenticateView.ui.xml")
-	interface EpisodeDetailsViewUiBinder extends
-			UiBinder<Widget, AuthenticateView> {
+public class AccountView extends Composite implements IAccountView {
+	@UiTemplate("AccountView.ui.xml")
+	interface EpisodeDetailsViewUiBinder extends UiBinder<Widget, AccountView> {
 	}
 
 	// private static ViewConstants constants = GWT.create(ViewConstants.class);
@@ -28,37 +27,41 @@ public class AuthenticateView extends Composite implements IAuthenticateView {
 
 	// Driver driver = GWT.create(Driver.class);
 
-	AuthenticateActivity homeActivity;
+	AccountActivity homeActivity;
 
-	public AuthenticateView() {
+	public AccountView() {
 		initWidget(GWT.<EpisodeDetailsViewUiBinder> create(
 				EpisodeDetailsViewUiBinder.class).createAndBindUi(this));
 	}
 
 	@Override
-	public void setPresenter(AuthenticateActivity loginActivity) {
+	public void setPresenter(AccountActivity loginActivity) {
 		this.homeActivity = loginActivity;
-
-		if (homeActivity.getClientFactory().getEntityDepo()
+		
+		
+		if (homeActivity
+				.getClientFactory()
+				.getEntityDepo()
 				.isUserLoggedInReady()) {
 			homeActivity.getClientFactory().getCommunicationsManager()
-					.fetchAuthentication();
+					.fetchAccount();
 			registerHandler();
 		}
 	}
+
+	
 
 	public void registerHandler() {
 		handlerRegistration = homeActivity
 				.getClientFactory()
 				.getEventBus()
-				.addHandler(AuthenticateEvent.TYPE,
-						new AuthenticateEventHandler() {
+				.addHandler(AccountEvent.TYPE,
+						new AccountEventHandler() {
 							@Override
 							public void onMessageReceived(
-									AuthenticateEvent event) {
-								homeActivity.getClientFactory()
-										.getPlaceController()
-										.goTo(new AccountPlace());
+									AccountEvent event) {
+								 homeActivity.getClientFactory().getPlaceController().goTo(new
+								HomePlace());
 								handlerRegistration.removeHandler();
 							}
 						});

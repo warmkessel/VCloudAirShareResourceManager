@@ -18,20 +18,20 @@
     String idString = request.getParameter("id");
   	if(null != idString && idString.length() > 0){
   		Long inLong = Long.parseLong(idString);
-  		a = DataServices.getAccountService().findById(inLong);
+  		a = AccountService.findById(inLong);
   	}
   	if(a == null){
   		a = new Account();
   	}
   	boolean dirty = false;
-    String username = request.getParameter("username");
-  	if(null != username && username.length() > 0){
-  		a.setUserName(username);
+    String screenName = request.getParameter("screenName");
+  	if(null != screenName && screenName.length() > 0){
+  		a.setScreen_name(screenName);
   		dirty = true;
   	}
-  	String password = request.getParameter("password");
-  	if(null != password && password.length() > 0){
-  		a.setPassword(password);
+  	String description = request.getParameter("description");
+  	if(null != description && description.length() > 0){
+  		a.setDescription(description);
   		dirty = true;
   	}
   	String language = request.getParameter("language");
@@ -45,7 +45,7 @@
   		dirty = true;
   	}
   	if(dirty){
-  		a = DataServices.getAccountService().persist(a);
+  		a = AccountService.persist(a);
   	}
   }
   catch (NumberFormatException NFE){
@@ -59,9 +59,9 @@ Last Loggedin Date: <%= new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z").form
 <form action="account.jsp<% if(null != a.getId()){out.print("?id=" + a.getId().toString());} %>" method="post">
 ID: <%= a.getId() %><% if(null != a.getId()){ %><input type="hidden" name="id" value="<%= a.getId() %>"><%}%>
 <br>
-User Name: <input type="text" name="username" value="<%= a.getUserName() %>"></input>
+Screen Name: <input type="text" name="screenName" value="<%= a.getScreen_name() %>"></input>
 <br>
-Password: <input type="text" name="password" value="<%= a.getPassword() %>"></input>
+Description: <input type="text" name="description" value="<%= a.getDescription() %>"></input>
 <br>
 Language: 
 <select name="language">

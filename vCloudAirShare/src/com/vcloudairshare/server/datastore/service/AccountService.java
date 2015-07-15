@@ -2,6 +2,7 @@ package com.vcloudairshare.server.datastore.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -10,19 +11,19 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import com.vcloudairshare.server.datastore.entity.Account;
+import com.vcloudairshare.shared.enumeration.Status;
 
 public class AccountService {
 
-	public static Account findByTwitterCredential2(String tid) {
-		return new AccountService().findByTwitterCredential(tid);
-	}
+	private static final Logger log = Logger.getLogger(AccountService.class
+			.getName());
 
 	public static Account findById(Long key) {
 		// return OfyService.ofy().load().type(Users.class).id(key).now();
-
 		Session session = HibernateFactory.getSessionFactory().openSession();
 		try {
 			return (Account) session.get(Account.class, key);
+
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		} finally {
@@ -31,39 +32,38 @@ public class AccountService {
 		return null;
 	}
 
-	public Account findByTwitterCredential(String tid) {
+	public static Account findByUserIdEnsured(Long key) {
+		// return OfyService.ofy().load().type(Users.class).id(key).now();
 		Session session = HibernateFactory.getSessionFactory().openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
 			Criteria theCriteria = session.createCriteria(Account.class);
-//			theCriteria.add(Restrictions.eq("username", username));
-//			theCriteria.add(Restrictions.eq("password", password));
+			theCriteria.add(Restrictions.eq("userId", key));
+			Account theReturn = (Account) theCriteria.uniqueResult();
+			if (theReturn == null) {
+				theReturn = new Account();
+				theReturn.setUserId(key);
+				theReturn.setStatus(Status.APPROVED.getId());
+				//session.saveOrUpdate(theReturn);
+				//tx.commit();
+				theReturn = persist(theReturn);
+				log.warning("created account" + key);
+			}
 
-			return (Account) theCriteria.uniqueResult();
+			return theReturn;
 		} catch (HibernateException e) {
-			if (tx != null)
-				tx.rollback();
 			e.printStackTrace();
 		} finally {
 			session.close();
 		}
 		return null;
-
-		// Query<Users> q = OfyService.ofy().load().type(Users.class);
-		// q = q.limit(1).filter("username", username).filter("password",
-		// password).filter("status", Status.APPROVED.getId());
-		//
-		// List<Users> users = q.list();
-		// Users user = null;
-		// if (null != users && users.size() > 0) {
-		// user = users.get(0);
-		// }
-		// return user;
 	}
 
-	public Account persist(Account users) {
-		users.onPersist();
+	public static Account persist(Account users) {
+		log.warning("!!!!!   updated account " + users.getId());
+
+		//users.onPersist();
 		Session session = HibernateFactory.getSessionFactory().openSession();
 		Transaction tx = null;
 		try {

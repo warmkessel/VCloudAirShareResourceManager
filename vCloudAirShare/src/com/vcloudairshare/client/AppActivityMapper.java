@@ -3,6 +3,8 @@ package com.vcloudairshare.client;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.place.shared.Place;
+import com.vcloudairshare.client.view.account.AccountActivity;
+import com.vcloudairshare.client.view.account.AccountPlace;
 import com.vcloudairshare.client.view.authenticate.AuthenticateActivity;
 import com.vcloudairshare.client.view.authenticate.AuthenticatePlace;
 import com.vcloudairshare.client.view.failure.FailureActivity;
@@ -22,6 +24,8 @@ public class AppActivityMapper implements ActivityMapper {
 
     @Override
     public Activity getActivity(Place place) {
+    	if (place instanceof AccountPlace)
+            return new AccountActivity((AccountPlace) place, clientFactory);
     	if (place instanceof AuthenticatePlace)
             return new AuthenticateActivity((AuthenticatePlace) place, clientFactory);
     	if (place instanceof LoginPlace)
