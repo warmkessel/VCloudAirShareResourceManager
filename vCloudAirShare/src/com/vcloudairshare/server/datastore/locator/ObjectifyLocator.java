@@ -2,10 +2,9 @@ package com.vcloudairshare.server.datastore.locator;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
-import com.vcloudairshare.server.datastore.entity.Account;
+import com.google.web.bindery.requestfactory.shared.Locator;
 import com.vcloudairshare.server.datastore.entity.DatastoreObject;
 import com.vcloudairshare.server.datastore.service.HibernateFactory;
-import com.google.web.bindery.requestfactory.shared.Locator;
 
 /**
  * Generic @Locator for objects that extend DatastoreObject

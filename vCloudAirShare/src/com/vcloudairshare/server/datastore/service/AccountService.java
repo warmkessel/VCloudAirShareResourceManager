@@ -35,9 +35,9 @@ public class AccountService {
 	public static Account findByUserIdEnsured(Long key) {
 		// return OfyService.ofy().load().type(Users.class).id(key).now();
 		Session session = HibernateFactory.getSessionFactory().openSession();
-		Transaction tx = null;
+//		Transaction tx = null;
 		try {
-			tx = session.beginTransaction();
+//			tx = session.beginTransaction();
 			Criteria theCriteria = session.createCriteria(Account.class);
 			theCriteria.add(Restrictions.eq("userId", key));
 			Account theReturn = (Account) theCriteria.uniqueResult();

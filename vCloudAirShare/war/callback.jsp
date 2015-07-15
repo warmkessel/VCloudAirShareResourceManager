@@ -28,8 +28,6 @@
 			.apiKey("T2Dn3GOxnDWBE4ywC6RanwBkd")
 			.apiSecret(
 					"wN7yrWYB4Oilx2mK0AqSeX0xNzQYnGwvVYNW2i1piFo2FcfCyt")
-			.callback("http://localhost:8080/index.html")
-			.debug()
 			.build();
 
 	Token requestToken = new Token(
