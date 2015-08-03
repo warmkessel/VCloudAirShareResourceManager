@@ -16,38 +16,40 @@ public class OutbouldCommTest {
 	public static String login = "";
 	public static String login2 = "";
 
-
+	public static void main(String[] args) {
+		test();
+	}
 
 	public static String test() {
 		StringBuffer theReturn = new StringBuffer();
 		try {
-			System.out.println("Request");
+			System.out.println("Request 1");
 			buildResponse(theReturn, request1());
 
-			System.out.println("Next Request");
+			System.out.println("Request 2");
 			buildResponse(theReturn, request2());
 
 
-			System.out.println("Second Request");
+			System.out.println("Request 3");
 			buildResponse(theReturn, request3());
 			
-			System.out.println("Third Request");
+			System.out.println("Request 4");
 			buildResponse(theReturn, request4());
 			
-			System.out.println("Fourth Request");
+			System.out.println("Request 5");
 
 			buildResponse(theReturn, request5());
-			System.out.println("Fifth Request");
+			System.out.println("Request 6");
 
 			buildResponse(theReturn, request6());
-			System.out.println("Sixth Request");
+			System.out.println("Request 7");
 
 			buildResponse(theReturn, request7());
-			System.out.println("Seven Request");
+			System.out.println("Request 8");
 
 			buildResponse(theReturn, request8());
 			
-			System.out.println("8 Request");
+			System.out.println("Request 9");
 
 			buildResponse(theReturn, request9());
 		} catch (Exception e) {
@@ -347,7 +349,7 @@ public class OutbouldCommTest {
 		try {
 			url =  new URL(
 //						"https://us-virginia-1-4.vchs.vmware.com/api/compute/api/vApp/vapp-8ac36b2e-9df4-4718-a9a7-59ff7d239250");
-					"https://us-california-1-3.vchs.vmware.com/api/compute/api/vApp/vapp-4989d4e0-5c49-40b4-8104-6e12230b589b");
+					"https://us-california-1-3.vchs.vmware.com/api/compute/api/vApp/vapp-f8c1b7c3-1ede-4d51-b4e9-4126093bc59e");
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -375,7 +377,7 @@ public class OutbouldCommTest {
 		URL url = null;
 		try {
 			url =  new URL(
-						"https://us-california-1-3.vchs.vmware.com/api/compute/api/vApp/vapp-4989d4e0-5c49-40b4-8104-6e12230b589b/power/action/powerOn");
+						"https://us-california-1-3.vchs.vmware.com/api/compute/api/vApp/vapp-f8c1b7c3-1ede-4d51-b4e9-4126093bc59e/power/action/powerOn");
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
