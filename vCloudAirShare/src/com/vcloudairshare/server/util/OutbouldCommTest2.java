@@ -116,7 +116,7 @@ public class OutbouldCommTest2 {
 	public static StringBuffer buildResponse2(StringBuffer buffer,
 			InputStream is) {
 
-		BufferedInputStream bis = null;
+//		BufferedInputStream bis = null;
 
 		// try {
 		// // open input stream test.txt for reading purpose.
