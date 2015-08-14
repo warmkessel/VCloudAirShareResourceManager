@@ -46,7 +46,7 @@ public class VirtualMachineItemEditor extends Composite implements Editor<Virtua
 	  @UiField InlineLabel currentUserName;
 	  
 	  
-	  @UiField InlineLabel ipaddress;
+	  @UiField InlineLabel publicIpAddress;
 //	  
 	  @UiField  Image poweron;
 	  @UiField  Image poweroff;

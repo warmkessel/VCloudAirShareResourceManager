@@ -14,9 +14,12 @@
 %><?xml version="1.0" encoding="UTF-8"?>  <%
 	    String startString = request.getParameter("start");
 	    String limitString = request.getParameter("limit");
+	    String newMachineString = request.getParameter("newMachine");
+	    String natString = request.getParameter("nat");
 
 		int start = 0;
 		int limit = 100;
+		boolean created = false;
 		if(null != startString && startString.length() > 0){
 			start = Integer.parseInt(startString);
 		}
@@ -24,8 +27,18 @@
 			limit = Integer.parseInt(limitString);
 		}
 		List<VirtualMachine> usr =  DataServices.getVirtualMachineService().findRange(start, limit);
-		
+		if(Boolean.parseBoolean(newMachineString)){
+			created = DataServices.getVirtualMachineService().createMachine();
+		}
+		if(Boolean.parseBoolean(natString)){
+			created = DataServices.getVirtualMachineService().updateNAT();
+		}
+		if(created){
+			%><h1>New Machine Created</h1>
+			<%
+		}
    %>
+   
    	<table style="border: black;border-width: 2px;border-style: solid;">
 
    <%
@@ -38,14 +51,26 @@
 	<%= usr.get(x).getMachinename()%>
 	</td>
 	<td>
-	<%= usr.get(x).getIpaddress()%>
+	<%= usr.get(x).getPublicIpAddress()%>
+	</td>
+	<td>
+	<%= usr.get(x).getPrivateIpAddress()%>
 	</td>
 	<td>
 	<%= usr.get(x).getCurrentUser()%>
 	</td>
 	<td>
+	<%= Status.fromId(usr.get(x).getCondition()).toString()%>
+	</td>
+	<td>
 	<%= Status.fromId(usr.get(x).getStatus()).toString()%>
 	</td>
 	</tr>
-<%}%>
+<%}%>	
 	</table>
+	
+	<br>
+	<a href="/admin/virtualmachines.jsp?newMachine=true">New Machine</a>
+<br>
+		<a href="/admin/virtualmachines.jsp?nat=true">Update Nat</a>
+<br>

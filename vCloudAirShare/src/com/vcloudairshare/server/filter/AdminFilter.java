@@ -30,14 +30,12 @@ public class AdminFilter implements Filter {
 	}
 	public void doFilter(HttpServletRequest request, HttpServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-//This will need to be fixed.
-//		UserService userService = UserServiceFactory.getUserService();
-//		if (userService.isUserLoggedIn() && userService.isUserAdmin()) {
+//		if(!true){
+		if (Boolean.parseBoolean((String)request.getSession().getAttribute("adm"))) {
 			chain.doFilter(request, response);
-//
-//		} else {
-//			response.sendRedirect(userService.createLoginURL(request.getRequestURL().toString()));
-//		}
+		} else {
+			response.sendRedirect("/index.html");
+		}
 	}
 
 	public FilterConfig getFilterConfig() {

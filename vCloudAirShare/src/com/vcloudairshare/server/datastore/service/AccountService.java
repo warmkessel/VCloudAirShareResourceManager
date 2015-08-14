@@ -2,7 +2,6 @@ package com.vcloudairshare.server.datastore.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -15,8 +14,8 @@ import com.vcloudairshare.shared.enumeration.Status;
 
 public class AccountService {
 
-	private static final Logger log = Logger.getLogger(AccountService.class
-			.getName());
+//	private static final Logger log = Logger.getLogger(AccountService.class
+//			.getName());
 
 	public static Account findById(Long key) {
 		// return OfyService.ofy().load().type(Users.class).id(key).now();
@@ -48,7 +47,7 @@ public class AccountService {
 				//session.saveOrUpdate(theReturn);
 				//tx.commit();
 				theReturn = persist(theReturn);
-				log.warning("created account" + key);
+//				log.warning("created account" + key);
 			}
 
 			return theReturn;
@@ -61,7 +60,7 @@ public class AccountService {
 	}
 
 	public static Account persist(Account users) {
-		log.warning("!!!!!   updated account " + users.getId());
+//		log.warning("!!!!!   updated account " + users.getId());
 
 		//users.onPersist();
 		Session session = HibernateFactory.getSessionFactory().openSession();

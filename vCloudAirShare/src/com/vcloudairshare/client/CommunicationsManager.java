@@ -15,7 +15,7 @@ import com.vcloudairshare.client.event.ErrorEvent;
 import com.vcloudairshare.client.event.VirtualMachinesReceivedEvent;
 import com.vcloudairshare.client.jso.FeedJSO;
 import com.vcloudairshare.client.view.home.HomePlace;
-import com.vcloudairshare.shared.enumeration.MachineType;
+import com.vcloudairshare.shared.enumeration.VirtualHostType;
 import com.vcloudairshare.shared.enumeration.Status;
 import com.vcloudairshare.shared.interfaces.HomeService;
 import com.vcloudairshare.shared.interfaces.HomeServiceAsync;
@@ -89,7 +89,7 @@ public class CommunicationsManager {
 	
 
 	public void requestVirtualMacine(int from, int count,
-			MachineType machineType, Status status) {
+			VirtualHostType machineType, Status status) {
 		factory.getRequestFactory().virtualMacineRequest()
 				.findFirstByAvialable(from, count, machineType, status)
 				.fire(new Receiver<VirtualMachineDTO>() {
@@ -104,7 +104,7 @@ public class CommunicationsManager {
 	}
 
 	public void requestVirtualMacines(int from, int count,
-			MachineType machineType, Status status) {
+			VirtualHostType machineType, Status status) {
 		factory.getRequestFactory().virtualMacineRequest()
 				.findByAvialable(from, count, machineType, status)
 				.fire(new Receiver<List<VirtualMachineDTO>>() {
@@ -174,7 +174,7 @@ public class CommunicationsManager {
 
 			@Override
 			public void onSuccess(Boolean result) {
-				requestVirtualMacines(0, 10, MachineType.VCLOUDAIR,
+				requestVirtualMacines(0, 10, VirtualHostType.VCLOUDAIR,
 						Status.APPROVED);
 			}
 		});

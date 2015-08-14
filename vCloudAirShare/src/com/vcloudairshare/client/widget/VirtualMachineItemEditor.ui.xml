@@ -91,7 +91,7 @@
 		<g:FlowPanel visible="false" ui:field="subPanel"
 			styleName="{style.subPanel}">
 			<g:InlineLabel text="IP Address:"></g:InlineLabel>
-			<g:InlineLabel styleName="{style.ipaddress}" ui:field="ipaddress" />
+			<g:InlineLabel styleName="{style.ipaddress}" ui:field="publicIpAddress" />
 			<g:InlineLabel text="Root Password:"></g:InlineLabel>
 			<g:InlineLabel styleName="{style.ipaddress}" ui:field="pass" />
 			<g:Image styleName="{style.poweron}" ui:field="poweron"

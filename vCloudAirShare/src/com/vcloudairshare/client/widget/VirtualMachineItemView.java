@@ -12,7 +12,7 @@ import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriv
 import com.vcloudairshare.client.ClientFactory;
 import com.vcloudairshare.client.event.VirtualMachinesReceivedEvent;
 import com.vcloudairshare.client.event.VirtualMachinesReceivedEventHandler;
-import com.vcloudairshare.shared.enumeration.MachineType;
+import com.vcloudairshare.shared.enumeration.VirtualHostType;
 import com.vcloudairshare.shared.enumeration.Status;
 import com.vcloudairshare.shared.proxy.VirtualMachineDTO;
 
@@ -96,7 +96,7 @@ public class VirtualMachineItemView extends Composite {
 
 	public void display() {
 		getClientFactory().getCommunicationsManager().requestVirtualMacines(0,
-				10, MachineType.VCLOUDAIR, Status.APPROVED);
+				10, VirtualHostType.VCLOUDAIR, Status.APPROVED);
 		registerHandler();
 	}
 }

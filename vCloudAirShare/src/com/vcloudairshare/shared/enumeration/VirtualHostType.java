@@ -3,26 +3,26 @@ package com.vcloudairshare.shared.enumeration;
 import java.util.ArrayList;
 import java.util.List;
 
-public enum MachineType {
+public enum VirtualHostType {
 	VCLOUDAIR(0,"vCloudAir");
 
-	  public static MachineType fromId(int s) {
-	      for (MachineType language : values()) {
+	  public static VirtualHostType fromId(int s) {
+	      for (VirtualHostType language : values()) {
 	        if (s == language.getId())
 	          return language;
 	      }
 	    return getDefault();
 	  }
-	  public static MachineType fromId(String s) {
+	  public static VirtualHostType fromId(String s) {
 		  return fromId(Integer.parseInt(s));
 	  }
-	  public static MachineType getDefault() {
+	  public static VirtualHostType getDefault() {
 	    return VCLOUDAIR;
 	  }
 	  public static List<Integer> idValues() {
 	    List<Integer> ids = new ArrayList<Integer>();
 	    
-	    for(MachineType explicit : values()){
+	    for(VirtualHostType explicit : values()){
 	      ids.add(explicit.getId());
 	    }
 	    return ids;
@@ -33,11 +33,12 @@ public enum MachineType {
 	  private String value;
 	 
 
-	  MachineType(int id, String value) {
+	  
+	  VirtualHostType(int id, String value) {
 	    this.id = id;
 	    this.value = value;
 	  }
-	  MachineType(String id, String value) {
+	  VirtualHostType(String id, String value) {
 		  this(Integer.parseInt(id), value);
 	  }
 	  public int getId() {

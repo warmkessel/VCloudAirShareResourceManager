@@ -2,6 +2,7 @@ package com.vcloudairshare.server.datastore.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -9,12 +10,15 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
+import com.vcloudairshare.server.communications.VCloudAirComm;
 import com.vcloudairshare.server.datastore.entity.VirtualMachine;
-import com.vcloudairshare.shared.enumeration.MachineType;
+import com.vcloudairshare.shared.enumeration.VirtualHostType;
 import com.vcloudairshare.shared.enumeration.Status;
-
+import com.vcloudairshare.shared.enumeration.DataCenter;
+import com.vcloudairshare.shared.enumeration.VirtualMachineType;
 public class VirtualMachineService {
-
+	private static final Logger log = Logger.getLogger(VirtualMachineService.class
+			.getName());
 	public VirtualMachine findByAirId(String airId) {
 		Session session = HibernateFactory.getSessionFactory().openSession();
 		Transaction tx = null;
@@ -62,7 +66,7 @@ public class VirtualMachineService {
 
 	@SuppressWarnings("unchecked")
 	public static List<VirtualMachine> findByAvialable(int start, int limit,
-			MachineType machineType, Status status) {
+			VirtualHostType machineType, Status status) {
 		// Query<VirtualMachine> q =
 		// OfyService.ofy().load().type(VirtualMachine.class);
 		// q = q.offset(from);
@@ -103,7 +107,7 @@ public class VirtualMachineService {
 	}
 
 	public static VirtualMachine findFirstByAvialable(int from, int count,
-			MachineType machineType, Status status) {
+			VirtualHostType machineType, Status status) {
 		// Query<VirtualMachine> q =
 		// OfyService.ofy().load().type(VirtualMachine.class);
 		// q = q.limit(1);
@@ -168,4 +172,91 @@ public class VirtualMachineService {
 		}
 		return theList;
 	}
+	
+	public Boolean createMachine() {
+		return createMachine(DataCenter.CAL, VirtualMachineType.getDefault());
+	}
+	public Boolean updateNAT() {
+		return updateNAT(DataCenter.CAL);
+	}
+	public Boolean power(Long id, Boolean state) {
+		return power(DataCenter.CAL, findById(id), state);
+	}
+	
+	
+	
+	public Boolean power(DataCenter dc, VirtualMachine vm, Boolean state) {
+		VCloudAirComm vcac = VCloudAirComm.getVCloudAirComm(dc);
+		vcac.power(vm, state);
+		return true;
+	}
+	public Boolean updateNAT(DataCenter dc) {
+		VCloudAirComm vcac = VCloudAirComm.getVCloudAirComm(dc);
+		vcac.updateNAT();
+		return true;
+	}
+	public Boolean createMachine(DataCenter dc, VirtualMachineType machineType) {
+		log.info("Starting CreateMachine");
+		VCloudAirComm vcac = VCloudAirComm.getVCloudAirComm(dc);
+		log.info("Should be logged in");
+
+		//Create new Macine Record
+		VirtualMachine vm = new VirtualMachine();
+		
+		vm.setDatacenter(dc.getId());
+		vm.setHosttype(VirtualHostType.VCLOUDAIR.getId());
+		vm.setMachinetype(machineType.getId());
+		vm.setCondition(Status.INUSE.getId());
+		vm.setStatus(Status.APPROVED.getId());
+		
+		vm = persist(vm);
+		//Fine a new Public Address
+		log.info("Find Address");
+		
+		if(!vcac.findAddress(vm)){
+			log.severe("No Address Found");
+			return false;
+		}
+		
+		//Create VM on Server
+		vcac.createRemoteMachine(machineType, vm, "Id :" + vm.getId(), "http://localhost:8080/admin/virtualmachine.jsp?id="+ vm.getId());
+		vm.setCondition(Status.AVAILABLE.getId());
+		//poweroff the server
+		//Save Record
+		persist(vm);
+		
+		// build Network NAT
+		vcac.updateNAT();
+		log.info("Finished");
+
+		return true;
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public static List<VirtualMachine> findByIP(){
+
+		List<VirtualMachine> theList = new ArrayList<VirtualMachine>();
+		Session session = HibernateFactory.getSessionFactory().openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			Criteria theCriteria = session.createCriteria(VirtualMachine.class);
+			theCriteria.add(Restrictions.isNotNull("publicIpAddress"));
+			theCriteria.add(Restrictions.isNotNull("privateIpAddress"));
+			theCriteria.add(Restrictions.ne("status", Status.REMOVED.getId()));
+
+			return theCriteria.list();
+
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return theList;
+	}
+	
+	
 }

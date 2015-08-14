@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum DataCenter {
-	CAL(0,"California", "https://us-california-1-3.vchs.vmware.com");
+	CAL(0,"California", "https://us-california-1-3.vchs.vmware.com"), VIR(0,"VIRGINIA", "https://us-virginia-1-4.vchs.vmware.com"), GER(0,"GERMANY", "https://de-germany-1-16.vchs.vmware.com");
 
+	
+	
 	  public static DataCenter fromId(int s) {
 	      for (DataCenter language : values()) {
 	        if (s == language.getId())

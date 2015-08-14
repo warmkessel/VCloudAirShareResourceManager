@@ -1,19 +1,23 @@
 package com.vcloudairshare.server.datastore.entity;
 
-import com.vcloudairshare.shared.enumeration.MachineType;
+import com.vcloudairshare.shared.enumeration.VirtualMachineType;
+import com.vcloudairshare.shared.enumeration.VirtualHostType;
 import com.vcloudairshare.shared.enumeration.Status;
-
+import com.vcloudairshare.shared.enumeration.DataCenter;
 
 public class VirtualMachine extends DatastoreObject {
 
-	private String ipaddress = "";
+	private String publicIpAddress = "";
+	private String privateIpAddress = "";
 	private Long currentUser = 0l;
 	private String machinename = "";
 	private String pass = "";
 	private String machineDesc = "";
 	private String airId = "";
 	private String currentUserName = "";
-	private Integer machinetype = MachineType.getDefault().getId();
+	private Integer datacenter = DataCenter.getDefault().getId();
+	private Integer machinetype = VirtualMachineType.getDefault().getId();
+	private Integer hosttype = VirtualHostType.getDefault().getId();
 	private Integer condition = Status.getDefault().getId();
 	private Integer status = Status.getDefault().getId();
 
@@ -21,13 +25,36 @@ public class VirtualMachine extends DatastoreObject {
 
 	}
 
-	public String getIpaddress() {
-		return ipaddress;
+	
+	public Integer getDatacenter() {
+		return datacenter;
 	}
 
-	public void setIpaddress(String ipaddress) {
-		this.ipaddress = ipaddress;
+
+	public void setDatacenter(Integer datacenter) {
+		this.datacenter = datacenter;
 	}
+
+
+	public String getPublicIpAddress() {
+		return publicIpAddress;
+	}
+
+
+	public void setPublicIpAddress(String publicIpAddress) {
+		this.publicIpAddress = publicIpAddress;
+	}
+
+
+	public String getPrivateIpAddress() {
+		return privateIpAddress;
+	}
+
+
+	public void setPrivateIpAddress(String privateIpAddress) {
+		this.privateIpAddress = privateIpAddress;
+	}
+
 
 	public Long getCurrentUser() {
 		return currentUser;
@@ -36,6 +63,16 @@ public class VirtualMachine extends DatastoreObject {
 	public void setCurrentUser(Long currentUser) {
 		this.currentUser = currentUser;
 	}
+
+	public Integer getHosttype() {
+		return hosttype;
+	}
+
+
+	public void setHosttype(Integer hosttype) {
+		this.hosttype = hosttype;
+	}
+
 
 	public String getMachinename() {
 		return machinename;

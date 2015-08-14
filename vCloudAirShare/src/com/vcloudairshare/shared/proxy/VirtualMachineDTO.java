@@ -9,12 +9,16 @@ import com.vcloudairshare.server.datastore.locator.ObjectifyLocator;
 public interface VirtualMachineDTO extends EntityProxy {
 
 	public Long getId();
-		
+
 	public void setId(Long id);
 
-	public String getIpaddress();
+	public String getPublicIpAddress();
 
-	public void setIpaddress(String ipaddress);
+	public void setPublicIpAddress(String publicIpAddress);
+
+	public String getPrivateIpAddress();
+
+	public void setPrivateIpAddress(String privateIpAddress);
 
 	public Long getCurrentUser();
 
@@ -23,14 +27,18 @@ public interface VirtualMachineDTO extends EntityProxy {
 	public String getMachinename();
 
 	public void setMachinename(String machinename);
-	
+
 	public String getMachineDesc();
-	
+
 	public void setMachineDesc(String machineDesc);
 
 	public Integer getMachinetype();
 
 	public void setMachinetype(Integer machinetype);
+
+	public Integer getHosttype();
+
+	public void setHosttype(Integer hosttype);
 
 	public Integer getCondition();
 
@@ -41,15 +49,15 @@ public interface VirtualMachineDTO extends EntityProxy {
 	public void setStatus(Integer status);
 
 	public void setStatus(String status);
-	
+
 	public String getAirId();
 
 	public void setAirId(String airId);
-	
+
 	public String getPass();
 
 	public void setPass(String pass);
-	
+
 	public String getCurrentUserName();
 
 	public void setCurrentUserName(String currentUserName);

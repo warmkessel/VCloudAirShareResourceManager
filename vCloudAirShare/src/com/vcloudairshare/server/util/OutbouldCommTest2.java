@@ -40,31 +40,31 @@ public class OutbouldCommTest2 {
 			System.out.println("Request 3");
 			buildResponse(theReturn, request3());
 
-			System.out.println("Request 4");
-			buildResponse(theReturn, request4());
-
-			System.out.println("Request 5");
-
-			buildResponse(theReturn, request5());
-			System.out.println("Request 6");
-
-			buildResponse(theReturn, request6());
-			 System.out.println("Request 7");
-			
-			 buildResponse(theReturn, request7());
-			 System.out.println("Request 7a");
-				
-			 buildResponse(theReturn, request7a());
-			 System.out.println("Request 7b");
-				
-			 buildResponse(theReturn, request7b());
-			//System.out.println("Request 8");
-
-			//buildResponse(theReturn, request8());
-
-			 System.out.println("Request 9");
-			 buildResponse(theReturn, request9());
-			// buildResponse2(theReturn, request9());
+//			System.out.println("Request 4");
+//			buildResponse(theReturn, request4());
+//
+//			System.out.println("Request 5");
+//
+//			buildResponse(theReturn, request5());
+//			System.out.println("Request 6");
+//
+//			buildResponse(theReturn, request6());
+//			 System.out.println("Request 7");
+//			
+//			 buildResponse(theReturn, request7());
+//			 System.out.println("Request 7a");
+//				
+//			 buildResponse(theReturn, request7a());
+//			 System.out.println("Request 7b");
+//				
+//			 buildResponse(theReturn, request7b());
+//			//System.out.println("Request 8");
+//
+//			//buildResponse(theReturn, request8());
+//
+//			 System.out.println("Request 9");
+//			 buildResponse(theReturn, request9());
+//			// buildResponse2(theReturn, request9());
 			 
 			 System.out.println("Request 10");
 			 buildResponse(theReturn, request10());
@@ -804,11 +804,34 @@ public class OutbouldCommTest2 {
 		urlParameters.append("                <NatRule>");
 		urlParameters.append("                    <RuleType>SNAT</RuleType>");
 		urlParameters.append("                    <IsEnabled>true</IsEnabled>");
+		urlParameters.append("                    <Id>65539</Id>");
+		urlParameters.append("                    <GatewayNatRule>");
+		urlParameters.append("                        <Interface href=\"https://us-california-1-3.vchs.vmware.com/api/compute/api/admin/network/088dbe33-f5fe-44c2-bbfe-55115347b165\" name=\"d2p3v29-ext\" type=\"application/vnd.vmware.admin.network+xml\"/>");
+		urlParameters.append("                        <OriginalIp>192.168.109.2</OriginalIp>");
+		urlParameters.append("                        <TranslatedIp>107.189.95.228</TranslatedIp>");
+		urlParameters.append("                    </GatewayNatRule>");
+		urlParameters.append("                </NatRule>");
+		urlParameters.append("                <NatRule>");
+		urlParameters.append("                    <RuleType>DNAT</RuleType>");
+		urlParameters.append("                    <IsEnabled>true</IsEnabled>");
+		urlParameters.append("                    <Id>65540</Id>");
+		urlParameters.append("                    <GatewayNatRule>");
+		urlParameters.append("                        <Interface href=\"https://us-california-1-3.vchs.vmware.com/api/compute/api/admin/network/088dbe33-f5fe-44c2-bbfe-55115347b165\" name=\"d2p3v29-ext\" type=\"application/vnd.vmware.admin.network+xml\"/>");
+		urlParameters.append("                        <OriginalIp>107.189.95.228</OriginalIp>");
+		urlParameters.append("                        <OriginalPort>Any</OriginalPort>");
+		urlParameters.append("                        <TranslatedIp>192.168.109.2</TranslatedIp>");
+		urlParameters.append("                        <TranslatedPort>Any</TranslatedPort>");
+		urlParameters.append("                        <Protocol>Any</Protocol>");
+		urlParameters.append("                    </GatewayNatRule>");
+		urlParameters.append("                </NatRule>");
+		urlParameters.append("                <NatRule>");
+		urlParameters.append("                    <RuleType>SNAT</RuleType>");
+		urlParameters.append("                    <IsEnabled>true</IsEnabled>");
 		urlParameters.append("                    <Id>65537</Id>");
 		urlParameters.append("                    <GatewayNatRule>");
 		urlParameters.append("                        <Interface href=\"https://us-california-1-3.vchs.vmware.com/api/compute/api/admin/network/088dbe33-f5fe-44c2-bbfe-55115347b165\" name=\"d2p3v29-ext\" type=\"application/vnd.vmware.admin.network+xml\"/>");
-		urlParameters.append("                        <OriginalIp>192.169.109.2</OriginalIp>");
-		urlParameters.append("                        <TranslatedIp>107.189.95.228</TranslatedIp>");
+		urlParameters.append("                        <OriginalIp>192.168.109.3</OriginalIp>");
+		urlParameters.append("                        <TranslatedIp>107.189.95.229</TranslatedIp>");
 		urlParameters.append("                    </GatewayNatRule>");
 		urlParameters.append("                </NatRule>");
 		urlParameters.append("                <NatRule>");
@@ -817,9 +840,9 @@ public class OutbouldCommTest2 {
 		urlParameters.append("                    <Id>65538</Id>");
 		urlParameters.append("                    <GatewayNatRule>");
 		urlParameters.append("                        <Interface href=\"https://us-california-1-3.vchs.vmware.com/api/compute/api/admin/network/088dbe33-f5fe-44c2-bbfe-55115347b165\" name=\"d2p3v29-ext\" type=\"application/vnd.vmware.admin.network+xml\"/>");
-		urlParameters.append("                        <OriginalIp>107.189.95.228</OriginalIp>");
+		urlParameters.append("                        <OriginalIp>107.189.95.229</OriginalIp>");
 		urlParameters.append("                        <OriginalPort>Any</OriginalPort>");
-		urlParameters.append("                        <TranslatedIp>192.168.109.2</TranslatedIp>");
+		urlParameters.append("                        <TranslatedIp>192.168.109.3</TranslatedIp>");
 		urlParameters.append("                        <TranslatedPort>Any</TranslatedPort>");
 		urlParameters.append("                        <Protocol>Any</Protocol>");
 		urlParameters.append("                    </GatewayNatRule>");

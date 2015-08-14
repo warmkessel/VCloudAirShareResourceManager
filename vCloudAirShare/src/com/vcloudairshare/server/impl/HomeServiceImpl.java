@@ -44,13 +44,13 @@ public class HomeServiceImpl extends RemoteServiceServlet implements
 	}
 
 	public Boolean power(String id, Boolean state) {
-		VCloudAirComm comm = VCloudAirComm.getVCloudAirComm();
+		VCloudAirComm comm = VCloudAirComm.getVCloudAirComm(DataCenter.getDefault());
 		try {
 			if (state) {
-				comm.getDataString(DataCenter.CAL, Constants.API_VAPP, id,
+				comm.getDataString(Constants.API_VAPP, id,
 						Constants.POWER_ON);
 			} else {
-				comm.getDataString(DataCenter.CAL, Constants.API_VAPP, id,
+				comm.getDataString(Constants.API_VAPP, id,
 						Constants.POWER_OFF);
 			}
 			return state;

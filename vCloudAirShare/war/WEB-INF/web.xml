@@ -2,13 +2,19 @@
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-	
-	<!-- Servlets -->
 
+	<!-- Servlets -->
+	<filter>
+		<filter-name>admin</filter-name>
+		<filter-class>com.vcloudairshare.server.filter.AdminFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>admin</filter-name>
+		<url-pattern>/admin/*</url-pattern>
+	</filter-mapping>
 	<servlet>
 		<servlet-name>requestFactoryServlet</servlet-name>
-		<servlet-class>com.google.web.bindery.requestfactory.server.RequestFactoryServlet
-		</servlet-class>
+		<servlet-class>com.google.web.bindery.requestfactory.server.RequestFactoryServlet</servlet-class>
 		<init-param>
 			<param-name>symbolMapsDirectory</param-name>
 			<!-- You'll need to compile with -extras and move the symbolMaps directory 
@@ -16,15 +22,15 @@
 			<param-value>WEB-INF/classes/symbolMaps/</param-value>
 		</init-param>
 	</servlet>
-	 <servlet>
-    <servlet-name>homeService</servlet-name>
-    <servlet-class>com.vcloudairshare.server.impl.HomeServiceImpl</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>homeService</servlet-name>
-    <url-pattern>/vcloudairshare/home</url-pattern>
-  </servlet-mapping>
+	<servlet>
+		<servlet-name>homeService</servlet-name>
+		<servlet-class>com.vcloudairshare.server.impl.HomeServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>homeService</servlet-name>
+		<url-pattern>/vcloudairshare/home</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>requestFactoryServlet</servlet-name>
 		<url-pattern>/gwtRequest</url-pattern>
