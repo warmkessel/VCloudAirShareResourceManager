@@ -294,51 +294,74 @@ public class VCloudAirComm {
 	// "f1ce286e-791f-4603-bbda-c1b76c771dda", "/externalIpUsage");
 	// }
 
-	private InputStream sendData() throws IOException, MalformedURLException {
-		// This should never be run when this is in production
-		StringBuffer urlParameters = new StringBuffer();
-		urlParameters.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-		urlParameters
-				.append("<EdgeGatewayServiceConfiguration xmlns=\"http://www.vmware.com/vcloud/v1.5\">");
-		urlParameters.append(" <NatService>");
-		urlParameters.append("  <IsEnabled>true</IsEnabled>");
-		urlParameters.append("  <NatRule>");
-		urlParameters.append("   <RuleType>SNAT</RuleType>");
-		urlParameters.append("    <IsEnabled>true</IsEnabled>");
-		urlParameters.append("     <Id>65537</Id>");
-		urlParameters.append("     <GatewayNatRule>");
-		urlParameters
-				.append("          <Interface href=\"https://us-california-1-3.vchs.vmware.com/api/compute/api/admin/network/088dbe33-f5fe-44c2-bbfe-55115347b165\" name=\"d2p3v29-ext\" type=\"application/vnd.vmware.admin.network+xml\"/>");
-		urlParameters
-				.append("          <OriginalIp>192.169.109.2</OriginalIp>");
-		urlParameters
-				.append("          <TranslatedIp>107.189.95.228</TranslatedIp>");
-		urlParameters.append("     </GatewayNatRule>");
-		urlParameters.append("    </NatRule>");
-		urlParameters.append("   <NatRule>");
-		urlParameters.append("   <RuleType>DNAT</RuleType>");
-		urlParameters.append("   <IsEnabled>true</IsEnabled>");
-		urlParameters.append("   <Id>65538</Id>");
-		urlParameters.append("   <GatewayNatRule>");
-		urlParameters
-				.append("        <Interface href=\"https://us-california-1-3.vchs.vmware.com/api/compute/api/admin/network/088dbe33-f5fe-44c2-bbfe-55115347b165\" name=\"d2p3v29-ext\" type=\"application/vnd.vmware.admin.network+xml\"/>");
-		urlParameters.append("        <OriginalIp>107.189.95.228</OriginalIp>");
-		urlParameters.append("        <OriginalPort>Any</OriginalPort>");
-		urlParameters
-				.append("        <TranslatedIp>192.168.109.2</TranslatedIp>");
-		urlParameters.append("        <TranslatedPort>Any</TranslatedPort>");
-		urlParameters.append("        <Protocol>Any</Protocol>");
-		urlParameters.append("   </GatewayNatRule>");
-		urlParameters.append("  </NatRule>");
-		urlParameters.append(" </NatService>");
-		urlParameters.append("</EdgeGatewayServiceConfiguration>");
+	// private InputStream sendData() throws IOException, MalformedURLException
+	// {
+	// // This should never be run when this is in production
+	// StringBuffer urlParameters = new StringBuffer();
+	// urlParameters.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+	// urlParameters
+	// .append("<EdgeGatewayServiceConfiguration xmlns=\"http://www.vmware.com/vcloud/v1.5\">");
+	// urlParameters.append(" <NatService>");
+	// urlParameters.append("  <IsEnabled>true</IsEnabled>");
+	// urlParameters.append("  <NatRule>");
+	// urlParameters.append("   <RuleType>SNAT</RuleType>");
+	// urlParameters.append("    <IsEnabled>true</IsEnabled>");
+	// urlParameters.append("     <Id>65537</Id>");
+	// urlParameters.append("     <GatewayNatRule>");
+	// urlParameters
+	// .append("          <Interface href=\"https://us-california-1-3.vchs.vmware.com/api/compute/api/admin/network/088dbe33-f5fe-44c2-bbfe-55115347b165\" name=\"d2p3v29-ext\" type=\"application/vnd.vmware.admin.network+xml\"/>");
+	// urlParameters
+	// .append("          <OriginalIp>192.169.109.2</OriginalIp>");
+	// urlParameters
+	// .append("          <TranslatedIp>107.189.95.228</TranslatedIp>");
+	// urlParameters.append("     </GatewayNatRule>");
+	// urlParameters.append("    </NatRule>");
+	// urlParameters.append("   <NatRule>");
+	// urlParameters.append("   <RuleType>DNAT</RuleType>");
+	// urlParameters.append("   <IsEnabled>true</IsEnabled>");
+	// urlParameters.append("   <Id>65538</Id>");
+	// urlParameters.append("   <GatewayNatRule>");
+	// urlParameters
+	// .append("        <Interface href=\"https://us-california-1-3.vchs.vmware.com/api/compute/api/admin/network/088dbe33-f5fe-44c2-bbfe-55115347b165\" name=\"d2p3v29-ext\" type=\"application/vnd.vmware.admin.network+xml\"/>");
+	// urlParameters.append("        <OriginalIp>107.189.95.228</OriginalIp>");
+	// urlParameters.append("        <OriginalPort>Any</OriginalPort>");
+	// urlParameters
+	// .append("        <TranslatedIp>192.168.109.2</TranslatedIp>");
+	// urlParameters.append("        <TranslatedPort>Any</TranslatedPort>");
+	// urlParameters.append("        <Protocol>Any</Protocol>");
+	// urlParameters.append("   </GatewayNatRule>");
+	// urlParameters.append("  </NatRule>");
+	// urlParameters.append(" </NatService>");
+	// urlParameters.append("</EdgeGatewayServiceConfiguration>");
+	//
+	// return sendData(
+	// "/api/compute/api/admin/edgeGateway/",
+	// "f1ce286e-791f-4603-bbda-c1b76c771dda",
+	// "/action/configureServices",
+	// "application/vnd.vmware.admin.edgeGatewayServiceConfiguration+xml",
+	// urlParameters.toString());
+	// }
 
-		return sendData(
-				"/api/compute/api/admin/edgeGateway/",
-				"f1ce286e-791f-4603-bbda-c1b76c771dda",
-				"/action/configureServices",
-				"application/vnd.vmware.admin.edgeGatewayServiceConfiguration+xml",
-				urlParameters.toString());
+	public String deleteDataString(String command, String asset) {
+
+		try {
+			return buildResponse(deleteData(command, asset));
+		} catch (IOException e) {
+			log.severe("Failed : getDataString" + e.getMessage() + " "
+					+ buildString(command, asset, ""));
+		}
+		return "";
+	}
+
+	public Element deleteDataElement(String command, String asset) {
+
+		try {
+			return buildResponseElement(deleteData(command, asset));
+		} catch (IOException | ParserConfigurationException | SAXException e) {
+			log.severe("Failed : getDataElement" + e.getMessage() + " "
+					+ buildString(command, asset, ""));
+		}
+		return null;
 	}
 
 	public String getDataString(String command, String asset,
@@ -397,6 +420,12 @@ public class VCloudAirComm {
 		return getData(url);
 	}
 
+	private InputStream deleteData(String command, String asset)
+			throws IOException {
+		URL url = new URL(dc.getURL() + command + asset);
+		return deleteData(url);
+	}
+
 	private String buildString(String command, String asset,
 			String secondCommand) {
 		return dc.getURL() + command + asset + secondCommand;
@@ -410,6 +439,22 @@ public class VCloudAirComm {
 		conn.addRequestProperty("x-vcloud-authorization", getVchsToken());
 		conn.addRequestProperty("Authorization", "Bearer " + getVchsToken2());
 		conn.setRequestMethod("GET");
+		// normally, 3xx is redirect
+		int status = conn.getResponseCode();
+		if (status >= 300) {
+			throw new RuntimeException("Failed : HTTP error code : " + status);
+		}
+		return conn.getInputStream();
+	}
+
+	private InputStream deleteData(URL url) throws IOException {
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setConnectTimeout(connTimeout); // 60 Seconds
+		conn.setReadTimeout(readTimeout);
+		conn.addRequestProperty("Accept", "application/*+xml;version=5.11");
+		conn.addRequestProperty("x-vcloud-authorization", getVchsToken());
+		conn.addRequestProperty("Authorization", "Bearer " + getVchsToken2());
+		conn.setRequestMethod("DELETE");
 		// normally, 3xx is redirect
 		int status = conn.getResponseCode();
 		if (status >= 300) {
@@ -613,6 +658,22 @@ public class VCloudAirComm {
 		return false;
 	}
 
+	public void delete(VirtualMachine vm) {
+		log.info("decommission " + vm.getAirId());
+
+		// element = sendDataElement("/api/compute/api/vApp/",
+		// vm.getAirId(), "/power/action/powerOff",
+		// "application/vnd.vmware.vcloud.task+xm", "");
+
+		log.info(sendDataString("/api/compute/api/vApp/", vm.getAirId(),
+				"/action/undeploy",
+				"application/vnd.vmware.vcloud.undeployVAppParams+xml",
+				buildDecommString()));
+
+		log.info(deleteDataString("/api/compute/api/vApp/", vm.getAirId()));
+
+	}
+
 	// public boolean machineReady(VirtualMachine vm) {
 	// boolean theReturn = false;
 	// Element element = getDataElement("/api/compute/api/vApp/",
@@ -717,6 +778,19 @@ public class VCloudAirComm {
 		}
 		urlParameters.append("            </NatService>");
 		urlParameters.append("</EdgeGatewayServiceConfiguration>");
+
+		return urlParameters.toString();
+	}
+
+	private static String buildDecommString() {
+		StringBuffer urlParameters = new StringBuffer();
+
+		urlParameters.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+		urlParameters.append("<UndeployVAppParams");
+		urlParameters.append("   xmlns=\"http://www.vmware.com/vcloud/v1.5\">");
+		urlParameters
+				.append("   <UndeployPowerAction>powerOff</UndeployPowerAction>");
+		urlParameters.append("</UndeployVAppParams>");
 
 		return urlParameters.toString();
 	}
@@ -847,17 +921,21 @@ public class VCloudAirComm {
 
 			// https://us-virginia-1-4.vchs.vmware.com
 			// CAL
-			// VCloudAirComm vca =
-			// VCloudAirComm.getVCloudAirComm(DataCenter.CAL);
-
-			// log.info("getDataString" + vca.getDataString("/api/org","", ""));
-			// log.info("getDataString" +
-			// vca.getDataString("/api/compute/api/org/","c42b525f-720e-4f90-aba9-256d5e60a57b",
+			VCloudAirComm vca = VCloudAirComm.getVCloudAirComm(DataCenter.CAL);
+			// log.info("getDataString" + vca.getDataString("/api/org", "",
 			// ""));
+			// log.info("getDataString"
+			// + vca.getDataString("/api/compute/api/org/",
+			// "c42b525f-720e-4f90-aba9-256d5e60a57b", ""));
+			// log.info("getDataString"
+			// + vca.getDataString("/api/compute/api/vdc/",
+			// "5c52bf05-28b7-45d3-9dc5-55780db11a42", ""));
 
-			// log.info("getDataString" +
-			// vca.getDataString("/api/compute/api/vdc/","5c52bf05-28b7-45d3-9dc5-55780db11a42",
-			// ""));
+			// log.info(vca.getDataString("/api/compute/api/vApp/",
+			// "vapp-11b7149d-daaf-4677-a77f-64fab57b153e", ""));
+
+			// log.info(vca.deleteDataString("/api/compute/api/vApp/",
+			// "vapp-11b7149d-daaf-4677-a77f-64fab57b153e"));
 
 			// log.info("getDataString" +
 			// vca.getDataString("/api/compute/api/vApp/","vapp-747ff0ea-29b0-490c-bed7-84267ce38e75",
@@ -890,10 +968,24 @@ public class VCloudAirComm {
 
 			// Working Test
 
-			VCloudAirComm vca = VCloudAirComm.getVCloudAirComm(DataCenter.CAL);
+			// VCloudAirComm vca =
+			// VCloudAirComm.getVCloudAirComm(DataCenter.CAL);
 
-			log.info("getDataString" + vca.getDataString("/api/org", "", ""));
+			// log.info(vca.getDataString("/api/compute/api/vApp/",
+			// "vapp-11b7149d-daaf-4677-a77f-64fab57b153e",
+			// ""
+			// ));
 
+			// log.info(vca.sendDataString("/api/compute/api/vApp/",
+			// "vapp-11b7149d-daaf-4677-a77f-64fab57b153e",
+			// "/action/undeploy",
+			// "application/vnd.vmware.vcloud.undeployVAppParams+xml",
+			// buildDecommString()));
+
+			// log.info(vca.getDataString("/api/compute/api/vApp/",
+			// "vm-ae69ef22-a2ee-4473-9a66-584a323e16e8",
+			// ""
+			// ));
 		} catch (Exception e) {
 			// if any I/O error occurs
 			e.printStackTrace();

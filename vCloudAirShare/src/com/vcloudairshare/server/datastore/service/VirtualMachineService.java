@@ -184,6 +184,11 @@ public class VirtualMachineService {
 	}
 	
 	
+	public Boolean delete(DataCenter dc, VirtualMachine vm, Boolean state) {
+		VCloudAirComm vcac = VCloudAirComm.getVCloudAirComm(dc);
+		vcac.delete(vm);
+		return true;
+	}
 	
 	public Boolean power(DataCenter dc, VirtualMachine vm, Boolean state) {
 		VCloudAirComm vcac = VCloudAirComm.getVCloudAirComm(dc);
