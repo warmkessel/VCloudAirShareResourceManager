@@ -16,12 +16,18 @@
 	try {
 		String idString = request.getParameter("id");
 		String powerString = request.getParameter("power");
+		String decommissionString = request.getParameter("decommission");
 		Boolean power = false;
+		Boolean decommission = false;
 		if (null != idString && idString.length() > 0) {
 			Long inLong = Long.parseLong(idString);
 			if (null != powerString && powerString.length() > 0) {
 				power = DataServices.getVirtualMachineService().power(
 						inLong, Boolean.parseBoolean(powerString));
+			}
+			if (null != decommissionString && decommissionString.length() > 0) {
+				decommission = DataServices.getVirtualMachineService().decommission(
+						inLong);
 			}
 			a = VirtualMachineService.findById(inLong);
 		}
@@ -160,6 +166,7 @@
 		%>
 	</select> <br> <input type="submit" name="Save"></input><br><a
 		href="/admin/virtualmachine.jsp?power=true&id=<%=request.getParameter("id")%>">PowerOn</a><br><a
-		href="/admin/virtualmachine.jsp?power=true&id=<%=request.getParameter("id")%>">PowerOff</a>
+		href="/admin/virtualmachine.jsp?power=true&id=<%=request.getParameter("id")%>">PowerOff</a><br><a
+		href="/admin/virtualmachine.jsp?decommission=true&id=<%=request.getParameter("id")%>">Decommission</a>
 
 </form>

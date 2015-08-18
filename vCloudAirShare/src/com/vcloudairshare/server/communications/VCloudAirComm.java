@@ -9,7 +9,6 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -644,6 +643,8 @@ public class VCloudAirComm {
 			// element = sendDataElement("/api/compute/api/vApp/",
 			// vm.getAirId(), "/power/action/powerOn",
 			// "application/vnd.vmware.vcloud.task+xm", "");
+			getExpectedStatus(vm, VirtualMachineStatus.POWERON);
+
 		} else {
 			log.info("PowerOff ");
 			log.info(sendDataString("/api/compute/api/vApp/", vm.getAirId(),
@@ -652,43 +653,57 @@ public class VCloudAirComm {
 			// element = sendDataElement("/api/compute/api/vApp/",
 			// vm.getAirId(), "/power/action/powerOff",
 			// "application/vnd.vmware.vcloud.task+xm", "");
+			getExpectedStatus(vm, VirtualMachineStatus.POWEROFF);
+
 		}
-		getExpectedStatus(vm, VirtualMachineStatus.POWEROFF);
 
 		return false;
 	}
 
-	public void delete(VirtualMachine vm) {
+	public boolean decommission(VirtualMachine vm) {
 		log.info("decommission " + vm.getAirId());
 
-		// element = sendDataElement("/api/compute/api/vApp/",
-		// vm.getAirId(), "/power/action/powerOff",
-		// "application/vnd.vmware.vcloud.task+xm", "");
+		log.info(getDataString("/api/compute/api/vApp/", vm.getAirId(), ""));
 
-		log.info(sendDataString("/api/compute/api/vApp/", vm.getAirId(),
-				"/action/undeploy",
-				"application/vnd.vmware.vcloud.undeployVAppParams+xml",
-				buildDecommString()));
+		Element element = getDataElement("/api/compute/api/vApp/",
+				vm.getAirId(), "");
 
-		log.info(deleteDataString("/api/compute/api/vApp/", vm.getAirId()));
+		
+		NodeList ns = element.getElementsByTagName("Tasks");
+		if(ns.getLength() > 0){
+			try {
+				log.info("waiting " + vm.getAirId());
 
+				Thread.sleep(10000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return decommission(vm);
+		}	
+		ns = element.getElementsByTagName("Link");
+		for (int x = 0; x < ns.getLength(); x++) {
+			Element e = (Element) ns.item(x);
+			log.info(e.getAttribute("rel"));
+
+			if ("remove".equals(e.getAttribute("rel"))) {
+				log.info("remove" + vm.getAirId());
+				deleteDataString("/api/compute/api/vApp/",
+						vm.getAirId());
+				return true;
+			}
+			if ("undeploy".equals(e.getAttribute("rel"))) {
+				log.info("undeploy" + vm.getAirId());
+				sendDataElement("/api/compute/api/vApp/", vm.getAirId(),
+						"/action/undeploy",
+						"application/vnd.vmware.vcloud.undeployVAppParams+xml",
+						buildDecommString());
+				return decommission(vm);
+				
+			}
+		}
+		return true;
 	}
-
-	// public boolean machineReady(VirtualMachine vm) {
-	// boolean theReturn = false;
-	// Element element = getDataElement("/api/compute/api/vApp/",
-	// vm.getAirId(), "");
-	//
-	// if ("4".equals(element.getAttribute("status"))) {
-	// theReturn = true;
-	// log.info("Finished");
-	//
-	// } else {
-	// log.info("Waiting " + element.getAttribute("status"));
-	//
-	// }
-	// return theReturn;
-	// }
 
 	public boolean updateNAT() {
 		// https://us-california-1-3.vchs.vmware.com/api/compute/api/admin/edgeGateway/f1ce286e-791f-4603-bbda-c1b76c771dda/action/configureServices

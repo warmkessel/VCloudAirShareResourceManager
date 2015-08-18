@@ -147,6 +147,23 @@ public class VirtualMachineService {
 		return theVM;
 	}
 
+	public VirtualMachine delete(VirtualMachine theVM) {
+		Session session = HibernateFactory.getSessionFactory().openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.delete(theVM);
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return theVM;
+	}
+
 	@SuppressWarnings("unchecked")
 	public List<VirtualMachine> findRange(int start, int limit) {
 		List<VirtualMachine> theList = new ArrayList<VirtualMachine>();
@@ -183,10 +200,19 @@ public class VirtualMachineService {
 		return power(DataCenter.CAL, findById(id), state);
 	}
 	
+	public Boolean decommission(Long id) {
+		return decommission(DataCenter.CAL, findById(id));
+	}
 	
-	public Boolean delete(DataCenter dc, VirtualMachine vm, Boolean state) {
+	public Boolean decommission(DataCenter dc, VirtualMachine vm) {
 		VCloudAirComm vcac = VCloudAirComm.getVCloudAirComm(dc);
-		vcac.delete(vm);
+		log.info("decommission! " + vm.getAirId());
+		vcac.decommission(vm);
+		log.info("delete! " + vm.getAirId());
+		delete(vm);
+		log.info("updateNAT! " + vm.getAirId());
+		updateNAT();
+		log.info("Finished! " + vm.getAirId());
 		return true;
 	}
 	

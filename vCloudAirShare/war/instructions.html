@@ -116,7 +116,7 @@ body.custom-background { background-color: #ffffff; }
 		<div class="container">
 	        <div class="header-table">
 	        	<div class="header-logo">
-	            	<a href="https://devops.vmware.com/" target="_blank" rel="home"><img src="images/DevOps-at-VMware.png" alt="logo" class="site-logo" width="300" height="20"></a>
+	            	<a href="https://devops.vmware.com/" target="_blank" rel="home"><img src="images/DevOps-at-VMware.png" alt="Prompt" class="site-logo" width="300" height="20"></a>
                     
 					<p class="site-description"></p>
 	            </div>
@@ -160,7 +160,7 @@ body.custom-background { background-color: #ffffff; }
 	            
 	            <div class="header-userdata">
 				
-<!-- TODO twitter login -->	
+<!--  twitter login used to be here-->	
             </div>
 	            <br clear="all"/>
 	            <div class="header-search-overlay">
@@ -193,61 +193,49 @@ body.custom-background { background-color: #ffffff; }
 	<!-- ############################################################# -->
 	<!-- ############################################################# -->
 	<!-- This is the div where the main text goes -->
-	
-
-	
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
             	
 <article id="post-17" class="post-17 page type-page status-publish hentry entry-full">
-	
-	
+
 	<div>
 	<header class="entry-header">
-		<h1 class="entry-title">vCloud Air Share Machines</h1>	
+		<h1 class="entry-title">vCloud Air Share Instructions</h1>	
 	</header><!-- .entry-header -->
 	<div class="entry-content">
-		<p>For help accessing a virtual machine, visit the <a href="instructions.html">instructions page</a>. </p>
-		<br>
+		<img class="aligncenter wp-image-457" src="images/vCloud-banner.jpg" alt="vCloud_logo" width="100%">
+
+		<p>Follow the instructions below to begin utilizing a Virtual Machine.</p>
 		
-		<!-- vCloud Airshare App -->
-		<script>var callbackLoc = "http://localhost:8080/callback.jsp";</script>
-		<script type="text/javascript" language="javascript" src="vcloudairshare/vcloudairshare.nocache.js"></script>
-		<iframe src="javascript:''" id="__gwt_historyFrame" style="position:absolute;width:0;height:0;border:0"></iframe>
-		<div id="vmb"></div>
+		<p>
+		<strong>Check out a Machine</strong>
+		</p>
 		
+		<ul>
+			<li>In the "vCloud Air Share Machines" page, log in with Twitter</li>
+			<li>Browse to an available virtual machine and click "Checkout"</li>
+			<li>If a dropdown display with an IP address, password, and power button appears, you have successfully checked out the virtual machine. </li>
+		</ul>
+		
+		<p>
+		<strong>Establish Remote Connection</strong>
+		</p>
 			
-		<style>
-			body {
-			  color: grey;
-			  margin: 0;
-			  border: 0px;
-			  padding: 0px;
-			  background: #fff;
-			  direction: ltr;
-			  font-family: "proxima-nova", "Arial", sans-serif;
-			  font-size: medium;
-			}
-
-			pre {
-			  background-color: #f3f3f3;
-			  border-left: 3px solid #ddd;
-			  margin: 1em 0;
-			  padding: 0.5em 1.2em;
-			}
-			
-			a:hover {
-			  color: #0066cc;
-			  text-decoration:none;
-			}
-
-		</style> 	
-
+		<ul>	
+			<li>Click the "Power On" button. A window will pop up confirming that the machine is powered on.</li>
+			<li>Using a command line interface with SSH capabilities, establish a connection with the virtual machine by typing: </li>
+			<blockquote><code>ssh root@[ip address] </code></blockquote>
+			<li>Then when prompted, type in the password provided and press enter.</li>
+		</ul>
 		
+		<hr style="display: block; margin-top: 2.5em; margin-bottom: 2.5em; margin-left: auto; margin-right: auto; border-width: 1px;">
+		
+		<h4>Contact</h4>
+		<p>For additional help contact:</p>
+		<p><strong>James Warmkessel</strong><br>vCloud Air Share Operations Manager<br>warmkesselj@vmware.com</p>	
 	</div><!-- .entry-content -->
-	</div><!-- #machines -->
-	
-	
+	</div><!-- #instructions -->
+		
 </article><!-- #post-## -->
 
 
@@ -270,7 +258,6 @@ body.custom-background { background-color: #ffffff; }
 
 
 </style>
-
 
 
 
@@ -389,7 +376,6 @@ window.___gcfg = {lang: 'en'};
 <script type='text/javascript' src='https://devops.vmware.com/wp-content/plugins/bbpress/templates/default/js/editor.js?ver=2.5.7-5693'></script>
 <script type='text/javascript' src='https://devops.vmware.com/wp-includes/js/comment-reply.min.js?ver=4.0'></script>
 </body>
-
 
 
 </html>
