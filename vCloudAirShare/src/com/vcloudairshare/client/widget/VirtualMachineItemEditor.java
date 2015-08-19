@@ -15,7 +15,9 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriver;
 import com.vcloudairshare.client.ClientFactory;
 import com.vcloudairshare.client.editor.StatusLabel;
+import com.vcloudairshare.client.editor.VirtualMachineTypeLabel;
 import com.vcloudairshare.shared.enumeration.Status;
+import com.vcloudairshare.shared.enumeration.VirtualMachineStatus;
 import com.vcloudairshare.shared.proxy.VirtualMachineDTO;
 
 public class VirtualMachineItemEditor extends Composite implements Editor<VirtualMachineDTO>{
@@ -41,7 +43,7 @@ public class VirtualMachineItemEditor extends Composite implements Editor<Virtua
 
 	  @UiField InlineLabel airId;
 	  @UiField InlineLabel machinename;
-	  @UiField InlineLabel machineDesc;
+	  @UiField VirtualMachineTypeLabel<Integer> machinetype;
 	  @UiField StatusLabel<Integer> condition;
 	  @UiField InlineLabel currentUserName;
 	  
@@ -64,26 +66,27 @@ public class VirtualMachineItemEditor extends Composite implements Editor<Virtua
 	  @UiHandler("checkout")
 		void onClick(ClickEvent e) {
 		  if(Status.AVAILABLE.getId() == condition.getValue().intValue()){
+			  condition.setValue(Status.UPDATING.getId());
 			  getClientFactory().getCommunicationsManager().requestCheckout(airId.getText(), new Boolean(true));
 		  }
 		  else{
+			  condition.setValue(Status.PROVISIONING.getId());
 			  getClientFactory().getCommunicationsManager().requestCheckout(airId.getText(), new Boolean(false));
 		  }
-		  condition.setValue(Status.UPDATING.getId());
 		  checkout.setEnabled(false);
 
 	  }
 	  @UiHandler("poweron")
 		void onClickOn(ClickEvent e) {
-		  getClientFactory().getCommunicationsManager().requestPower(airId.getText(), new Boolean(true));
-		  condition.setValue(Status.UPDATING.getId());
+		  getClientFactory().getCommunicationsManager().requestPower(airId.getText(), VirtualMachineStatus.POWERON);
+		 // condition.setValue(Status.UPDATING.getId());
 //		  checkout.setEnabled(false);
 
 	  }
 	  @UiHandler("poweroff")
 		void onClickOff(ClickEvent e) {
-		  getClientFactory().getCommunicationsManager().requestPower(airId.getText(), new Boolean(false));
-		  condition.setValue(Status.UPDATING.getId());
+		  getClientFactory().getCommunicationsManager().requestPower(airId.getText(), VirtualMachineStatus.POWEROFF);
+		//  condition.setValue(Status.UPDATING.getId());
 //		  checkout.setEnabled(false);
 	  }
 	  public void init(ClientFactory clientFactory) {

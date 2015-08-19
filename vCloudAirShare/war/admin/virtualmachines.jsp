@@ -16,9 +16,11 @@
 	    String limitString = request.getParameter("limit");
 	    String newMachineString = request.getParameter("newMachine");
 	    String natString = request.getParameter("nat");
+	    String countString = request.getParameter("count");
 
 		int start = 0;
 		int limit = 100;
+		int count = 1;
 		boolean created = false;
 		if(null != startString && startString.length() > 0){
 			start = Integer.parseInt(startString);
@@ -28,7 +30,17 @@
 		}
 		List<VirtualMachine> usr =  DataServices.getVirtualMachineService().findRange(start, limit);
 		if(Boolean.parseBoolean(newMachineString)){
-			created = DataServices.getVirtualMachineService().createMachine();
+			if(null != countString && countString.length() > 0){
+				count = Integer.parseInt(countString);
+
+			}
+			for(int x=0; x < count; x++){
+				created = DataServices.getVirtualMachineService().createMachine();
+				if(!created){
+					break;
+				}
+
+			}
 		}
 		if(Boolean.parseBoolean(natString)){
 			created = DataServices.getVirtualMachineService().updateNAT();

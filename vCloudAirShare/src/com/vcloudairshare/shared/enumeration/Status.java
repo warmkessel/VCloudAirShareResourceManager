@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum Status {
-	UNKNOWN(0,"Unknown"), APPROVED(1,"Approved"), SUSPECT(2,"Suspect"), INVALID(3,"Invalid"), INACTIVE(4,"Inactive"), UNSUPPORTED(5,"Unsupported"),DUPLICATE(6,"Duplicate"),REMOVED(7,"Removed"),TEST(8,"Test"),AVAILABLE(9,"Available"),INUSE(10,"Inuse"),UPDATING(11,"Updating");
+	UNKNOWN(0,"Unknown"), APPROVED(1,"Approved"), SUSPECT(2,"Suspect"), INVALID(3,"Invalid"), INACTIVE(4,"Inactive"), UNSUPPORTED(5,"Unsupported"),DUPLICATE(6,"Duplicate"),REMOVED(7,"Removed"),TEST(8,"Test"),AVAILABLE(9,"Available"),INUSE(10,"Inuse"),UPDATING(11,"Updating"),PROVISIONING(12,"Provisioning");
 
 	  public static Status fromId(int s) {
 	      for (Status language : values()) {

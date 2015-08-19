@@ -9,6 +9,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -549,16 +550,23 @@ public class VCloudAirComm {
 		urlParameters.append("   <Description>").append(Desc)
 				.append("</Description>");
 		urlParameters.append("   <InstantiationParams>");
-		// urlParameters.append("      <NetworkConfigSection>");
-		// urlParameters.append("         <ovf:Info>Configuration parameters for logical networks</ovf:Info>");
-		// urlParameters.append("         <NetworkConfig\">");
-		// urlParameters.append("         <NetworkConfig  networkName=\"default-routed-network\">");
-		// urlParameters.append("           <Configuration>");
-		// urlParameters.append("               <ParentNetwork");
-		// urlParameters.append("                  href=\"https://us-california-1-3.vchs.vmware.com/api/compute/api/network/3bcd14f0-bbe8-4de3-b4c8-79ad68676866\" />");
-		// urlParameters.append("            </Configuration>");
-		// urlParameters.append("         </NetworkConfig>");
-		// urlParameters.append("      </NetworkConfigSection>");
+		
+		
+		
+//		
+//		 urlParameters.append("      <NetworkConfigSection>");
+//		 urlParameters.append("         <ovf:Info>Configuration parameters for logical networks</ovf:Info>");
+//		 urlParameters.append("         <NetworkConfig\">");
+//		 urlParameters.append("         <NetworkConfig  networkName=\"default-routed-network\" href=\"https://us-california-1-3.vchs.vmware.com/api/compute/api/network/3bcd14f0-bbe8-4de3-b4c8-79ad68676866\">");
+//		 urlParameters.append("           <Configuration>");
+////		 urlParameters.append("               <ParentNetwork");
+////		 urlParameters.append("                  href=\"https://us-california-1-3.vchs.vmware.com/api/compute/api/network/3bcd14f0-bbe8-4de3-b4c8-79ad68676866\" />");
+//		 urlParameters.append("            </Configuration>");
+//		 urlParameters.append("         </NetworkConfig>");
+//		 urlParameters.append("      </NetworkConfigSection>");
+		
+		
+		
 		// urlParameters.append("      <LeaseSettingsSection");
 		// urlParameters.append("         type=\"application/vnd.vmware.vcloud.leaseSettingsSection+xml\">");
 		// urlParameters.append("        <ovf:Info>Lease Settings</ovf:Info>");
@@ -621,20 +629,20 @@ public class VCloudAirComm {
 			log.severe("No Root Password Found");
 			return false;
 		}
-		power(vm, true);
-		// log.info("PowerOff ");
-		//
-		//
-		// getDataElement("/api/compute/api/vApp/",
-		// vm.getAirId(), "/power/action/powerOff");
+//		power(vm, VirtualMachineStatus.POWEROFF);
+
 		log.info("finished createRemoteMachine");
 		return true;
 	}
 
-	public boolean power(VirtualMachine vm, Boolean state) {
-		Element element = null;
+	public boolean power(VirtualMachine vm, VirtualMachineStatus status) {
 		log.info("Power ");
-		if (!state) {
+		
+		if(getVirtualMachineStatus(vm).equals(status)){
+			return true;
+		}
+		
+		if (VirtualMachineStatus.POWERON.equals(status)) {
 			log.info("PowerOn ");
 			log.info(sendDataString("/api/compute/api/vApp/", vm.getAirId(),
 					"/power/action/powerOn",
@@ -643,9 +651,9 @@ public class VCloudAirComm {
 			// element = sendDataElement("/api/compute/api/vApp/",
 			// vm.getAirId(), "/power/action/powerOn",
 			// "application/vnd.vmware.vcloud.task+xm", "");
-			getExpectedStatus(vm, VirtualMachineStatus.POWERON);
+			return getExpectedStatus(vm, VirtualMachineStatus.POWERON);
 
-		} else {
+		} else if(VirtualMachineStatus.POWEROFF.equals(status)) {
 			log.info("PowerOff ");
 			log.info(sendDataString("/api/compute/api/vApp/", vm.getAirId(),
 					"/power/action/powerOff",
@@ -653,8 +661,7 @@ public class VCloudAirComm {
 			// element = sendDataElement("/api/compute/api/vApp/",
 			// vm.getAirId(), "/power/action/powerOff",
 			// "application/vnd.vmware.vcloud.task+xm", "");
-			getExpectedStatus(vm, VirtualMachineStatus.POWEROFF);
-
+			return getExpectedStatus(vm, VirtualMachineStatus.POWEROFF);
 		}
 
 		return false;
@@ -892,7 +899,7 @@ public class VCloudAirComm {
 				log.info("Finished");
 				return true;
 			}
-			log.info("Waiting " + theState.toString());
+			log.info("Waiting for " + status.toString() + " Current:" + theState.toString());
 			try {
 				Thread.sleep(10000);
 			} catch (InterruptedException e) {
@@ -937,14 +944,19 @@ public class VCloudAirComm {
 			// https://us-virginia-1-4.vchs.vmware.com
 			// CAL
 			VCloudAirComm vca = VCloudAirComm.getVCloudAirComm(DataCenter.CAL);
-			// log.info("getDataString" + vca.getDataString("/api/org", "",
-			// ""));
-			// log.info("getDataString"
-			// + vca.getDataString("/api/compute/api/org/",
-			// "c42b525f-720e-4f90-aba9-256d5e60a57b", ""));
-			// log.info("getDataString"
-			// + vca.getDataString("/api/compute/api/vdc/",
-			// "5c52bf05-28b7-45d3-9dc5-55780db11a42", ""));
+			
+//			 log.info("getDataString"
+//			 + vca.getDataString("/api/compute/api/network/",
+//			 "3bcd14f0-bbe8-4de3-b4c8-79ad68676866", ""));
+			
+			 VirtualMachine vm = new VirtualMachine();
+			 vm.setDatacenter(DataCenter.getDefault().getId());
+			 
+			 vca.createRemoteMachine(VirtualMachineType.getDefault(),vm, "test" + new Date(), "desc");
+				 
+				 
+				 //createRemoteMachine
+			 
 
 			// log.info(vca.getDataString("/api/compute/api/vApp/",
 			// "vapp-11b7149d-daaf-4677-a77f-64fab57b153e", ""));

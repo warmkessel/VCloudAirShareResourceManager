@@ -3,6 +3,7 @@ create table VirtualMachine (
    id INT NOT NULL auto_increment,
    version int default 0,
    lastUpdated  Date default NULL,
+   expiration  Date default NULL,
    currentUser     INT  default 0,
    publicIpAddress     VARCHAR(255)  default NULL,
    privateIpAddress     VARCHAR(255)  default NULL,

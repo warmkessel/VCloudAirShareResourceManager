@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.Date" import="java.util.List"
 	import="com.vcloudairshare.server.datastore.entity.VirtualMachine"
 	import="com.vcloudairshare.server.datastore.service.VirtualMachineService"
+	import="com.vcloudairshare.shared.enumeration.VirtualMachineStatus"
 	import="com.vcloudairshare.server.datastore.service.DataServices"
 	import="java.text.SimpleDateFormat" import="java.lang.StringBuffer"
 	import="com.vcloudairshare.shared.enumeration.Status"
@@ -22,8 +23,15 @@
 		if (null != idString && idString.length() > 0) {
 			Long inLong = Long.parseLong(idString);
 			if (null != powerString && powerString.length() > 0) {
-				power = DataServices.getVirtualMachineService().power(
-						inLong, Boolean.parseBoolean(powerString));
+				power = Boolean.parseBoolean(powerString);
+				if(power){
+					power = DataServices.getVirtualMachineService().power(inLong, VirtualMachineStatus.POWERON);
+				}
+				else{
+					power = DataServices.getVirtualMachineService().power(inLong, VirtualMachineStatus.POWEROFF);
+
+				}
+						
 			}
 			if (null != decommissionString && decommissionString.length() > 0) {
 				decommission = DataServices.getVirtualMachineService().decommission(
@@ -166,7 +174,7 @@
 		%>
 	</select> <br> <input type="submit" name="Save"></input><br><a
 		href="/admin/virtualmachine.jsp?power=true&id=<%=request.getParameter("id")%>">PowerOn</a><br><a
-		href="/admin/virtualmachine.jsp?power=true&id=<%=request.getParameter("id")%>">PowerOff</a><br><a
+		href="/admin/virtualmachine.jsp?power=false&id=<%=request.getParameter("id")%>">PowerOff</a><br><a
 		href="/admin/virtualmachine.jsp?decommission=true&id=<%=request.getParameter("id")%>">Decommission</a>
 
 </form>

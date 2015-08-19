@@ -1,5 +1,7 @@
 package com.vcloudairshare.server.datastore.entity;
 
+import java.util.Date;
+
 import com.vcloudairshare.shared.enumeration.VirtualMachineType;
 import com.vcloudairshare.shared.enumeration.VirtualHostType;
 import com.vcloudairshare.shared.enumeration.Status;
@@ -20,6 +22,7 @@ public class VirtualMachine extends DatastoreObject {
 	private Integer hosttype = VirtualHostType.getDefault().getId();
 	private Integer condition = Status.getDefault().getId();
 	private Integer status = Status.getDefault().getId();
+	private Date expiration = new Date(0);
 
 	public VirtualMachine() {
 
@@ -140,6 +143,16 @@ public class VirtualMachine extends DatastoreObject {
 
 	public void setCurrentUserName(String currentUserName) {
 		this.currentUserName = currentUserName;
+	}
+
+
+	public Date getExpiration() {
+		return expiration;
+	}
+
+
+	public void setExpiration(Date expiration) {
+		this.expiration = expiration;
 	}
 
 }

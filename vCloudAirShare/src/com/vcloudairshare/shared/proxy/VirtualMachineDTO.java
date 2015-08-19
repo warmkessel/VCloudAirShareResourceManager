@@ -1,5 +1,7 @@
 package com.vcloudairshare.shared.proxy;
 
+import java.util.Date;
+
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 import com.vcloudairshare.server.datastore.entity.VirtualMachine;
@@ -62,4 +64,7 @@ public interface VirtualMachineDTO extends EntityProxy {
 
 	public void setCurrentUserName(String currentUserName);
 
+	public Date getExpiration();
+
+	public void setExpiration(Date expiration);
 }

@@ -1,6 +1,8 @@
 package com.vcloudairshare.server.datastore.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -15,10 +17,13 @@ import com.vcloudairshare.server.datastore.entity.VirtualMachine;
 import com.vcloudairshare.shared.enumeration.VirtualHostType;
 import com.vcloudairshare.shared.enumeration.Status;
 import com.vcloudairshare.shared.enumeration.DataCenter;
+import com.vcloudairshare.shared.enumeration.VirtualMachineStatus;
 import com.vcloudairshare.shared.enumeration.VirtualMachineType;
+
 public class VirtualMachineService {
-	private static final Logger log = Logger.getLogger(VirtualMachineService.class
-			.getName());
+	private static final Logger log = Logger
+			.getLogger(VirtualMachineService.class.getName());
+
 	public VirtualMachine findByAirId(String airId) {
 		Session session = HibernateFactory.getSessionFactory().openSession();
 		Transaction tx = null;
@@ -189,23 +194,40 @@ public class VirtualMachineService {
 		}
 		return theList;
 	}
-	
+
 	public Boolean createMachine() {
 		return createMachine(DataCenter.CAL, VirtualMachineType.getDefault());
 	}
+
 	public Boolean updateNAT() {
 		return updateNAT(DataCenter.CAL);
 	}
-	public Boolean power(Long id, Boolean state) {
-		return power(DataCenter.CAL, findById(id), state);
+
+	public Boolean power(Long id, VirtualMachineStatus status) {
+		return power(DataCenter.CAL, findById(id), status);
 	}
-	
+
 	public Boolean decommission(Long id) {
-		return decommission(DataCenter.CAL, findById(id));
+		return decommission(findById(id));
 	}
-	
-	public Boolean decommission(DataCenter dc, VirtualMachine vm) {
-		VCloudAirComm vcac = VCloudAirComm.getVCloudAirComm(dc);
+
+	public Boolean commission(VirtualMachine vm, String userName) {
+		vm.setCondition(Status.INUSE.getId());
+		vm.setCurrentUserName(userName);
+		Calendar exp = new GregorianCalendar();
+		exp.add(GregorianCalendar.DAY_OF_YEAR,
+				VirtualMachineType.fromId(vm.getMachinetype()).getDuration());
+		vm.setExpiration(exp.getTime());
+		DataServices.getVirtualMachineService().persist(vm);
+		VCloudAirComm comm = VCloudAirComm.getVCloudAirComm(DataCenter
+				.getDefault());
+		return comm.power(vm, VirtualMachineStatus.POWERON);
+
+	}
+
+	public Boolean decommission(VirtualMachine vm) {
+		VCloudAirComm vcac = VCloudAirComm.getVCloudAirComm(DataCenter
+				.fromId(vm.getDatacenter()));
 		log.info("decommission! " + vm.getAirId());
 		vcac.decommission(vm);
 		log.info("delete! " + vm.getAirId());
@@ -215,57 +237,111 @@ public class VirtualMachineService {
 		log.info("Finished! " + vm.getAirId());
 		return true;
 	}
-	
-	public Boolean power(DataCenter dc, VirtualMachine vm, Boolean state) {
-		VCloudAirComm vcac = VCloudAirComm.getVCloudAirComm(dc);
-		vcac.power(vm, state);
+
+	public Boolean recommission(final Long id) {
+		VirtualMachine vm = findById(id);
+		log.info("recommission! " + vm.getAirId());
+		log.info("vm.getCondition()1! " + vm.getCondition());
+		vm.setCondition(Status.PROVISIONING.getId());
+		vm.setCurrentUserName("");
+		vm.setExpiration(null);
+		persist(vm);
+		log.info("vm.getCondition()2! " + vm.getCondition());
+
+		new Thread("Recommission thread" + Math.round(1000 * Math.random())) {
+			public void run() {
+				try {
+					VirtualMachine vm = findById(id);
+					VCloudAirComm vcac = VCloudAirComm
+							.getVCloudAirComm(DataCenter.fromId(vm
+									.getDatacenter()));
+					log.info("Recommission thread! " + vm.getAirId());
+					vcac.decommission(vm);
+
+					// Create VM on Server
+					vcac.createRemoteMachine(
+							VirtualMachineType.fromId(vm.getMachinetype()), vm,
+							"Id :" + vm.getId(),
+							"http://www.vcloudairshare.com/admin/virtualmachine.jsp?id="
+									+ vm.getId());
+					vm.setCondition(Status.AVAILABLE.getId());
+					log.info("vm.getCondition()3! " + vm.getCondition());
+					persist(vm);
+					log.info("vm.getCondition()4 " + vm.getCondition());
+					vcac.updateNAT();
+					log.info("Recommission thread Finished");
+				} catch (Exception e) {
+					log.severe("e " + e.getMessage());
+					VirtualMachine vm = findById(id);
+					vm.setCondition(Status.INVALID.getId());
+					log.info("setCondition to invalid!  " + vm.getCondition());
+
+					persist(vm);
+				}
+			}
+		}.start();
+		log.info("Recommission Returned");
 		return true;
 	}
+
+	public Boolean power(DataCenter dc, VirtualMachine vm,
+			VirtualMachineStatus status) {
+		VCloudAirComm vcac = VCloudAirComm.getVCloudAirComm(dc);
+		vcac.power(vm, status);
+		return true;
+	}
+
 	public Boolean updateNAT(DataCenter dc) {
 		VCloudAirComm vcac = VCloudAirComm.getVCloudAirComm(dc);
 		vcac.updateNAT();
 		return true;
 	}
+
 	public Boolean createMachine(DataCenter dc, VirtualMachineType machineType) {
 		log.info("Starting CreateMachine");
 		VCloudAirComm vcac = VCloudAirComm.getVCloudAirComm(dc);
 		log.info("Should be logged in");
 
-		//Create new Macine Record
+		// Create new Macine Record
 		VirtualMachine vm = new VirtualMachine();
-		
+
 		vm.setDatacenter(dc.getId());
 		vm.setHosttype(VirtualHostType.VCLOUDAIR.getId());
 		vm.setMachinetype(machineType.getId());
-		vm.setCondition(Status.INUSE.getId());
+		vm.setCondition(Status.UNKNOWN.getId());
 		vm.setStatus(Status.APPROVED.getId());
-		
 		vm = persist(vm);
-		//Fine a new Public Address
+		vm.setMachinename(machineType.toString() + "-" + vm.getId());
+
+		// Fine a new Public Address
 		log.info("Find Address");
-		
-		if(!vcac.findAddress(vm)){
+
+		if (!vcac.findAddress(vm)) {
 			log.severe("No Address Found");
 			return false;
 		}
-		
-		//Create VM on Server
-		vcac.createRemoteMachine(machineType, vm, "Id :" + vm.getId(), "http://localhost:8080/admin/virtualmachine.jsp?id="+ vm.getId());
+
+		// Create VM on Server
+		vcac.createRemoteMachine(
+				machineType,
+				vm,
+				"Id :" + vm.getId(),
+				"http://localhost:8080/admin/virtualmachine.jsp?id="
+						+ vm.getId());
 		vm.setCondition(Status.AVAILABLE.getId());
-		//poweroff the server
-		//Save Record
+		// poweroff the server
+		// Save Record
 		persist(vm);
-		
+
 		// build Network NAT
 		vcac.updateNAT();
 		log.info("Finished");
 
 		return true;
 	}
-	
-	
+
 	@SuppressWarnings("unchecked")
-	public static List<VirtualMachine> findByIP(){
+	public static List<VirtualMachine> findByIP() {
 
 		List<VirtualMachine> theList = new ArrayList<VirtualMachine>();
 		Session session = HibernateFactory.getSessionFactory().openSession();
@@ -288,6 +364,5 @@ public class VirtualMachineService {
 		}
 		return theList;
 	}
-	
-	
+
 }

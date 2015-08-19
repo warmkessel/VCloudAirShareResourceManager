@@ -17,6 +17,7 @@ import com.vcloudairshare.client.jso.FeedJSO;
 import com.vcloudairshare.client.view.home.HomePlace;
 import com.vcloudairshare.shared.enumeration.VirtualHostType;
 import com.vcloudairshare.shared.enumeration.Status;
+import com.vcloudairshare.shared.enumeration.VirtualMachineStatus;
 import com.vcloudairshare.shared.interfaces.HomeService;
 import com.vcloudairshare.shared.interfaces.HomeServiceAsync;
 import com.vcloudairshare.shared.proxy.UserDTO;
@@ -141,9 +142,9 @@ public class CommunicationsManager {
 	// factory.getEventBus().fireEvent(new ArticlesReceivedEvent());
 	// }
 	// });
-	public void requestPower(String machine, Boolean power) {
+	public void requestPower(String machine, VirtualMachineStatus status) {
 
-		homeService.power(machine, power, new AsyncCallback<Boolean>() {
+		homeService.power(machine, status, new AsyncCallback<Boolean>() {
 
 			@Override
 			public void onFailure(Throwable caught) {

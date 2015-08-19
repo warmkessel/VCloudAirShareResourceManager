@@ -3,27 +3,33 @@
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-   <class name="com.vcloudairshare.server.datastore.entity.VirtualMachine" table="VirtualMachine">
-      <meta attribute="class-description">
-         This class contains the employee detail. 
-      </meta>
-      <id name="id" type="long" column="id">
-         <generator class="native"/>
-      </id>
-      <property name="version" column="version" type="int"/>
-      <property name="lastUpdated" column="lastUpdated" type="date"/>
-      <property name="publicIpAddress" column="publicIpAddress" type="string"/>
-      <property name="privateIpAddress" column="privateIpAddress" type="string"/>
-      <property name="currentUser" column="currentUser" type="long"/>
-      <property name="machinename" column="machinename" type="string"/>
-      <property name="pass" column="pass" type="string"/>
-      <property name="machineDesc" column="machineDesc" type="string"/>
-      <property name="currentUserName" column="currentUserName" type="string"/>
-      <property name="airId" column="airId" type="string"/>
-      <property name="datacenter" column="datacenter" type="int"/>
-      <property name="machinetype" column="machinetype" type="int"/>
-      <property name="hosttype" column="hosttype" type="int"/>
-      <property name="condition" column="vmcondition" type="int"/>
-      <property name="status" column="status" type="int"/>
-   </class>
+	<class name="com.vcloudairshare.server.datastore.entity.VirtualMachine"
+		table="VirtualMachine">
+		<meta attribute="class-description">
+			This class contains the employee detail.
+		</meta>
+		<id name="id" type="long" column="id">
+			<generator class="native" />
+		</id>
+		<property name="version" column="version" type="int" />
+		<property name="lastUpdated" column="lastUpdated" type="date" />
+		<property name="publicIpAddress" column="publicIpAddress"
+			type="string" />
+		<property name="privateIpAddress" column="privateIpAddress"
+			type="string" />
+		<property name="currentUser" column="currentUser" type="long" />
+		<property name="machinename" column="machinename" type="string" />
+		<property name="pass" column="pass" type="string" />
+		<property name="machineDesc" column="machineDesc" type="string" />
+		<property name="currentUserName" column="currentUserName"
+			type="string" />
+		<property name="airId" column="airId" type="string" />
+		<property name="datacenter" column="datacenter" type="int" />
+		<property name="machinetype" column="machinetype" type="int" />
+		<property name="hosttype" column="hosttype" type="int" />
+		<property name="condition" column="vmcondition" type="int" />
+		<property name="status" column="status" type="int" />
+		<property name="expiration" column="expiration" type="date" />
+
+	</class>
 </hibernate-mapping>

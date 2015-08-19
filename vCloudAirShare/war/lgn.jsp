@@ -19,7 +19,7 @@
   	if(null != idString && idString.length() > 0){
   		Long inLong = Long.parseLong(idString);
   		a = AccountService.findByUserIdEnsured(inLong);
-  		if(9 == a.getId()){
+  		if(1 == a.getId()){
   			session.setAttribute("adm", "true");
   %>
   Hit
