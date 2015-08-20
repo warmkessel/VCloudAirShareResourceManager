@@ -15,8 +15,8 @@ import com.vcloudairshare.client.event.ErrorEvent;
 import com.vcloudairshare.client.event.VirtualMachinesReceivedEvent;
 import com.vcloudairshare.client.jso.FeedJSO;
 import com.vcloudairshare.client.view.home.HomePlace;
-import com.vcloudairshare.shared.enumeration.VirtualHostType;
 import com.vcloudairshare.shared.enumeration.Status;
+import com.vcloudairshare.shared.enumeration.VirtualHostType;
 import com.vcloudairshare.shared.enumeration.VirtualMachineStatus;
 import com.vcloudairshare.shared.interfaces.HomeService;
 import com.vcloudairshare.shared.interfaces.HomeServiceAsync;
@@ -118,6 +118,7 @@ public class CommunicationsManager {
 				});
 	}
 
+	
 	// String url = URL.encode(ExternalJNSI.getJSNI().getCallback());
 	// JsonpRequestBuilder requestBuilder = new JsonpRequestBuilder();
 	// requestBuilder.setTimeout(60000);
@@ -142,9 +143,9 @@ public class CommunicationsManager {
 	// factory.getEventBus().fireEvent(new ArticlesReceivedEvent());
 	// }
 	// });
-	public void requestPower(String machine, VirtualMachineStatus status) {
+	public void requestPower(Long vmId, VirtualMachineStatus status) {
 
-		homeService.power(machine, status, new AsyncCallback<Boolean>() {
+		homeService.power(vmId, status, factory.getEntityDepo().getUser().getUserId(), new AsyncCallback<Boolean>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -162,11 +163,30 @@ public class CommunicationsManager {
 
 		});
 	}
+	public void requestPass(final Long vmId) {
 
-	public void requestCheckout(String machine, Boolean power) {
+		homeService.pass(vmId, factory.getEntityDepo().getUser().getUserId(), new AsyncCallback<String>() {
 
-		homeService.checkout(machine, power, factory.getEntityDepo().getUser()
-				.getScreen_name(), new AsyncCallback<Boolean>() {
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void onSuccess(String result) {
+				if(null != result && result.length() > 0){
+					factory.getEntityDepo().setPass(vmId, result);
+					factory.getEventBus().fireEvent(new VirtualMachinesReceivedEvent());
+
+				}
+			}
+
+		});
+	}
+
+	public void requestCheckout(Long vmId, Boolean power) {
+
+		homeService.checkout(vmId, power, factory.getEntityDepo().getUser().getUserId(), new AsyncCallback<Boolean>() {
 
 			@Override
 			public void onFailure(Throwable caught) {

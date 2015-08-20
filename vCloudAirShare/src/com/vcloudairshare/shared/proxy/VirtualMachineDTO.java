@@ -18,13 +18,13 @@ public interface VirtualMachineDTO extends EntityProxy {
 
 	public void setPublicIpAddress(String publicIpAddress);
 
-	public String getPrivateIpAddress();
+//	public String getPrivateIpAddress();
+//
+//	public void setPrivateIpAddress(String privateIpAddress);
 
-	public void setPrivateIpAddress(String privateIpAddress);
-
-	public Long getCurrentUser();
-
-	public void setCurrentUser(Long currentUser);
+//	public Long getCurrentUser();
+//
+//	public void setCurrentUser(Long currentUser);
 
 	public String getMachinename();
 
@@ -37,28 +37,28 @@ public interface VirtualMachineDTO extends EntityProxy {
 	public Integer getMachinetype();
 
 	public void setMachinetype(Integer machinetype);
-
-	public Integer getHosttype();
-
-	public void setHosttype(Integer hosttype);
+//
+//	public Integer getHosttype();
+//
+//	public void setHosttype(Integer hosttype);
 
 	public Integer getCondition();
 
 	public void setCondition(Integer condition);
 
-	public Integer getStatus();
-
-	public void setStatus(Integer status);
-
-	public void setStatus(String status);
-
-	public String getAirId();
-
-	public void setAirId(String airId);
-
-	public String getPass();
-
-	public void setPass(String pass);
+//	public Integer getStatus();
+//
+//	public void setStatus(Integer status);
+//
+//	public void setStatus(String status);
+//
+//	public String getAirId();
+//
+//	public void setAirId(String airId);
+//
+//	public String getPass();
+//
+//	public void setPass(String pass);
 
 	public String getCurrentUserName();
 

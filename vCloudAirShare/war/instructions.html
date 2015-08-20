@@ -1,332 +1,182 @@
-
 <!DOCTYPE html>
-<html lang="en-US" prefix="og: http://ogp.me/ns#">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>vCloud Air Share</title>
-<link rel="profile" href="http://gmpg.org/xfn/11">
-<link rel="pingback" href="https://devops.vmware.com/xmlrpc.php">
-<!--
-<script src="//use.typekit.net/slx4bqp.js"></script>
-<script>try{Typekit.load();}catch(e){}</script>
--->
-
-<!-- This site is optimized with the Yoast WordPress SEO plugin v1.6.3 - https://yoast.com/wordpress/plugins/seo/ -->
-<!--
-<link rel="canonical" href="https://devops.vmware.com/vcloud-air-share/" />
-<meta property="og:locale" content="en_US" />
-<meta property="og:type" content="article" />
-<meta property="og:title" content="vCloud Air Share  - Prompt" />
-<meta property="og:description" content="vCloud Air Share is an application that allows users to checkout a VM. Lorem ipsum dolor sit amet, consectetur adipiscing&hellip;" />
-<meta property="og:url" content="https://devops.vmware.com/vcloud-air-share/" />
-<meta property="og:site_name" content="Prompt" />
--->
-<!-- / Yoast WordPress SEO plugin. -->
-
-<!--
-<link rel="alternate" type="application/rss+xml" title="Prompt &raquo; Feed" href="https://devops.vmware.com/feed/" />
-<link rel="alternate" type="application/rss+xml" title="Prompt &raquo; Comments Feed" href="https://devops.vmware.com/comments/feed/" />
-<link rel="alternate" type="application/rss+xml" title="Prompt &raquo; vCloud Air Share Comments Feed" href="https://devops.vmware.com/vcloud-air-share/feed/" />
--->
-
-<link rel='stylesheet' id='bbp-default-css'  href='css/bbpress.css' type='text/css' media='screen' />
-<link rel='stylesheet' id='main-css'  href='css/main.css' type='text/css' media='all' />
-
-<!-- Original source of the 5 above scripts 
-<script type='text/javascript' src='https://devops.vmware.com/wp-includes/js/jquery/jquery.js?ver=1.11.1'></script>
-<script type='text/javascript' src='https://devops.vmware.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
-<script type='text/javascript' src='https://devops.vmware.com/wp-content/themes/devops/assets/js/modernizr-2.8.2.min.js?ver=20141022'></script>
-<script type='text/javascript' src='https://devops.vmware.com/wp-content/themes/devops/assets/js/jquery.placeholder.min.js?ver=20141022'></script>
-<script type='text/javascript' src='https://devops.vmware.com/wp-content/themes/devops/assets/js/script.js?ver=20141022'></script>
--->
-
-<!--
-<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://devops.vmware.com/xmlrpc.php?rsd" />
-<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://devops.vmware.com/wp-includes/wlwmanifest.xml" /> 
--->
-
-<meta name="generator" content="WordPress 4.0" />
-<link rel='shortlink' href='https://devops.vmware.com/?p=17' />
-
-<!-- Simple Social Buttons style sheet -->
-<!--
-<style type="text/css">
-   div.simplesocialbuttons { height: 20px; margin: 10px auto 10px 0; text-align: left; clear: left; }
-   div.simplesocialbutton { float: left; }
-   div.ssb-button-googleplus { width: 100px; }
-   div.ssb-button-fblike { width: 140px; line-height: 1; }
-   div.ssb-button-twitter { width: 130px; }
-   div.ssb-button-pinterest { width: 100px; }
-   .fb-like iframe { max-width: none !important; }
-</style>
--->
-<!-- End of Simple Social Buttons -->
-
-<style type="text/css" id="custom-background-css">
-body.custom-background { background-color: #ffffff; }
-</style>
-</head>
-
-<body class="page page-template-default custom-background">
-
-<style>#bbp_login_widget-2 {display:none!important;</style>
-	<!-- Check for loggin user. If user is logged in CSS does not change, if user is not logged change CSS for bug fix -->
-	<style>#devops-overlay {top:95px;} @media screen and (min-width: 48em) {#devops-tab {margin-top:-26px;} #devops-overlay {top:41px;}</style>	
-    <!-- Check to see if the user is an admin. If they are an admin display the top WP admin bar. If not remove the admin bar -->
-    <!---->
-
-<div class="breakpoint-context"></div>
-<div id="page" class="hfeed site">
-	<header id="masthead-mod" class="site-header" role="banner">
-		<div class="container">
-	        <div class="header-table">
-	        	<div class="header-logo">
-	            	<a href="https://devops.vmware.com/" target="_blank" rel="home"><img src="images/DevOps-at-VMware.png" alt="Prompt" class="site-logo" width="300" height="20"></a>
-                    
-					<p class="site-description"></p>
-	            </div>
-	            <div class="header-nav">
-					<div id="devops-nav">
-						<div id="devops-tab">DevOps Resources
-		                	<div class="nav-arrow"></div>
-		                </div>
-						<div id="devops-overlay">
-	                    <div class="devops-nav-right">
-			                	<ul>
-                                	<li><strong>Code</strong></li>
-			                        <li><a href="https://devops.vmware.com/hack-a-thon" target="_blank">Hackathon</a></li>	
-    		                        <li><a href="https://devops.vmware.com/config" target="_blank">Config</a></li>
-			                        <li><a href="https://devops.vmware.com/github" target="_blank">GitHub</a></li>
-			                   </ul>
-							</div>
-		                     <div class="devops-nav-center">
-    		                	<ul>
-                                	<li><strong>Community</strong></li>
-			                    	<li><a href="https://devops.vmware.com/signup" target="_blank">Join the DevOps at VMworld Community</a></li>
-		                        	<li><a href="https://devops.vmware.com/community-forums" target="_blank">Community & Forums</a></li>
-			                        <li><a href="https://devops.vmware.com/blog" target="_blank">DevOps at VMworld Blog</a></li>
-			   	                    <li><a href="https://devops.vmware.com/cloudcred-tasks" target="_blank">CloudCred DevOps Tasks</a></li>
-                                    <li><a href="https://devops.vmware.com/people" target="_blank">People</a></li>
-			   	               </ul>
-							</div>
-							<div class="devops-nav-left">
-			                	<ul>
-	                              	<li><strong>Tools & Tech</strong></li>
-			                        <li><a href="https://devops.vmware.com/devops-program-agenda-glance" target="_blank">DevOps at VMworld Agenda</a></li>
-			                        <li><a href="https://devops.vmware.com/devop-workshops-vmworld" target="_blank">DevOps Workshops</a></li>
-			                        <li><a href="https://devops.vmware.com/devops-session-vmworld" target="_blank">DevOps Sessions at VMworld</a></li>
-			                        <li><a href="https://devops.vmware.com/learning" target="_blank">Learning</a></li>
-			                    </ul>
-							</div>
-						</div>
-					</div>
-	            </div>
-	            
-	            
-	            <div class="header-userdata">
-				
+<html lang="en-US">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>vCloud Air Share</title>
+      <link rel="profile" href="http://gmpg.org/xfn/11">
+      <link rel='stylesheet' id='main-css'  href='css/main.css' type='text/css' media='all' />
+      <meta name="generator" content="WordPress 4.0" />
+   </head>
+   <body class="page page-template-default custom-background">
+      <div class="breakpoint-context"></div>
+      <div id="page" class="hfeed site">
+      <header id="masthead-mod" class="site-header" role="banner">
+         <div class="container">
+            <div class="header-table">
+               <div class="header-logo">
+                  <a href="https://devops.vmware.com/" target="_blank" rel="home"><img src="images/DevOps-at-VMware.png" alt="Prompt" class="site-logo" width="300" height="20"></a>
+                  <p class="site-description"></p>
+               </div>
+               <div class="header-nav">
+                  <div id="devops-nav">
+                     <div id="devops-tab">
+                        DevOps Resources
+                        <div class="nav-arrow"></div>
+                     </div>
+                     <div id="devops-overlay">
+                        <div class="devops-nav-right">
+                           <ul>
+                              <li><strong>Code</strong></li>
+                              <li><a href="https://devops.vmware.com/hack-a-thon" target="_blank">Hackathon</a></li>
+                              <li><a href="https://devops.vmware.com/config" target="_blank">Config</a></li>
+                              <li><a href="https://devops.vmware.com/github" target="_blank">GitHub</a></li>
+                           </ul>
+                        </div>
+                        <div class="devops-nav-center">
+                           <ul>
+                              <li><strong>Community</strong></li>
+                              <li><a href="https://devops.vmware.com/signup" target="_blank">Join the DevOps at VMworld Community</a></li>
+                              <li><a href="https://devops.vmware.com/community-forums" target="_blank">Community & Forums</a></li>
+                              <li><a href="https://devops.vmware.com/blog" target="_blank">DevOps at VMworld Blog</a></li>
+                              <li><a href="https://devops.vmware.com/cloudcred-tasks" target="_blank">CloudCred DevOps Tasks</a></li>
+                              <li><a href="https://devops.vmware.com/people" target="_blank">People</a></li>
+                           </ul>
+                        </div>
+                        <div class="devops-nav-left">
+                           <ul>
+                              <li><strong>Tools & Tech</strong></li>
+                              <li><a href="https://devops.vmware.com/devops-program-agenda-glance" target="_blank">DevOps at VMworld Agenda</a></li>
+                              <li><a href="https://devops.vmware.com/devop-workshops-vmworld" target="_blank">DevOps Workshops</a></li>
+                              <li><a href="https://devops.vmware.com/devops-session-vmworld" target="_blank">DevOps Sessions at VMworld</a></li>
+                              <li><a href="https://devops.vmware.com/learning" target="_blank">Learning</a></li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="header-userdata">
+               </div>
+               <br clear="all"/>
+               <div class="header-search-overlay">
+                  <div class="search-overlay">
+                     <form role="search" method="get" class="search-form" action="https://devops.vmware.com/">
+                        <label>
+                        <input type="search" class="search-field" value="" name="s" title="Search for:">
+                        </label>
+                     </form>
+                  </div>
+               </div>
             </div>
-	            <br clear="all"/>
-	            <div class="header-search-overlay">
-					<div class="search-overlay">
-						<form role="search" method="get" class="search-form" action="https://devops.vmware.com/">
-							<label>
-								<input type="search" class="search-field" value="" name="s" title="Search for:">
-							</label>
-							<!--	<input type="submit" class="search-submit" value="Search"> -->
-						</form>
-					</div>
-	            </div>
-			</div>
-		</div><!-- .container -->
-	</header><!-- #masthead -->
-
-	<button id="toggle-menu">Menu</button>
-	<nav id="nav-main" class="main-navigation container" role="navigation">
-		<ul><li class="parent-menu-item has-submenu"><a href="https://devops.vmware.com/category/blog/">Blog</a><ul><li><a href="https://devops.vmware.com/2015/07/08/vmworld-will-you-be-there/">DevOps Day at VMworld, Will You be There?</a></li><li><a href="https://devops.vmware.com/2015/07/08/test-post/">This is a test post</a></li><li class="full-category-archives"><a href="https://devops.vmware.com/category/blog/">View All &raquo;</a></li></li></ul></ul>		<div id="main-site-link">
-			<a href="http://www.vmware.com/it-outcomes">vmware.com &raquo;</a>
-		</div>
-	</nav><!-- #site-navigation -->
-
-	<div id="content" class="site-content container">
-	
-	<!-- ############################################################# -->
-	<!-- ############################################################# -->
-	<!-- ############################################################# -->
-	<!-- ############################################################# -->
-	<!-- ############################################################# -->
-	<!-- ############################################################# -->
-	<!-- This is the div where the main text goes -->
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
-            	
-<article id="post-17" class="post-17 page type-page status-publish hentry entry-full">
-
-	<div>
-	<header class="entry-header">
-		<h1 class="entry-title">vCloud Air Share Instructions</h1>	
-	</header><!-- .entry-header -->
-	<div class="entry-content">
-		<img class="aligncenter wp-image-457" src="images/vCloud-banner.jpg" alt="vCloud_logo" width="100%">
-
-		<p>Follow the instructions below to begin utilizing a Virtual Machine:</p>
-		
-		<p>
-		<h4>Check out a Machine</h4>
-		</p>
-		<p>To access a virtual machine, we must first reserve it for use by <i>checking it out</i>.</p>
-		
-		<ul>
-			<li>On the <i>vCloud Air Share Machines</i> page, log in with your Twitter account.</li>
-			<li>Once you have logged in, you will see a list of virtual machines.</li>
-			<li>Browse to an available virtual machine and click "Checkout"</li>
-			<li>When a dropdown display with an IP address, password, and power button appears, you have successfully checked out the virtual machine. </li>
-		</ul>
-		
-		<p>
-		<h4>Establish Remote Connection</h4>
-		</p>
-		<p>This allows you to operate the Virtual Machine from your computer.</p>
-		
-		<ul>	
-			<li>Click the "Power On" button. A window will pop up confirming that the machine is powered on.</li>
-			<li>Using a command line interface with SSH capabilities, establish a connection with the virtual machine by typing: </li>
-			<blockquote><code>ssh root@&lt;ip address> </code></blockquote>
-			<li>Then when prompted, type in the password provided and press enter.</li>
-		</ul>
-		
-		<hr style="display: block; margin-top: 2.5em; margin-bottom: 2.5em; margin-left: auto; margin-right: auto; border-width: 1px;">
-		
-		<h4>Contact</h4>
-		<p>For additional help contact:</p>
-		<p><strong>James Warmkessel</strong><br>vCloud Air Share Operations Manager<br>warmkesselj@vmware.com</p>	
-	</div><!-- .entry-content -->
-	</div><!-- #instructions -->
-		
-</article><!-- #post-## -->
-
-
-
-<style>#content {margin-top:8px;} hr {display:none;}</style> 				
-				
-			
-		</main><!-- #main -->
-	</div><!-- #primary -->
-
-
-<div id="secondary" class="widget-area" role="complementary">
-	<aside id="text-2" class="widget widget_text">			<div class="textwidget"><style>
-
-#pages-3 strong {font-size:14px; color:#555; margin-left:-15px;}
-
-.page-item-204, .page-item-140, .page-item-25 {margin-top:5px;}
-
-.page-item-17, .page-item-109 {margin-bottom:20px!important;}
-
-
-</style>
-
-
-
-<aside id="pages-3" class="widget widget_pages"><h3 class="widget-title">Navigation</h3>
-
-	<ul>
-
-		<li class="page_item page-item-34"><a href="https://devops.vmware.com/">DevOps at VMworld</a></li>
-
-        
-
-		<strong>Code</strong>
-
-		<li class="page_item page-item-25"><a href="https://devops.vmware.com/hack-a-thon/" target="_blank">Hackathon</a></li>
-
-		<li class="page_item page-item-27"><a href="https://devops.vmware.com/config/" target="_blank">Config</a></li>
-
-		<li class="page_item page-item-19"><a href="https://devops.vmware.com/github/" target="_blank">GitHub</a></li>
-<br>
-        
-
-        <strong>Community</strong>
-
-		<li class="page_item page-item-140"><a href="https://devops.vmware.com/signup/" target="_blank">Join the DevOps at VMworld Community</a></li>
-
-		<li class="page_item page-item-37"><a href="https://devops.vmware.com/community-forums/" target="_blank">Community &amp; Forums</a></li>
-
-		<li class="page_item page-item-124"><a href="https://devops.vmware.com/blog/" target="_blank">DevOps at VMworld Blog</a></li>
-
-		<li class="page_item page-item-21"><a href="https://devops.vmware.com/cloudcred-tasks/" target="_blank">CloudCred DevOps Tasks</a></li>        
-
-    	<li class="page_item page-item-109"><a href="https://devops.vmware.com/people/" target="_blank">People</a></li>
-
-
-
-        <strong>Tools & Technology</strong>
-
-		<li class="page_item page-item-204"><a href="https://devops.vmware.com/devops-program-agenda-glance/" target="_blank">DevOps at VMworld Glance</a></li>
-
-    	<li class="page_item page-item-195"><a href="https://devops.vmware.com/devop-workshops-vmworld/" target="_blank">DevOps Workshops</a></li>
-
-		<li class="page_item page-item-11"><a href="https://devops.vmware.com/devops-session-vmworld/" target="_blank">DevOps Sessions at VMworld</a></li>
-
-		<li class="page_item page-item-23"><a href="https://devops.vmware.com/learning/" target="_blank">Learning</a></li>                        
-
-<br>
-		<strong>vCloud Air Share</strong>
-		
-		
-		
-		<li class="page_item page-item-204"><a href="index.html">vCloud Air Share Machines</a></li>
-		
-		<li class="page_item"><a href="about.html">About vCloud Air Share</a></li>
-
-		<li class="page_item"><a href="instructions.html">vCloud Air Share Instructions</a></li>
-
-		<li class="page_item"><a href="legal.html">vCloud Air Share Terms of Use</a></li>
-	
-
-
-	</ul>
-
-</aside></div>
-		</aside></div>
-
-<!-- #secondary -->
-
-<!--
-<script type="text/javascript" src="https://www.vmware.com/files/templates/inc/s_code_vmw.js"></script>
--->
-
-<!--
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-64404708-1', 'auto');
-  ga('send', 'pageview');
-</script>
--->
-<hr />
-
-</div>
-
-
-
-<!--
-<script type='text/javascript' src='https://devops.vmware.com/wp-content/plugins/akismet/_inc/form.js?ver=3.0.2'></script>
-<script type='text/javascript' src='https://devops.vmware.com/wp-content/plugins/bbpress/templates/default/js/editor.js?ver=2.5.7-5693'></script>
-<script type='text/javascript' src='https://devops.vmware.com/wp-includes/js/comment-reply.min.js?ver=4.0'></script>
--->
-
-</body>
-
-
+         </div>
+         <!-- .container -->
+      </header>
+      <!-- #masthead -->
+      <button id="toggle-menu">Menu</button>
+      <nav id="nav-main" class="main-navigation container" role="navigation">
+         <ul>
+            <li class="parent-menu-item has-submenu">
+               <a href="https://devops.vmware.com/category/blog/">Blog</a>
+               <ul>
+                  <li><a href="https://devops.vmware.com/2015/07/08/vmworld-will-you-be-there/">DevOps Day at VMworld, Will You be There?</a></li>
+                  <li><a href="https://devops.vmware.com/2015/07/08/test-post/">This is a test post</a></li>
+                  <li class="full-category-archives"><a href="https://devops.vmware.com/category/blog/">View All &raquo;</a></li>
+                  </li>
+               </ul>
+         </ul>
+         <div id="main-site-link">
+            <a href="http://www.vmware.com/it-outcomes">vmware.com &raquo;</a>
+         </div>
+      </nav>
+      <!-- #site-navigation -->
+      <div id="content" class="site-content container">
+         <div id="primary" class="content-area">
+            <main id="main" class="site-main" role="main">
+               <article id="post-17" class="post-17 page type-page status-publish hentry entry-full">
+                  <div>
+                     <header class="entry-header">
+                        <h1 class="entry-title">vCloud Air Share Instructions</h1>
+                     </header>
+                     <!-- .entry-header -->
+                     <div class="entry-content">
+                        <img class="aligncenter wp-image-457" src="images/vCloud-banner.jpg" alt="vCloud_logo" width="100%">
+                        <p>Follow the instructions below to begin utilizing a Virtual Machine:</p>
+                        <p>
+                        <h4>Check out a Machine</h4>
+                        </p>
+                        <p>To access a virtual machine, we must first reserve it for use by <i>checking it out</i>.</p>
+                        <ul>
+                           <li>On the <i>vCloud Air Share Machines</i> page, log in with your Twitter account.</li>
+                           <li>Once you have logged in, you will see a list of virtual machines.</li>
+                           <li>Browse to an available virtual machine and click "Checkout"</li>
+                           <li>When a dropdown display with an IP address, password, and power button appears, you have successfully checked out the virtual machine. </li>
+                        </ul>
+                        <p>
+                        <h4>Establish Remote Connection</h4>
+                        </p>
+                        <p>This allows you to operate the Virtual Machine from your computer.</p>
+                        <ul>
+                           <li>Click the "Power On" button. A window will pop up confirming that the machine is powered on.</li>
+                           <li>Using a command line interface with SSH capabilities, establish a connection with the virtual machine by typing: </li>
+                           <blockquote><code>ssh root@&lt;ip address> </code></blockquote>
+                           <li>Then when prompted, type in the password provided and press enter.</li>
+                        </ul>
+                        <hr style="display: block; margin-top: 2.5em; margin-bottom: 2.5em; margin-left: auto; margin-right: auto; border-width: 1px;">
+                        <h4>Contact</h4>
+                        <p>For additional help contact:</p>
+                        <p><strong>James Warmkessel</strong><br>vCloud Air Share Operations Manager<br>warmkesselj@vmware.com</p>
+                     </div>
+                     <!-- .entry-content -->
+                  </div>
+                  <!-- #instructions -->
+               </article>
+               <!-- #post-## -->
+            </main>
+            <!-- #main -->
+         </div>
+         <!-- #primary -->
+         <div id="secondary" class="widget-area" role="complementary">
+            <aside id="text-2" class="widget widget_text">
+               <div class="textwidget">
+                  <aside id="pages-3" class="widget widget_pages">
+                     <h3 class="widget-title">Navigation</h3>
+                     <ul>
+                        <li class="page_item page-item-34"><a href="https://devops.vmware.com/">DevOps at VMworld</a></li>
+                        <strong>Code</strong>
+                        <li class="page_item page-item-25" style="margin-top:5px;"><a href="https://devops.vmware.com/hack-a-thon/" target="_blank">Hackathon</a></li>
+                        <li class="page_item page-item-27"><a href="https://devops.vmware.com/config/" target="_blank">Config</a></li>
+                        <li class="page_item page-item-19"><a href="https://devops.vmware.com/github/" target="_blank">GitHub</a></li>
+                        <br>
+                        <strong>Community</strong>
+                        <li class="page_item page-item-140" style="margin-top:5px;"><a href="https://devops.vmware.com/signup/" target="_blank">Join the DevOps at VMworld Community</a></li>
+                        <li class="page_item page-item-37"><a href="https://devops.vmware.com/community-forums/" target="_blank">Community &amp; Forums</a></li>
+                        <li class="page_item page-item-124"><a href="https://devops.vmware.com/blog/" target="_blank">DevOps at VMworld Blog</a></li>
+                        <li class="page_item page-item-21"><a href="https://devops.vmware.com/cloudcred-tasks/" target="_blank">CloudCred DevOps Tasks</a></li>
+                        <li class="page_item page-item-109"><a href="https://devops.vmware.com/people/" target="_blank">People</a></li>
+                        <br>
+                        <strong>Tools & Technology</strong>
+                        <li class="page_item page-item-204" style="margin-top:5px;"><a href="https://devops.vmware.com/devops-program-agenda-glance/" target="_blank">DevOps at VMworld Glance</a></li>
+                        <li class="page_item page-item-195"><a href="https://devops.vmware.com/devop-workshops-vmworld/" target="_blank">DevOps Workshops</a></li>
+                        <li class="page_item page-item-11"><a href="https://devops.vmware.com/devops-session-vmworld/" target="_blank">DevOps Sessions at VMworld</a></li>
+                        <li class="page_item page-item-23"><a href="https://devops.vmware.com/learning/" target="_blank">Learning</a></li>
+                        <br>
+                        <strong>vCloud Air Share</strong>
+                        <li class="page_item page-item-204" style="margin-top:5px;"><a href="index.html">vCloud Air Share Machines</a></li>
+                        <li class="page_item"><a href="about.html">About vCloud Air Share</a></li>
+                        <li class="page_item"><a href="instructions.html">vCloud Air Share Instructions</a></li>
+                        <li class="page_item"><a href="legal.html">vCloud Air Share Terms of Use</a></li>
+                     </ul>
+                  </aside>
+               </div>
+            </aside>
+         </div>
+         <!-- #secondary -->
+         <br>
+      </div>
+   </body>
 </html>
-
 <div id="devops-footer">
-	<div style="text-align:center; ">
-	   	<a href="http://www.vmware.com/help/legal.html">Terms of Use</a> <a href="http://www.vmware.com/help/privacy.html">Privacy</a> <a href="http://www.vmware.com/trademarks.html">Trademarks</a> <a href="http://www.vmware.com/help/">Help</a>
-    </div>
+   <div style="text-align:center; ">
+      <a href="http://www.vmware.com/help/legal.html">Terms of Use</a> <a href="http://www.vmware.com/help/privacy.html">Privacy</a> <a href="http://www.vmware.com/trademarks.html">Trademarks</a> <a href="http://www.vmware.com/help/">Help</a>
+   </div>
 </div>

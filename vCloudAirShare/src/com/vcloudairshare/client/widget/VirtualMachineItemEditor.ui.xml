@@ -47,7 +47,7 @@
 	}
 	
 	.pass {
-		font-size: medium;
+		font-size: small;
 		padding-right: 10px;
 	}
 	
@@ -82,7 +82,6 @@
 	</ui:style>
 	<g:HTMLPanel>
 		<div class="{style.container}">
-			<g:InlineLabel visible="false" ui:field="airId" />
 			<g:InlineLabel styleName="{style.name}" ui:field="machinename" />
 			<b:VirtualMachineTypeLabel styleName="{style.type}" ui:field="machinetype" />
 			<b:StatusLabel styleName="{style.status}" ui:field='condition' />
@@ -94,7 +93,6 @@
 			styleName="{style.subPanel}">
 			<g:InlineLabel text="IP Address:"></g:InlineLabel>
 			<g:InlineLabel styleName="{style.ipaddress}" ui:field="publicIpAddress" />
-			<g:InlineLabel text="Root Password:"></g:InlineLabel>
 			<g:InlineLabel styleName="{style.ipaddress}" ui:field="pass" />
 			<g:Image styleName="{style.poweron}" ui:field="poweron"
 				width="100" height="25" resource='{res.poweron}' visible="true" />

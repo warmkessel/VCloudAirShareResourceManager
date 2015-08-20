@@ -58,6 +58,22 @@ public class AccountService {
 		}
 		return null;
 	}
+	public static Account findByUserId(Long key) {
+		// return OfyService.ofy().load().type(Users.class).id(key).now();
+		Session session = HibernateFactory.getSessionFactory().openSession();
+//		Transaction tx = null;
+		try {
+//			tx = session.beginTransaction();
+			Criteria theCriteria = session.createCriteria(Account.class);
+			theCriteria.add(Restrictions.eq("userId", key));
+			return  (Account) theCriteria.uniqueResult();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return null;
+	}
 
 	public static Account persist(Account users) {
 //		log.warning("!!!!!   updated account " + users.getId());

@@ -83,7 +83,7 @@ public class VirtualMachineItemView extends Composite {
 									.getRequestFactory(), editor);
 							editorDriver.display(theVM);
 							machinePanel.add(editor);
-							editor.setup();
+							editor.setup(theVM);
 						}
 
 					}
@@ -96,7 +96,7 @@ public class VirtualMachineItemView extends Composite {
 
 	public void display() {
 		getClientFactory().getCommunicationsManager().requestVirtualMacines(0,
-				10, VirtualHostType.VCLOUDAIR, Status.APPROVED);
+				50, VirtualHostType.VCLOUDAIR, Status.APPROVED);
 		registerHandler();
 	}
 }

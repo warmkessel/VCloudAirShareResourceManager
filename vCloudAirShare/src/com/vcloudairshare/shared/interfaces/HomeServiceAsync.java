@@ -6,8 +6,10 @@ import com.vcloudairshare.shared.enumeration.VirtualMachineStatus;
 
 
 public interface HomeServiceAsync {
-	void power(String airId, VirtualMachineStatus status, AsyncCallback<Boolean> callback)
+	void pass(Long vmId, Long userId, AsyncCallback<String> callback)
 			throws IllegalArgumentException;
-	void checkout(String airId, Boolean state, String userName, AsyncCallback<Boolean> callback)
+	void power(Long id, VirtualMachineStatus status, Long userId, AsyncCallback<Boolean> callback)
+			throws IllegalArgumentException;
+	void checkout(Long id, Boolean state, Long userId, AsyncCallback<Boolean> callback)
 			throws IllegalArgumentException;
 }

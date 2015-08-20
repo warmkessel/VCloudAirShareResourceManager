@@ -11,7 +11,7 @@ import com.vcloudairshare.shared.enumeration.Status;
 import com.vcloudairshare.shared.proxy.VirtualMachineDTO;
 
 @Service(VirtualMachineService.class)
-public interface VirtualMacineRequest extends RequestContext {
+public interface VirtualMachineRequest extends RequestContext {
 	Request<VirtualMachineDTO> findById(Long key);
 	Request<List<VirtualMachineDTO>> findByAvialable(int from, int count, VirtualHostType machineType, Status status);
 	Request<VirtualMachineDTO> findFirstByAvialable(int from, int count, VirtualHostType machineType, Status status);

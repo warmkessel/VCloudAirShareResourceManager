@@ -13,6 +13,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import com.vcloudairshare.server.communications.VCloudAirComm;
+import com.vcloudairshare.server.datastore.entity.Account;
 import com.vcloudairshare.server.datastore.entity.VirtualMachine;
 import com.vcloudairshare.shared.enumeration.VirtualHostType;
 import com.vcloudairshare.shared.enumeration.Status;
@@ -110,7 +111,38 @@ public class VirtualMachineService {
 		}
 		return theList;
 	}
+	
+	public static VirtualMachine findByIdAndAccountId(Long id, Long accountId) {
+		Session session = HibernateFactory.getSessionFactory().openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			Criteria theCriteria = session.createCriteria(VirtualMachine.class);
+			theCriteria.add(Restrictions.eq("id", id));
+			theCriteria.add(Restrictions.eq("currentUser", accountId));
 
+			return (VirtualMachine) theCriteria.uniqueResult();
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return null;
+		// Query<VirtualMachine> q =
+		// OfyService.ofy().load().type(VirtualMachine.class);
+		// q = q.limit(1).filter("airId", airId);
+		//
+		// List<VirtualMachine> VirtualMachine = q.list();
+		// VirtualMachine user = null;
+		// if (null != VirtualMachine && VirtualMachine.size() > 0) {
+		// user = VirtualMachine.get(0);
+		// }
+		// return user;
+	}
+	
+	
 	public static VirtualMachine findFirstByAvialable(int from, int count,
 			VirtualHostType machineType, Status status) {
 		// Query<VirtualMachine> q =
@@ -211,9 +243,10 @@ public class VirtualMachineService {
 		return decommission(findById(id));
 	}
 
-	public Boolean commission(VirtualMachine vm, String userName) {
+	public Boolean commission(VirtualMachine vm, Account account) {
 		vm.setCondition(Status.INUSE.getId());
-		vm.setCurrentUserName(userName);
+		vm.setCurrentUserName(account.getScreen_name());
+		vm.setCurrentUser(account.getId());
 		Calendar exp = new GregorianCalendar();
 		exp.add(GregorianCalendar.DAY_OF_YEAR,
 				VirtualMachineType.fromId(vm.getMachinetype()).getDuration());

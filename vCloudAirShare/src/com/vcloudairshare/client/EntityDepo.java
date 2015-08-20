@@ -1,6 +1,8 @@
 package com.vcloudairshare.client;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
@@ -21,6 +23,9 @@ public class EntityDepo {
 	private UserDTO user = null;
 	private FeedJSO feed = null;
 
+	private Map<Long, String> pass = new HashMap<Long, String>();
+
+	
 	private List<VirtualMachineDTO> vm = null;
 	private VirtualMachineDTO test = null;
 
@@ -31,7 +36,17 @@ public class EntityDepo {
 	public void setVm(List<VirtualMachineDTO> vm) {
 		this.vm = vm;
 	}
-
+	public void setPass(Long id, String password){
+		pass.put(id,password);
+	}
+	public String getPass(Long id){
+		if(pass.containsKey(id)){
+			return pass.get(id);
+		}
+		else{
+			return "";
+		}
+	}
 	public EntityDepo() {
 
 	}

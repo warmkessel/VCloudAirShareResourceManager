@@ -9,9 +9,12 @@ public interface HomeService extends RemoteService {
 //	UserDTO authentication(String username, String pass)
 //			throws IllegalArgumentException;
 	
-	Boolean power(String airId, VirtualMachineStatus status)
+	String pass(Long vmId, Long userId)
+			throws IllegalArgumentException;
+	
+	Boolean power(Long vmId, VirtualMachineStatus status, Long userId)
 	throws IllegalArgumentException;
 	
-	Boolean checkout(String airId, Boolean state, String userName)
+	Boolean checkout(Long vmId, Boolean state, Long userId)
 			throws IllegalArgumentException;
 }
