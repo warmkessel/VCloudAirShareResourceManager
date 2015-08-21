@@ -111,7 +111,7 @@ public class VirtualMachineService {
 		}
 		return theList;
 	}
-	
+
 	public static VirtualMachine findByIdAndAccountId(Long id, Long accountId) {
 		Session session = HibernateFactory.getSessionFactory().openSession();
 		Transaction tx = null;
@@ -141,8 +141,7 @@ public class VirtualMachineService {
 		// }
 		// return user;
 	}
-	
-	
+
 	public static VirtualMachine findFirstByAvialable(int from, int count,
 			VirtualHostType machineType, Status status) {
 		// Query<VirtualMachine> q =
@@ -283,33 +282,44 @@ public class VirtualMachineService {
 
 		new Thread("Recommission thread" + Math.round(1000 * Math.random())) {
 			public void run() {
-				try {
-					VirtualMachine vm = findById(id);
+				VirtualMachine vm = findById(id);
+				if (null != vm) {
 					VCloudAirComm vcac = VCloudAirComm
 							.getVCloudAirComm(DataCenter.fromId(vm
 									.getDatacenter()));
-					log.info("Recommission thread! " + vm.getAirId());
-					vcac.decommission(vm);
+					if (null != vcac) {
 
-					// Create VM on Server
-					vcac.createRemoteMachine(
-							VirtualMachineType.fromId(vm.getMachinetype()), vm,
-							"Id :" + vm.getId(),
-							"http://www.vcloudairshare.com/admin/virtualmachine.jsp?id="
-									+ vm.getId());
-					vm.setCondition(Status.AVAILABLE.getId());
-					log.info("vm.getCondition()3! " + vm.getCondition());
-					persist(vm);
-					log.info("vm.getCondition()4 " + vm.getCondition());
-					vcac.updateNAT();
-					log.info("Recommission thread Finished");
-				} catch (Exception e) {
-					log.severe("e " + e.getMessage());
-					VirtualMachine vm = findById(id);
-					vm.setCondition(Status.INVALID.getId());
-					log.info("setCondition to invalid!  " + vm.getCondition());
+						try {
+							log.info("Recommission thread! " + vm.getAirId());
+							vcac.decommission(vm);
 
-					persist(vm);
+							// Create VM on Server
+							vcac.createRemoteMachine(VirtualMachineType
+									.fromId(vm.getMachinetype()), vm, "Id :"
+									+ vm.getId(),
+									"http://www.vcloudairshare.com/admin/virtualmachine.jsp?id="
+											+ vm.getId());
+							vm.setCondition(Status.AVAILABLE.getId());
+							log.info("vm.getCondition()3! " + vm.getCondition());
+							persist(vm);
+							log.info("vm.getCondition()4 " + vm.getCondition());
+
+						} catch (Exception e) {
+							log.severe("e " + e.getMessage());
+							vm.setCondition(Status.INVALID.getId());
+							log.info("setCondition to invalid!  "
+									+ vm.getCondition());
+
+							persist(vm);
+						}
+						try {
+							vcac.updateNAT();
+						} catch (Exception e) {
+							log.severe("NAT Update Failed e " + e.getMessage());
+
+						}
+						log.info("Recommission thread Finished");
+					}
 				}
 			}
 		}.start();

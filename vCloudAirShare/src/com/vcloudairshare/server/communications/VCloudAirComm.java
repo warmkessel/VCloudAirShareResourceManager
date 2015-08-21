@@ -949,20 +949,25 @@ public class VCloudAirComm {
 //			 + vca.getDataString("/api/compute/api/network/",
 //			 "3bcd14f0-bbe8-4de3-b4c8-79ad68676866", ""));
 			
-			 VirtualMachine vm = new VirtualMachine();
-			 vm.setDatacenter(DataCenter.getDefault().getId());
+			 log.info("getDataString"
+					 + vca.getDataString("/api/compute/api/vdc/",
+					 "5c52bf05-28b7-45d3-9dc5-55780db11a42", ""));
 			 
-			 vca.createRemoteMachine(VirtualMachineType.getDefault(),vm, "test" + new Date(), "desc");
+			 
+//			 VirtualMachine vm = new VirtualMachine();
+//			 vm.setDatacenter(DataCenter.getDefault().getId());
+//			 
+//			 vca.createRemoteMachine(VirtualMachineType.getDefault(),vm, "test" + new Date(), "desc");
 				 
 				 
 				 //createRemoteMachine
 			 
 
-			// log.info(vca.getDataString("/api/compute/api/vApp/",
-			// "vapp-11b7149d-daaf-4677-a77f-64fab57b153e", ""));
+//			 log.info(vca.getDataString("/api/compute/api/vApp/",
+//			 "vapp-11b7149d-daaf-4677-a77f-64fab57b153e", ""));
 
-			// log.info(vca.deleteDataString("/api/compute/api/vApp/",
-			// "vapp-11b7149d-daaf-4677-a77f-64fab57b153e"));
+//			 log.info(vca.deleteDataString("/api/compute/api/vApp/",
+//			 "vapp-11b7149d-daaf-4677-a77f-64fab57b153e"));
 
 			// log.info("getDataString" +
 			// vca.getDataString("/api/compute/api/vApp/","vapp-747ff0ea-29b0-490c-bed7-84267ce38e75",
