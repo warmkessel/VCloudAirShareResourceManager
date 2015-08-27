@@ -226,8 +226,8 @@ public class VirtualMachineService {
 		return theList;
 	}
 
-	public Boolean createMachine() {
-		return createMachine(DataCenter.CAL, VirtualMachineType.getDefault());
+	public Boolean createMachine(VirtualMachineType type) {
+		return createMachine(DataCenter.CAL, type);
 	}
 
 	public Boolean updateNAT() {

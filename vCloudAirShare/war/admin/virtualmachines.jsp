@@ -2,6 +2,7 @@
 	import="com.vcloudairshare.server.datastore.entity.VirtualMachine"
 	import="com.vcloudairshare.server.datastore.service.VirtualMachineService"
 	import="com.vcloudairshare.server.datastore.service.DataServices"
+	import="com.vcloudairshare.shared.enumeration.VirtualMachineType"
 	import="java.text.SimpleDateFormat"
 	import="java.lang.StringBuffer"
 	import="com.vcloudairshare.shared.enumeration.Status"
@@ -29,13 +30,15 @@
 			limit = Integer.parseInt(limitString);
 		}
 		List<VirtualMachine> usr =  DataServices.getVirtualMachineService().findRange(start, limit);
-		if(Boolean.parseBoolean(newMachineString)){
+		
+		if(null != newMachineString && newMachineString.length() > 0){
+			VirtualMachineType type = VirtualMachineType.fromId(Integer.parseInt(newMachineString));
 			if(null != countString && countString.length() > 0){
 				count = Integer.parseInt(countString);
 
 			}
 			for(int x=0; x < count; x++){
-				created = DataServices.getVirtualMachineService().createMachine();
+				created = DataServices.getVirtualMachineService().createMachine(type);
 				if(!created){
 					break;
 				}
@@ -82,7 +85,8 @@
 	</table>
 	
 	<br>
-	<a href="/admin/virtualmachines.jsp?newMachine=true">New Machine</a>
+	<a href="/admin/virtualmachines.jsp?newMachine=0">New CentOS Machine</a>
+	<a href="/admin/virtualmachines.jsp?newMachine=1">New Photon Machine</a>
 <br>
 		<a href="/admin/virtualmachines.jsp?nat=true">Update Nat</a>
 <br>
