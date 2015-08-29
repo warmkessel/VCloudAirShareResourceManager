@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum VirtualMachineType {
-	CENT63(0,"CentOS 6.3", "vappTemplate-f24a7458-b7b3-48a3-87ab-2965345c93e1", "1CPU, 1GB Memory, 20 GB Storage", 90), PHOTON(1,"Photon", "vappTemplate-4375cdfb-5c7e-41e3-8a7d-ce85431073f1", "2CPU, 1GB Memory, 20 GB Storage", 90);
+	CENT63(0,"CentOS 6.3", "vappTemplate-f24a7458-b7b3-48a3-87ab-2965345c93e1", "1CPU, 1GB Memory, 20 GB Storage", 90), PHOTON(1,"Photon TB-2", "vappTemplate-15fc1dcc-ad4d-4820-b919-789adc24ddeb", "2CPU, 2GB Memory, 16 GB Storage", 90);
 
 	  public static VirtualMachineType fromId(int s) {
 	      for (VirtualMachineType language : values()) {

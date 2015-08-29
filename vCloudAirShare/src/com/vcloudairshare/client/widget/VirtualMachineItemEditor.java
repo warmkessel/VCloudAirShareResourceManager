@@ -3,6 +3,7 @@ package com.vcloudairshare.client.widget;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -40,8 +41,15 @@ public class VirtualMachineItemEditor extends Composite implements
 		return clientFactory;
 	}
 
+	interface Style extends CssResource {
+		String requestPassword();
+	}
+
 	private static final Binder BINDER = GWT.create(Binder.class);
 	private VirtualMachineDTO vm = null;
+
+	@UiField
+	Style style;
 
 	@UiField
 	InlineLabel machinename;
@@ -148,8 +156,12 @@ public class VirtualMachineItemEditor extends Composite implements
 
 		if (null != password && password.length() > 0) {
 			pass.setText("Root Password: " + password);
+			pass.removeStyleName(style.requestPassword());
+
 		} else {
-			pass.setText("Request Password");
+			pass.setText("Password");
+			pass.addStyleName(style.requestPassword());
+
 		}
 
 	}

@@ -226,8 +226,8 @@ public class VirtualMachineService {
 		return theList;
 	}
 
-	public Boolean createMachine(VirtualMachineType type) {
-		return createMachine(DataCenter.CAL, type);
+	public void createMachine(VirtualMachineType type) {
+		createMachine(DataCenter.CAL, type);
 	}
 
 	public Boolean updateNAT() {
@@ -340,47 +340,47 @@ public class VirtualMachineService {
 		return true;
 	}
 
-	public Boolean createMachine(DataCenter dc, VirtualMachineType machineType) {
-		log.info("Starting CreateMachine");
-		VCloudAirComm vcac = VCloudAirComm.getVCloudAirComm(dc);
-		log.info("Should be logged in");
+	public void createMachine(final DataCenter dc,
+			final VirtualMachineType machineType) {
+		new Thread("createMachine thread" + Math.round(1000 * Math.random())) {
+			public void run() {
 
-		// Create new Macine Record
-		VirtualMachine vm = new VirtualMachine();
+				log.info("Starting CreateMachine");
+				VCloudAirComm vcac = VCloudAirComm.getVCloudAirComm(dc);
+				log.info("Should be logged in");
 
-		vm.setDatacenter(dc.getId());
-		vm.setHosttype(VirtualHostType.VCLOUDAIR.getId());
-		vm.setMachinetype(machineType.getId());
-		vm.setCondition(Status.UNKNOWN.getId());
-		vm.setStatus(Status.APPROVED.getId());
-		vm = persist(vm);
-		vm.setMachinename(machineType.toString() + "-" + vm.getId());
+				// Create new Macine Record
+				VirtualMachine vm = new VirtualMachine();
 
-		// Fine a new Public Address
-		log.info("Find Address");
+				vm.setDatacenter(dc.getId());
+				vm.setHosttype(VirtualHostType.VCLOUDAIR.getId());
+				vm.setMachinetype(machineType.getId());
+				vm.setCondition(Status.UNKNOWN.getId());
+				vm.setStatus(Status.APPROVED.getId());
+				vm = persist(vm);
+				vm.setMachinename(machineType.toString() + "-" + vm.getId());
 
-		if (!vcac.findAddress(vm)) {
-			log.severe("No Address Found");
-			return false;
-		}
+				// Fine a new Public Address
+				log.info("Find Address");
 
-		// Create VM on Server
-		vcac.createRemoteMachine(
-				machineType,
-				vm,
-				"Id :" + vm.getId(),
-				"http://localhost:8080/admin/virtualmachine.jsp?id="
-						+ vm.getId());
-		vm.setCondition(Status.AVAILABLE.getId());
-		// poweroff the server
-		// Save Record
-		persist(vm);
+				if (!vcac.findAddress(vm)) {
+					log.severe("No Address Found");
+				}
 
-		// build Network NAT
-		vcac.updateNAT();
-		log.info("Finished");
+				// Create VM on Server
+				vcac.createRemoteMachine(machineType, vm, "Id :" + vm.getId(),
+						"http://localhost:8080/admin/virtualmachine.jsp?id="
+								+ vm.getId());
+				vm.setCondition(Status.AVAILABLE.getId());
+				// poweroff the server
+				// Save Record
+				persist(vm);
 
-		return true;
+				// build Network NAT
+				vcac.updateNAT();
+				log.info("Finished");
+			}
+		}.start();
 	}
 
 	@SuppressWarnings("unchecked")

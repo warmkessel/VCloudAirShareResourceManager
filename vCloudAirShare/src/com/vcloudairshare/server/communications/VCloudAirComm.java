@@ -550,23 +550,20 @@ public class VCloudAirComm {
 		urlParameters.append("   <Description>").append(Desc)
 				.append("</Description>");
 		urlParameters.append("   <InstantiationParams>");
-		
-		
-		
-//		
-//		 urlParameters.append("      <NetworkConfigSection>");
-//		 urlParameters.append("         <ovf:Info>Configuration parameters for logical networks</ovf:Info>");
-//		 urlParameters.append("         <NetworkConfig\">");
-//		 urlParameters.append("         <NetworkConfig  networkName=\"default-routed-network\" href=\"https://us-california-1-3.vchs.vmware.com/api/compute/api/network/3bcd14f0-bbe8-4de3-b4c8-79ad68676866\">");
-//		 urlParameters.append("           <Configuration>");
-////		 urlParameters.append("               <ParentNetwork");
-////		 urlParameters.append("                  href=\"https://us-california-1-3.vchs.vmware.com/api/compute/api/network/3bcd14f0-bbe8-4de3-b4c8-79ad68676866\" />");
-//		 urlParameters.append("            </Configuration>");
-//		 urlParameters.append("         </NetworkConfig>");
-//		 urlParameters.append("      </NetworkConfigSection>");
-		
-		
-		
+
+		//
+		// urlParameters.append("      <NetworkConfigSection>");
+		// urlParameters.append("         <ovf:Info>Configuration parameters for logical networks</ovf:Info>");
+		// urlParameters.append("         <NetworkConfig\">");
+		// urlParameters.append("         <NetworkConfig  networkName=\"default-routed-network\" href=\"https://us-california-1-3.vchs.vmware.com/api/compute/api/network/3bcd14f0-bbe8-4de3-b4c8-79ad68676866\">");
+		// urlParameters.append("           <Configuration>");
+		// // urlParameters.append("               <ParentNetwork");
+		// //
+		// urlParameters.append("                  href=\"https://us-california-1-3.vchs.vmware.com/api/compute/api/network/3bcd14f0-bbe8-4de3-b4c8-79ad68676866\" />");
+		// urlParameters.append("            </Configuration>");
+		// urlParameters.append("         </NetworkConfig>");
+		// urlParameters.append("      </NetworkConfigSection>");
+
 		// urlParameters.append("      <LeaseSettingsSection");
 		// urlParameters.append("         type=\"application/vnd.vmware.vcloud.leaseSettingsSection+xml\">");
 		// urlParameters.append("        <ovf:Info>Lease Settings</ovf:Info>");
@@ -601,13 +598,27 @@ public class VCloudAirComm {
 		// extract id
 		vm.setAirId(extractId(element));
 
+		// Wait until the machine is ready
+		getExpectedStatus(vm, VirtualMachineStatus.POWERON);
+		
+		
+//		if(VirtualMachineType.PHOTON.equals(machineType)){
+//			try {
+//				Thread.sleep(30000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} 
+//			log.info("Photon Extra setup");
+//			power(vm, VirtualMachineStatus.POWEROFF);
+//			sendDataString("/api/compute/api/vApp/", vm.getAirId(), "/action/customizeAtNextPowerOn", "", "");		
+//		}
 		// // log.info("extractPass(element) " + extractPass(element));
 		//
 		// vm.setPass(extractPass(element));
 		// // log.info("vm.getPass() " + vm.getPass());
 
-		// Wait until the machine is ready
-		getExpectedStatus(vm, VirtualMachineStatus.POWERON);
+	
 		// while (!machineReady(vm)) {
 		// // log.info("Waiting for the machine to be ready");
 		// try {
@@ -625,16 +636,12 @@ public class VCloudAirComm {
 		}
 		log.info("extractRootPass ");
 
-		if(VirtualMachineType.PHOTON.equals(machineType)){
-			vm.setPass("dT%4fK8%");
+		if (!extractRootPass(vm)) {
+			log.severe("No Root Password Found");
+			return false;
 		}
-		else{
-			if (!extractRootPass(vm)) {
-				log.severe("No Root Password Found");
-				return false;
-			}
-		}
-//		power(vm, VirtualMachineStatus.POWEROFF);
+
+		// power(vm, VirtualMachineStatus.POWEROFF);
 
 		log.info("finished createRemoteMachine");
 		return true;
@@ -642,11 +649,11 @@ public class VCloudAirComm {
 
 	public boolean power(VirtualMachine vm, VirtualMachineStatus status) {
 		log.info("Power ");
-		
-		if(getVirtualMachineStatus(vm).equals(status)){
+
+		if (getVirtualMachineStatus(vm).equals(status)) {
 			return true;
 		}
-		
+
 		if (VirtualMachineStatus.POWERON.equals(status)) {
 			log.info("PowerOn ");
 			log.info(sendDataString("/api/compute/api/vApp/", vm.getAirId(),
@@ -658,7 +665,7 @@ public class VCloudAirComm {
 			// "application/vnd.vmware.vcloud.task+xm", "");
 			return getExpectedStatus(vm, VirtualMachineStatus.POWERON);
 
-		} else if(VirtualMachineStatus.POWEROFF.equals(status)) {
+		} else if (VirtualMachineStatus.POWEROFF.equals(status)) {
 			log.info("PowerOff ");
 			log.info(sendDataString("/api/compute/api/vApp/", vm.getAirId(),
 					"/power/action/powerOff",
@@ -680,9 +687,8 @@ public class VCloudAirComm {
 		Element element = getDataElement("/api/compute/api/vApp/",
 				vm.getAirId(), "");
 
-		
 		NodeList ns = element.getElementsByTagName("Tasks");
-		if(ns.getLength() > 0){
+		if (ns.getLength() > 0) {
 			try {
 				log.info("waiting " + vm.getAirId());
 
@@ -692,7 +698,7 @@ public class VCloudAirComm {
 				e.printStackTrace();
 			}
 			return decommission(vm);
-		}	
+		}
 		ns = element.getElementsByTagName("Link");
 		for (int x = 0; x < ns.getLength(); x++) {
 			Element e = (Element) ns.item(x);
@@ -700,8 +706,7 @@ public class VCloudAirComm {
 
 			if ("remove".equals(e.getAttribute("rel"))) {
 				log.info("remove" + vm.getAirId());
-				deleteDataString("/api/compute/api/vApp/",
-						vm.getAirId());
+				deleteDataString("/api/compute/api/vApp/", vm.getAirId());
 				return true;
 			}
 			if ("undeploy".equals(e.getAttribute("rel"))) {
@@ -711,7 +716,7 @@ public class VCloudAirComm {
 						"application/vnd.vmware.vcloud.undeployVAppParams+xml",
 						buildDecommString());
 				return decommission(vm);
-				
+
 			}
 		}
 		return true;
@@ -901,10 +906,11 @@ public class VCloudAirComm {
 		for (int x = 0; x < 100; x++) {
 			VirtualMachineStatus theState = getVirtualMachineStatus(vm);
 			if (status.equals(theState)) {
-				log.info("Finished");
+				log.info("Found state " + theState.toString());
 				return true;
 			}
-			log.info("Waiting for " + status.toString() + " Current:" + theState.toString());
+			log.info("Waiting for " + status.toString() + " Current:"
+					+ theState.toString());
 			try {
 				Thread.sleep(10000);
 			} catch (InterruptedException e) {
@@ -949,31 +955,29 @@ public class VCloudAirComm {
 			// https://us-virginia-1-4.vchs.vmware.com
 			// CAL
 			VCloudAirComm vca = VCloudAirComm.getVCloudAirComm(DataCenter.CAL);
-			
+
+			// log.info("getDataString"
+			// + vca.getDataString("/api/compute/api/network/",
+			// "3bcd14f0-bbe8-4de3-b4c8-79ad68676866", ""));
+
 //			 log.info("getDataString"
-//			 + vca.getDataString("/api/compute/api/network/",
-//			 "3bcd14f0-bbe8-4de3-b4c8-79ad68676866", ""));
-			
-//			 log.info("getDataString"
-//					 + vca.getDataString("/api/compute/api/vdc/",
-//					 "5c52bf05-28b7-45d3-9dc5-55780db11a42", ""));
-			 //dT%4fK8%
+//			 + vca.getDataString("/api/compute/api/vdc/",
+//			 "5c52bf05-28b7-45d3-9dc5-55780db11a42", ""));
+			// dT%4fK8%
 
-			 
-			 VirtualMachine vm = new VirtualMachine();
-			 vm.setDatacenter(DataCenter.getDefault().getId());
-			 
-			 vca.createRemoteMachine(VirtualMachineType.PHOTON,vm, "test" + new Date(), "desc");
-				 
-				 
-				 //createRemoteMachine
-			 
+//			VirtualMachine vm = new VirtualMachine();
+//			vm.setDatacenter(DataCenter.getDefault().getId());
+//
+//			vca.createRemoteMachine(VirtualMachineType.PHOTON, vm, "test"
+//					+ new Date(), "desc");
 
-//			 log.info(vca.getDataString("/api/compute/api/vApp/",
-//			 "vapp-11b7149d-daaf-4677-a77f-64fab57b153e", ""));
+			// createRemoteMachine
+			 log.info(vca.getDataString("/api/compute/api/vApp/", "vapp-43968e71-8dd3-41e8-b3cc-64378fb05041", ""));
+//			 log.info(vca.sendDataString("/api/compute/api/vApp/", "vapp-43968e71-8dd3-41e8-b3cc-64378fb05041", "/metrics/historic", "application/vnd.vmware.vcloud.metrics.currentUsageSpec+xm", ""));
+			 log.info(vca.sendDataString("/api/compute/api/vApp/", "vapp-43968e71-8dd3-41e8-b3cc-64378fb05041", "/action/customizeAtNextPowerOn", "application/vnd.vmware.vcloud.vm+xml", ""));
 
-//			 log.info(vca.deleteDataString("/api/compute/api/vApp/",
-//			 "vapp-11b7149d-daaf-4677-a77f-64fab57b153e"));
+			// log.info(vca.deleteDataString("/api/compute/api/vApp/",
+			// "vapp-11b7149d-daaf-4677-a77f-64fab57b153e"));
 
 			// log.info("getDataString" +
 			// vca.getDataString("/api/compute/api/vApp/","vapp-747ff0ea-29b0-490c-bed7-84267ce38e75",

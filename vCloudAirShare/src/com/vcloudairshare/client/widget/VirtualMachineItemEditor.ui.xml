@@ -7,7 +7,7 @@
 	<ui:with field='res' type='com.vcloudairshare.client.resource.ImageBundle' />
 
 
-	<ui:style>
+  <ui:style type="com.vcloudairshare.client.widget.VirtualMachineItemEditor.Style">
 	.name {
 		font-weight: bold;
 		font-size: x-large;
@@ -76,7 +76,9 @@
 		font-size: large;
 		padding-left: 25px;
 	}
-	
+	.requestPassword {
+		cursor: pointer; cursor: hand;
+	}
 	  
 	  
 	</ui:style>
@@ -97,7 +99,7 @@
 			<g:Image styleName="{style.poweron}" ui:field="poweron"
 				width="100" height="25" resource='{res.poweron}' visible="true" />
 			<g:Image styleName="{style.poweroff}" ui:field="poweroff"
-				width="100" height="25" resource='{res.poweroff}' visible="true" />
+				width="100" height="25" resource='{res.poweroff}' visible="true" />				
 		</g:FlowPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 
