@@ -306,6 +306,7 @@ public class VirtualMachineService {
 
 						} catch (Exception e) {
 							log.severe("e " + e.getMessage());
+							vm.setStatus(Status.REMOVED.getId());
 							vm.setCondition(Status.INVALID.getId());
 							log.info("setCondition to invalid!  "
 									+ vm.getCondition());

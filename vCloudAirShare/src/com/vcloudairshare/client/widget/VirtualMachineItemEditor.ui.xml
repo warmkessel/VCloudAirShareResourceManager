@@ -10,7 +10,7 @@
   <ui:style type="com.vcloudairshare.client.widget.VirtualMachineItemEditor.Style">
 	.name {
 		font-weight: bold;
-		font-size: x-large;
+		font-size: medium;
 		padding-right: 10px;
 		min-width: 200px;
 		width: 200px;

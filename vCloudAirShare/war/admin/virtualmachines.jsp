@@ -61,7 +61,9 @@
 		<td><%=usr.get(x).getMachinename()%></td>
 		<td><%=usr.get(x).getPublicIpAddress()%></td>
 		<td><%=usr.get(x).getPrivateIpAddress()%></td>
-		<td><%=usr.get(x).getCurrentUser()%></td>
+		<td><%if(usr.get(x).getCurrentUser() > 0){ %>
+		<a href="account.jsp?id=<%=usr.get(x).getCurrentUser()%>"><%=usr.get(x).getCurrentUserName()%></a>
+		<%}%></td>
 		<td><%=Status.fromId(usr.get(x).getCondition()).toString()%></td>
 		<td><%=Status.fromId(usr.get(x).getStatus()).toString()%></td>
 	</tr>

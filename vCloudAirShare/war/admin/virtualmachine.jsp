@@ -125,6 +125,7 @@
 				out.print("?id=" + a.getId().toString());
 			}%>"
 	method="post">
+	<a href="/admin/virtualmachines.jsp">Back to VM list</a><br>
 	ID:
 	<%=a.getId()%>
 	<%

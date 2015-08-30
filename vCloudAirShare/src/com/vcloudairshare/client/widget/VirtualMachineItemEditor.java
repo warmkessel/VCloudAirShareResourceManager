@@ -146,7 +146,10 @@ public class VirtualMachineItemEditor extends Composite implements
 
 			} else {
 				checkout.setVisible(false);
-				currentUserName.setVisible(true);
+				if(null != currentUserName.getText() && currentUserName.getText().length() > 0){
+					currentUserName.setText("@" + vm.getCurrentUserName());
+					currentUserName.setVisible(true);
+				}
 				subPanel.setVisible(false);
 			}
 

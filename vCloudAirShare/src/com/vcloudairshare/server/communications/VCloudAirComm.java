@@ -954,7 +954,7 @@ public class VCloudAirComm {
 
 			// https://us-virginia-1-4.vchs.vmware.com
 			// CAL
-			VCloudAirComm vca = VCloudAirComm.getVCloudAirComm(DataCenter.CAL);
+//			VCloudAirComm vca = VCloudAirComm.getVCloudAirComm(DataCenter.CAL);
 
 			// log.info("getDataString"
 			// + vca.getDataString("/api/compute/api/network/",
@@ -972,10 +972,14 @@ public class VCloudAirComm {
 //					+ new Date(), "desc");
 
 			// createRemoteMachine
-			 log.info(vca.getDataString("/api/compute/api/vApp/", "vapp-43968e71-8dd3-41e8-b3cc-64378fb05041", ""));
+//			 log.info(vca.getDataString("/compute/api/vApp/", "vapp-1946dd5e-33ac-4de0-8517-9469f2c7aeb4", ""));
 //			 log.info(vca.sendDataString("/api/compute/api/vApp/", "vapp-43968e71-8dd3-41e8-b3cc-64378fb05041", "/metrics/historic", "application/vnd.vmware.vcloud.metrics.currentUsageSpec+xm", ""));
-			 log.info(vca.sendDataString("/api/compute/api/vApp/", "vapp-43968e71-8dd3-41e8-b3cc-64378fb05041", "/action/customizeAtNextPowerOn", "application/vnd.vmware.vcloud.vm+xml", ""));
+//			 log.info(vca.sendDataString("/api/compute/api/vApp/", "vm-a0503a67-0f27-42ef-b619-5d2f7081b478", "/action/customizeAtNextPowerOn", "", ""));
 
+			 
+			
+			 
+			 
 			// log.info(vca.deleteDataString("/api/compute/api/vApp/",
 			// "vapp-11b7149d-daaf-4677-a77f-64fab57b153e"));
 
@@ -991,19 +995,24 @@ public class VCloudAirComm {
 			// "/power/action/powerOn"));
 
 			// GER
-			// VCloudAirComm vca =
-			// VCloudAirComm.getVCloudAirComm(DataCenter.GER);
+			 VCloudAirComm vca =
+			 VCloudAirComm.getVCloudAirComm(DataCenter.GER);
 
-			// log.info("getDataString" + vca.getDataString("/api/org","", ""));
-			// log.info("getDataString" +
-			// vca.getDataString("/api/compute/api/org/","658f5497-78d0-469b-8ad6-1206148cb0bf",
-			// ""));
-			// log.info("getDataString" +
-			// vca.getDataString("/api/compute/api/vdc/","a29e6d09-022b-4a07-93e8-b58705099cd1",
-			// ""));
-			// log.info("getDataString" +
-			// vca.getDataString("/api/compute/api/vApp/","vapp-18bc7a3c-255e-40a0-bab0-ca7aaf400c4d",
-			// ""));
+//			 log.info("getDataString" + vca.getDataString("/api/org","", ""));
+//			 log.info("getDataString" +
+//			 vca.getDataString("/api/compute/api/org/","658f5497-78d0-469b-8ad6-1206148cb0bf",
+//			 ""));
+//			 log.info("getDataString" +
+//			 vca.getDataString("/api/compute/api/vdc/","a29e6d09-022b-4a07-93e8-b58705099cd1",
+//			 ""));
+			 log.info("getDataString" +
+			 vca.getDataString("/api/compute/api/vApp/","vapp-42b28222-5889-46fa-9e94-b1e5fa191949",
+			 ""));
+			 
+			
+			 log.info(vca.sendDataString(" /api/compute/api/vApp/", "vm-82786946-5d59-47d0-b4c4-20551748d47f", "/action/customizeAtNextPowerOn", "", ""));
+
+			 
 			// log.info("getDataString" +
 			// vca.getDataString("/api/compute/api/vApp/","vapp-18bc7a3c-255e-40a0-bab0-ca7aaf400c4d",
 			// "/power/action/powerOff"));
