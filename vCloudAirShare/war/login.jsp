@@ -7,9 +7,6 @@ pageEncoding="UTF-8"%>
 	response.setHeader("Cache-Control","max-age=0");
 	response.setHeader("Content-type", "text/html; charset=UTF-8");	
 
-
-
-
 		OAuthService service = new ServiceBuilder()
         .provider(TwitterApi.class)
         .apiKey("T2Dn3GOxnDWBE4ywC6RanwBkd")

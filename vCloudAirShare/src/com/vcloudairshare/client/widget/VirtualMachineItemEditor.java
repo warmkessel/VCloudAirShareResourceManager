@@ -7,6 +7,7 @@ import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -124,6 +125,14 @@ public class VirtualMachineItemEditor extends Composite implements
 					vm.getId());
 		}
 	}
+	@UiHandler("currentUserName")
+	void onClickCurrentUserName(ClickEvent e) {
+		Window.Location.assign("http://www.twitter.com/@" + vm.getCurrentUserName());
+	}
+	
+	
+	
+	
 
 	public void init(ClientFactory clientFactory) {
 		setClientFactory(clientFactory);
@@ -138,7 +147,7 @@ public class VirtualMachineItemEditor extends Composite implements
 		}
 		if (Status.AVAILABLE.getId() == condition.getValue().intValue()) {
 			checkout.setText("Checkout");
-		} else {
+		} else {			
 			if (currentUserName.getText().equals(
 					getClientFactory().getEntityDepo().getUser()
 							.getScreen_name())) {

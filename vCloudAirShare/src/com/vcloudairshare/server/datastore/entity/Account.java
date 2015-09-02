@@ -55,7 +55,7 @@ public class Account extends DatastoreObject {
 	}
 
 	public String getScreen_name() {
-		return "@" + screen_name;
+		return screen_name;
 	}
 
 	public void setScreen_name(String screen_name) {

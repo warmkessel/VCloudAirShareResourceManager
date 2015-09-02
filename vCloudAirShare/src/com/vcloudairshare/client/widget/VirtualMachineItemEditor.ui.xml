@@ -75,11 +75,12 @@
 	.currentUserName {
 		font-size: large;
 		padding-left: 25px;
+		cursor: pointer; cursor: hand;
+		
 	}
 	.requestPassword {
 		cursor: pointer; cursor: hand;
 	}
-	  
 	  
 	</ui:style>
 	<g:HTMLPanel>
