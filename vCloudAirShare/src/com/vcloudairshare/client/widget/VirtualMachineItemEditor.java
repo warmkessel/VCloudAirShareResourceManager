@@ -171,7 +171,7 @@ public class VirtualMachineItemEditor extends Composite implements
 			pass.removeStyleName(style.requestPassword());
 
 		} else {
-			pass.setText("Password");
+			pass.setText("Get Password");
 			pass.addStyleName(style.requestPassword());
 
 		}

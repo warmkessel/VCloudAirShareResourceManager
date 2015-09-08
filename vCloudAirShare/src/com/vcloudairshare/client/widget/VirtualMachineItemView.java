@@ -5,11 +5,14 @@ import java.util.List;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriver;
 import com.vcloudairshare.client.ClientFactory;
+import com.vcloudairshare.client.event.ToManyMachinesEvent;
+import com.vcloudairshare.client.event.ToManyMachinesEventHandler;
 import com.vcloudairshare.client.event.VirtualMachinesReceivedEvent;
 import com.vcloudairshare.client.event.VirtualMachinesReceivedEventHandler;
 import com.vcloudairshare.shared.enumeration.VirtualHostType;
@@ -30,8 +33,8 @@ public class VirtualMachineItemView extends Composite {
 
 	private final EditorDriver editorDriver = GWT.create(EditorDriver.class);
 
-//	private static VirtualMachineItemViewUiBinder uiBinder = GWT
-//			.create(VirtualMachineItemViewUiBinder.class);
+	// private static VirtualMachineItemViewUiBinder uiBinder = GWT
+	// .create(VirtualMachineItemViewUiBinder.class);
 
 	interface VirtualMachineItemViewUiBinder extends
 			UiBinder<Widget, VirtualMachineItemView> {
@@ -86,6 +89,14 @@ public class VirtualMachineItemView extends Composite {
 							editor.setup(theVM);
 						}
 
+					}
+				});
+
+		getClientFactory().getEventBus().addHandler(ToManyMachinesEvent.TYPE,
+				new ToManyMachinesEventHandler() {
+					@Override
+					public void onMessageReceived(ToManyMachinesEvent event) {
+						Window.alert("You appear to have the maximum amount of machines");
 					}
 				});
 	}

@@ -11,9 +11,9 @@ pageEncoding="UTF-8"%>
         .provider(TwitterApi.class)
         .apiKey("T2Dn3GOxnDWBE4ywC6RanwBkd")
         .apiSecret("wN7yrWYB4Oilx2mK0AqSeX0xNzQYnGwvVYNW2i1piFo2FcfCyt")
-//        .callback("http://localhost:8080/index.html") 
+        .callback("http://localhost:8080/index.html") 
 //        .debug()
-        .callback("http://vcloudairshare.com/index.html") 
+//        .callback("http://vcloudairshare.com/index.html") 
 
         .build();
 		

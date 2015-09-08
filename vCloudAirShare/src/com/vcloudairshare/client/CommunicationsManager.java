@@ -12,6 +12,7 @@ import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.vcloudairshare.client.event.AccountEvent;
 import com.vcloudairshare.client.event.AuthenticateEvent;
 import com.vcloudairshare.client.event.ErrorEvent;
+import com.vcloudairshare.client.event.ToManyMachinesEvent;
 import com.vcloudairshare.client.event.VirtualMachinesReceivedEvent;
 import com.vcloudairshare.client.jso.FeedJSO;
 import com.vcloudairshare.client.view.home.HomePlace;
@@ -36,11 +37,10 @@ public class CommunicationsManager {
 	}
 
 	public void fetchAccount() {
-		if(null != factory.getEntityDepo().getFeed()){
+		if (null != factory.getEntityDepo().getFeed()) {
 			fetchAccount(factory.getEntityDepo().getFeed().getId());
 
-		}
-		else{
+		} else {
 			fetchAccount(factory.getEntityDepo().getAccountId());
 		}
 	}
@@ -48,46 +48,44 @@ public class CommunicationsManager {
 	public void fetchAccount(String theID) {
 		fetchAccount(Long.parseLong(theID));
 	}
+
 	public void fetchAccount(Long theID) {
-		factory.getRequestFactory()
-				.userRequest()
-				.findByUserIdEnsured(theID)
+		factory.getRequestFactory().userRequest().findByUserIdEnsured(theID)
 				.fire(new Receiver<UserDTO>() {
 					@Override
 					public void onSuccess(UserDTO result) {
 						factory.getEntityDepo().setUser(result);
 						factory.getEventBus().fireEvent(new AccountEvent());
-						if(null != factory.getEntityDepo().getFeed()){
-							updateAccount(factory.getEntityDepo().getFeed(), result);
+						if (null != factory.getEntityDepo().getFeed()) {
+							updateAccount(factory.getEntityDepo().getFeed(),
+									result);
 						}
 					}
 				});
 	}
+
 	public void updateAccount(FeedJSO feed, UserDTO user) {
-		UserRequest req1 = factory.getRequestFactory().userRequest();  
+		UserRequest req1 = factory.getRequestFactory().userRequest();
 		UserDTO s2 = req1.edit(user);
-		
+
 		s2.setName(feed.getName());
 		s2.setScreen_name(feed.getScreenName());
 		s2.setDescription(feed.getDescription());
-		s2.setName(feed.getName());		
+		s2.setName(feed.getName());
 		s2.setLocation(feed.getLocation());
-		s2.setUrl(feed.getUrl());		
+		s2.setUrl(feed.getUrl());
 
-		GWT.log("UserId" +( s2.getUserId()));
-		GWT.log("Id" +( s2.getId()));
-		GWT.log("name" +( s2.getName()));
-		
-		req1
-				.persist(s2)
-				.fire(new Receiver<UserDTO>() {
-					@Override
-					public void onSuccess(UserDTO result) {
-						factory.getEntityDepo().setUser(result);
-					}
-				});
+		GWT.log("UserId" + (s2.getUserId()));
+		GWT.log("Id" + (s2.getId()));
+		GWT.log("name" + (s2.getName()));
+
+		req1.persist(s2).fire(new Receiver<UserDTO>() {
+			@Override
+			public void onSuccess(UserDTO result) {
+				factory.getEntityDepo().setUser(result);
+			}
+		});
 	}
-	
 
 	public void requestVirtualMacine(int from, int count,
 			VirtualHostType machineType, Status status) {
@@ -118,7 +116,6 @@ public class CommunicationsManager {
 				});
 	}
 
-	
 	// String url = URL.encode(ExternalJNSI.getJSNI().getCallback());
 	// JsonpRequestBuilder requestBuilder = new JsonpRequestBuilder();
 	// requestBuilder.setTimeout(60000);
@@ -145,7 +142,8 @@ public class CommunicationsManager {
 	// });
 	public void requestPower(Long vmId, VirtualMachineStatus status) {
 
-		homeService.power(vmId, status, factory.getEntityDepo().getUser().getUserId(), new AsyncCallback<Boolean>() {
+		homeService.power(vmId, status, factory.getEntityDepo().getUser()
+				.getUserId(), new AsyncCallback<Boolean>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -163,30 +161,34 @@ public class CommunicationsManager {
 
 		});
 	}
+
 	public void requestPass(final Long vmId) {
 
-		homeService.pass(vmId, factory.getEntityDepo().getUser().getUserId(), new AsyncCallback<String>() {
+		homeService.pass(vmId, factory.getEntityDepo().getUser().getUserId(),
+				new AsyncCallback<String>() {
 
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-			}
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+					}
 
-			@Override
-			public void onSuccess(String result) {
-				if(null != result && result.length() > 0){
-					factory.getEntityDepo().setPass(vmId, result);
-					factory.getEventBus().fireEvent(new VirtualMachinesReceivedEvent());
+					@Override
+					public void onSuccess(String result) {
+						if (null != result && result.length() > 0) {
+							factory.getEntityDepo().setPass(vmId, result);
+							factory.getEventBus().fireEvent(
+									new VirtualMachinesReceivedEvent());
 
-				}
-			}
+						}
+					}
 
-		});
+				});
 	}
 
 	public void requestCheckout(Long vmId, Boolean power) {
 
-		homeService.checkout(vmId, power, factory.getEntityDepo().getUser().getUserId(), new AsyncCallback<Boolean>() {
+		homeService.checkout(vmId, power, factory.getEntityDepo().getUser()
+				.getUserId(), new AsyncCallback<Boolean>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -195,8 +197,13 @@ public class CommunicationsManager {
 
 			@Override
 			public void onSuccess(Boolean result) {
-				requestVirtualMacines(0, 10, VirtualHostType.VCLOUDAIR,
-						Status.APPROVED);
+				if (result) {
+					requestVirtualMacines(0, 10, VirtualHostType.VCLOUDAIR,
+							Status.APPROVED);
+				} else {
+					factory.getEventBus().fireEvent(new ToManyMachinesEvent());
+				}
+
 			}
 		});
 	}

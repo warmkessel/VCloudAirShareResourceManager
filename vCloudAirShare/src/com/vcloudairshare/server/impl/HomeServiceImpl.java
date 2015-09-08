@@ -12,6 +12,7 @@ import com.vcloudairshare.server.datastore.service.VirtualMachineService;
 import com.vcloudairshare.shared.enumeration.DataCenter;
 import com.vcloudairshare.shared.enumeration.VirtualMachineStatus;
 import com.vcloudairshare.shared.interfaces.HomeService;
+
 public class HomeServiceImpl extends RemoteServiceServlet implements
 		HomeService {
 	private static final Logger log = Logger.getLogger(HomeServiceImpl.class
@@ -27,22 +28,29 @@ public class HomeServiceImpl extends RemoteServiceServlet implements
 	// }
 	public Boolean checkout(Long vmId, Boolean state, Long userId) {
 		Account theAccount = AccountService.findByUserId(userId);
-		if(null != theAccount){
-		VirtualMachine vm = VirtualMachineService.findById(vmId);
-		if (vm != null) {
-			if (state) {
-				return DataServices.getVirtualMachineService().commission(vm, theAccount);
+		if (null != theAccount) {
+	log.info("The Count =" + VirtualMachineService.countBCurrentyUserId(theAccount.getId()));		
+			if (VirtualMachineService.countBCurrentyUserId(theAccount.getId()) > 1) {
+				return false;
+			}
+			VirtualMachine vm = VirtualMachineService.findById(vmId);
+			if (vm != null) {
+				if (state) {
+					return DataServices.getVirtualMachineService().commission(
+							vm, theAccount);
 
-			} else {
-				return DataServices.getVirtualMachineService().recommission(vm.getId());
+				} else {
+					return DataServices.getVirtualMachineService()
+							.recommission(vm.getId());
+				}
 			}
 		}
-	}
 		return false;
 	}
 
 	public Boolean power(Long vmId, VirtualMachineStatus status, Long userId) {
-		VCloudAirComm comm = VCloudAirComm.getVCloudAirComm(DataCenter.getDefault());
+		VCloudAirComm comm = VCloudAirComm.getVCloudAirComm(DataCenter
+				.getDefault());
 		log.info("status " + status.toString());
 		try {
 			return comm.power(VirtualMachineService.findById(vmId), status);
@@ -51,21 +59,23 @@ public class HomeServiceImpl extends RemoteServiceServlet implements
 		}
 		return false;
 	}
-	public String pass(Long vmId, Long userId){
+
+	public String pass(Long vmId, Long userId) {
 		log.info("vmId " + vmId);
 		log.info("userId " + userId);
 
 		Account theAccount = AccountService.findByUserId(userId);
-		
+
 		log.info("Account " + (null == theAccount));
 
-		if(null != theAccount){
+		if (null != theAccount) {
 			log.info("VirtualMachineService ");
 
-			VirtualMachine theMachine = VirtualMachineService.findByIdAndAccountId(vmId, theAccount.getId());
+			VirtualMachine theMachine = VirtualMachineService
+					.findByIdAndAccountId(vmId, theAccount.getId());
 			log.info("theMachine " + (null == theMachine));
 
-			if(null != theMachine){
+			if (null != theMachine) {
 				log.info("theMachine.getPass() " + theMachine.getPass());
 
 				return theMachine.getPass();
@@ -73,5 +83,5 @@ public class HomeServiceImpl extends RemoteServiceServlet implements
 		}
 		return "";
 	}
-	
+
 }

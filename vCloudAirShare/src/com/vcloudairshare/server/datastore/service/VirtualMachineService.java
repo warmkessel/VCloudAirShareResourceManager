@@ -54,6 +54,35 @@ public class VirtualMachineService {
 		// return user;
 	}
 
+	public static int countBCurrentyUserId(Long currentUser) {
+		Session session = HibernateFactory.getSessionFactory().openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			Criteria theCriteria = session.createCriteria(VirtualMachine.class);
+			theCriteria.add(Restrictions.eq("currentUser", currentUser));
+
+			return theCriteria.list().size();
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return 0;
+		// Query<VirtualMachine> q =
+		// OfyService.ofy().load().type(VirtualMachine.class);
+		// q = q.limit(1).filter("airId", airId);
+		//
+		// List<VirtualMachine> VirtualMachine = q.list();
+		// VirtualMachine user = null;
+		// if (null != VirtualMachine && VirtualMachine.size() > 0) {
+		// user = VirtualMachine.get(0);
+		// }
+		// return user;
+	}
+	
 	public static VirtualMachine findById(Long key) {
 		// return
 		// OfyService.ofy().load().type(VirtualMachine.class).id(key).now();
@@ -260,25 +289,23 @@ public class VirtualMachineService {
 	public Boolean decommission(VirtualMachine vm) {
 		VCloudAirComm vcac = VCloudAirComm.getVCloudAirComm(DataCenter
 				.fromId(vm.getDatacenter()));
-		log.info("decommission! " + vm.getAirId());
+		log.info("decommission! id:" + vm.getId() + " Air Id" + vm.getAirId());
 		vcac.decommission(vm);
-		log.info("delete! " + vm.getAirId());
+		log.info("delete! id:" + vm.getId() + " Air Id" + vm.getAirId());
 		delete(vm);
-		log.info("updateNAT! " + vm.getAirId());
+		log.info("updateNAT! id:" + vm.getId() + " Air Id" + vm.getAirId());
 		updateNAT();
-		log.info("Finished! " + vm.getAirId());
+		log.info("Finished! id:" + vm.getId() + " Air Id" + vm.getAirId());
 		return true;
 	}
 
 	public Boolean recommission(final Long id) {
 		VirtualMachine vm = findById(id);
-		log.info("recommission! " + vm.getAirId());
-		log.info("vm.getCondition()1! " + vm.getCondition());
+		log.info("recommission!  id:" + vm.getId() + " Air Id" + vm.getAirId());
 		vm.setCondition(Status.PROVISIONING.getId());
 		vm.setCurrentUserName("");
 		vm.setExpiration(null);
 		persist(vm);
-		log.info("vm.getCondition()2! " + vm.getCondition());
 
 		new Thread("Recommission thread" + Math.round(1000 * Math.random())) {
 			public void run() {
@@ -324,7 +351,7 @@ public class VirtualMachineService {
 				}
 			}
 		}.start();
-		log.info("Recommission Returned");
+		log.info("Recommission Returned id:" + vm.getId() + " Air Id" + vm.getAirId());
 		return true;
 	}
 
